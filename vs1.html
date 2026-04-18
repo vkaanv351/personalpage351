@@ -1,0 +1,1674 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> PERSONAL PAGE </title>
+
+    <style>
+
+
+
+        body {
+
+            background-color: #f2f2f2;
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 40px;
+
+        }
+
+        
+        h1 {
+
+            text-align: center;
+            color: #333;
+
+        }
+
+        h2 {
+
+            color: #444;
+
+        }
+
+        .todoList {
+
+            background-color: transparent;
+            padding: 0;
+            margin:  0;
+
+        }
+
+        button {
+
+            padding: 12px 24px;
+            background-color: rgb(0, 217, 255);
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+        }
+
+        btndlt {
+
+            background-color: rgb(32, 236, 114);
+            padding: 10 15px;
+            border: none;
+            cursor: pointer;
+
+        }
+
+
+        .btn {
+
+            background-color: orange;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+            
+        }
+
+        .btn:hover {
+
+            background-color: orangered;
+
+        }
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 40px;
+
+        }
+
+
+        .card {
+
+            background-color: #f0f0f0;
+            padding: 25px;
+            border-radius: 10px;
+            width: 500px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border: #303030 solid 5px;
+
+        }
+
+        .todoList {
+
+            list-style-type: none;
+            padding: 0;
+
+        }
+
+
+        li {
+
+            padding: 8px 0;
+
+        }
+
+        .hidden {
+
+            display: none;
+
+        }
+
+        #taskList li {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
+
+        }
+
+        .completed {
+
+            color: gray;
+            text-decoration: line-through;
+
+        }
+
+        .argb {
+
+            background-color: rgb(48, 202, 27);
+
+        }
+
+        .dragging {
+
+            opacity: 0.5;
+
+        }
+
+        #taskList li {
+
+            cursor: grab;
+            transition: transform 0.2s ease;
+            background-color: #cccccc;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 6px;
+
+        }
+
+        #taskList li:not(.dragging):hover {
+
+            transform: scale(1.02);
+
+        }
+
+        #taskList li:active {
+
+            cursor: grabbing;
+
+        }
+
+        .dragging {
+
+            opacity: 0.5;
+            background-color: #ddd;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+        }
+
+        small {
+
+            display: block;
+            font-size: 12px;
+            color: gray;
+            margin-top: 5px;
+
+        }
+
+        .alertBox {
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 9999;
+
+        }
+
+        .alertContent {
+
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+
+            animation: pop 0.4 ease;
+
+        }
+
+        @keyframes pop {
+
+            from {
+
+                transform: scale(0.5);
+                opacity: 0;
+
+            }
+            to {
+
+                transform: scale(1);
+                opacity: 1;
+
+            }
+            
+        }
+
+        .alertContent h1 {
+
+            margin-bottom: 10px;
+
+        }
+
+        .alertWarning {
+
+            color: red;
+
+        }
+
+        .alertReminder {
+
+            color: orange;
+
+        }
+
+        .alertContent button {
+
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: orange;
+            border: none;
+            cursor: pointer;
+
+        }
+
+        .hidden {
+
+            display: none;
+
+        }
+
+        body.dark-mode {
+
+            background-color: #111;
+            color: white;
+
+        }
+
+        body.dark-mode h1 ,
+        body.dark-mode h2 ,
+        body.dark-mode h3 {
+
+            color: white;
+
+        }
+
+        body.dark-mode .card {
+
+            background-color: #222;
+
+        }
+
+        body.dark-mode #taskList li {
+
+            background-color: #333;
+            color: white;
+
+        }
+
+        body.dark-mode input {
+
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+
+        }
+
+        body.dark-mode input::placeholder {
+
+            color: #ccc;
+
+        }
+
+        .activeFilter {
+
+            background-color: orangered;
+            color: white;
+
+        }
+
+        .statsBox {
+
+            background-color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+
+        }
+
+        body.dark-mode .statsBox {
+
+            background-color: #222;
+            color: white;
+
+        }
+
+        .categoryBadge {
+
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+            color: white;
+
+        }
+
+        .category-OKUL {
+
+            background-color: royalblue;
+
+        }
+
+        .category-KİŞİSEL {
+
+            background-color: purple;
+
+        }
+
+        .category-İŞ {
+
+            background-color: seagreen;
+
+        }
+
+        .editInput ,
+        .editSelect ,
+        .editDateInput {
+
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #999;
+            margin-right: 8px;
+
+        }
+
+        .editInput {
+
+            width: 120px;
+
+        }
+
+        .editSelect {
+
+            width: 90px;
+
+        }
+
+        .editDateInput {
+
+            width: 150px;
+
+        }
+
+        .editSaveBtn,
+        .editCancelBtn {
+
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin-left: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .editSaveBtn {
+
+            background-color: crimson;
+            color: white;
+
+        }
+
+        .editSaveBtn:hover {
+
+            background-color: mediumseagreen;
+            transform: scale(1.03);
+
+        }
+
+        .editCancelBtn {
+
+            background-color: gray;
+            color: white;
+
+        }
+
+        .editCancelBtn:hover {
+
+            background-color: dimgray;
+            transform: scale(1.03);
+
+        }
+        
+
+        body.dark-mode .editInput,
+        body.dark-mode .editSelect,
+        body.dark-mode .editDateInput {
+
+            background-color: #333;
+            color: white;
+            border: 1px solid #666;
+
+        }
+
+        .doneStat {
+
+            border-left: 8px solid rgb(72, 255, 0);
+
+        }
+
+        .totalStat {
+
+            border-left: 8px solid rgb(251, 255, 0);
+
+        }
+
+        .activeStat {
+
+            border-left: 8px solid rgb(255, 145, 0);
+
+        }
+
+        .schoolStat {
+
+            border-left: 8px solid royalblue;
+
+        }
+
+        .personalStat {
+
+            border-left: 8px solid purple;
+
+        }
+
+        .workStat {
+
+            border-left: 8px solid seagreen;
+
+        }
+
+        .statsBox {
+
+            cursor: pointer;
+
+        }
+
+        #allBtn:hover,
+        #completedBtn:hover,
+        #activeBtn:hover,
+        #schoolBtn:hover,
+        #personalBtn:hover,
+        #workBtn:hover {
+
+            background-color: darkorange;
+            transform: scale(1.03);
+
+        }
+
+        #addTaskBtn {
+
+                background-color: seagreen;
+                color: white;
+    
+            }
+    
+            #addTaskBtn:hover {
+    
+                background-color: mediumseagreen;
+                transform: scale(1.03);
+
+        }
+
+        #clearAllBtn {
+
+            background-color: crimson;
+            color: white;
+
+        }
+
+        #clearAllBtn:hover {
+
+            background-color: red;
+            transform: scale(1.03);
+
+        }
+
+        #taskInput,
+        #taskCategory,
+        #taskDate {
+
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #999;
+
+        }
+
+        #taskInput:focus,
+        #taskCategory:focus,
+        #taskDate:focus {
+
+            outline: none;
+            border-color: rgb(255, 0, 0);
+
+        }
+
+
+        .undoDisabled {
+
+            opacity: 0.5;
+            cursor: not-allowed;
+
+        }
+
+        .undoActive {
+
+            opacity: 1;
+            cursor: pointer;
+
+        }
+
+
+    </style>
+
+  </head>
+  <body>
+    <h1 id = "title">KAAN PERSONAL PAGE</h1>
+    <br/>
+
+    <h2> TODO LIST </h2>
+
+    <h3 id = "doneCount" class = "statsBox doneStat"> TAMAMLANAN : 0 </h3>
+    <h3 id = "totalCount" class = "statsBox totalStat"> TOPLAM : 0 </h3>
+    <h3 id = "activeCount" class = "statsBox activeStat"> AKTİF : 0 </h3>
+
+    <h3 id = "schoolCount" class = "statsBox schoolStat">OKUL : 0</h3>
+    <h3 id = "personalCount" class = "statsBox personalStat">KİŞİSEL : 0</h3>
+    <h3 id = "workCount" class = "statsBox workStat">İŞ : 0</h3>
+
+    <br>
+
+    <input id = "taskInput" type = "text" placeholder = "GÖREV YAZ!">
+
+    <select id = "taskCategory">
+
+        <option value = "OKUL"> OKUL </option>
+        <option value = "KİŞİSEL"> KİŞİSEL </option>
+        <option value = "İŞ"> İŞ </option>
+
+    </select>
+
+    <input type = "datetime-local" id = "taskDate">
+
+    <button id = "addTaskBtn"> EKLE </button>
+    
+    <button id = "clearAllBtn"> TÜMÜNÜ SİL </button>
+
+    <button id = "undoBtn"> GERİ AL </button>
+
+    <button id = "allBtn"> TÜMÜ </button>
+
+    <br><br>
+    
+    <button id = "completedBtn"> TAMAMLANAN </button>
+    <button id = "activeBtn"> YAPILACAK </button>
+
+    <button id = "schoolBtn"> OKUL </button>
+    <button id = "personalBtn"> KİŞİSEL </button>
+    <button id = "workBtn"> İŞ </button>
+
+    <div class = "card">
+
+    <ul id = "taskList" class = "todoList">
+    </ul>
+
+</div>
+    <br>
+    <br>
+    <br>
+    <a href = "https://www.instagram.com/vkaanv351/" class = "btn" target = "_blank">INSTAGRAM ' A GİT !</a>
+
+    <br><br><br>
+
+    <h2 id = "counter">0</h2>
+
+    <br><br><br><br><br>
+
+    <button id = "btn"> DEĞİŞTİR !</button>
+    <button id = "resetBtn"> ESKİ HALİNE DÖNDÜR ! </button>
+    <button id = "colorBtn"> ARKA PLANI DEĞİŞTİR ! </button>
+    <button id = "increaseBtn"> ARTIR! </button>
+    <button id = "decreaseBtn"> AZALT! </button>
+    <button id = "resetCounterBtn"> SIFIRLA! </button>
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded" , function() {
+
+        let count = 0;
+        
+        if(Notification.permission !== "granted") {
+
+            Notification.requestPermission();
+
+        }
+
+const taskInput = document.querySelector("#taskInput");
+const addTaskBtn = document.querySelector("#addTaskBtn");
+const taskList = document.querySelector("#taskList");
+const taskCategory = document.querySelector("#taskCategory");
+
+const allBtn = document.querySelector("#allBtn");
+const completedBtn = document.querySelector("#completedBtn");
+const activeBtn = document.querySelector("#activeBtn");
+const clearAllBtn = document.querySelector("#clearAllBtn");
+const undoBtn = document.querySelector("#undoBtn");
+
+const allCount = document.querySelector("#totalCount");
+const activeCount = document.querySelector("#activeCount");
+const doneCount = document.querySelector("#doneCount");
+
+const schoolBtn = document.querySelector("#schoolBtn");
+const personalBtn = document.querySelector("#personalBtn");
+const workBtn = document.querySelector("#workBtn");
+
+const schoolCount = document.querySelector("#schoolCount");
+const personalCount = document.querySelector("#personalCount");
+const workCount = document.querySelector("#workCount");
+
+let currentFilter = "all";
+
+let lastDeletedTask = null;
+
+let lastDeletedAllTasks = null;
+
+let lastEditedTask = null;
+
+
+
+allCount.addEventListener("click", function() {
+
+    allBtn.click();
+
+});
+
+
+activeCount.addEventListener("click", function() {
+
+    activeBtn.click();
+
+});
+
+
+doneCount.addEventListener("click", function() {
+
+    completedBtn.click();
+
+});
+
+
+schoolCount.addEventListener("click", function() {
+
+    schoolBtn.click();
+
+});
+
+
+personalCount.addEventListener("click", function() {
+
+    personalBtn.click();
+
+});
+
+
+workCount.addEventListener("click", function() {
+
+    workBtn.click();
+
+});
+
+
+function clearFilterButtons() {
+
+    allBtn.classList.remove("activeFilter");
+    completedBtn.classList.remove("activeFilter");
+    activeBtn.classList.remove("activeFilter");
+    schoolBtn.classList.remove("activeFilter");
+    personalBtn.classList.remove("activeFilter");
+    workBtn.classList.remove("activeFilter");    
+
+}
+
+function updateUndoButton() {
+
+    undoBtn.classList.remove("undoDisabled" , "undoActive");
+
+    if(lastDeletedTask || lastDeletedAllTasks || lastEditedTask) {
+
+        undoBtn.classList.add("undoActive");
+
+    } else {
+
+        undoBtn.classList.add("undoDisabled");
+
+    }
+
+}
+
+const counter = document.querySelector("#counter");
+const increaseBtn = document.querySelector("#increaseBtn");
+const decreaseBtn = document.querySelector("#decreaseBtn");
+const resetCounterBtn = document.querySelector("#resetCounterBtn");
+
+const taskDate = document.querySelector("#taskDate");
+
+const alertBox = document.getElementById("alertBox");
+const alertTitle = document.getElementById("alertTitle");
+const alertText = document.getElementById("alertText");
+const closeAlert = document.getElementById("closeAlert");
+
+function showAlert(title, text) {
+
+    alertTitle.innerText = title;
+    alertText.innerText = text;
+    
+    alertTitle.classList.remove("alertWarning", "alertReminder");
+
+    if(title === "UYARI !") {
+
+        alertTitle.classList.add("alertWarning");
+
+    } else if(title === "⏰ GÖREV ZAMANI!") {
+
+        alertTitle.classList.add("alertReminder");
+
+    }
+
+    alertBox.classList.remove("hidden");
+
+}
+
+closeAlert.addEventListener("click" , function(){
+
+    alertBox.classList.add("hidden");
+    taskInput.focus();
+
+})
+
+let audioEnabled = false;
+
+const reminderTimeouts = {};
+const warningTimeouts = {};
+
+const editingTaskIds = new Set();
+
+
+taskList.addEventListener("dragover" , function(e) {
+
+    e.preventDefault();
+
+    const afterElement = getDragAfterElement(taskList , e.clientY);
+    const dragging = document.querySelector(".dragging");
+
+
+    if(!dragging) return;
+
+    if(afterElement == null){
+
+        taskList.appendChild(dragging);
+
+    } else {
+
+        taskList.insertBefore(dragging , afterElement);
+
+    }
+
+});
+
+
+function getDragAfterElement(container , y) {
+
+    const elements = [...container.querySelectorAll("li:not(.dragging)")];
+
+    return elements.reduce((closest , child ) => {
+
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+
+        if(offset < 0 && offset > closest.offset) {
+
+            return { offset : offset , element : child};
+
+        } else {
+
+            return closest;
+            
+        }
+
+    } , { offset : Number.NEGATIVE_INFINITY }).element;
+
+}
+
+
+const colorBtn = document.querySelector("#colorBtn");
+
+colorBtn.addEventListener("click", function(){
+
+    document.body.classList.toggle("dark-mode");
+
+if(document.body.classList.contains("dark-mode")) {
+
+    localStorage.setItem("theme" , "dark");
+
+} else {
+
+    localStorage.setItem("theme" , "light");
+
+}
+
+});
+
+
+increaseBtn.addEventListener("click", function(){
+    count++;
+    counter.innerText = count;
+    updateColor();
+});
+
+decreaseBtn.addEventListener("click", function(){
+    count--;
+    counter.innerText = count;
+    updateColor();
+});
+
+resetCounterBtn.addEventListener("click", function(){
+    count = 0;
+    counter.innerText = count;
+    updateColor();
+});
+
+function updateColor(){
+
+    if(count < 0){
+        counter.style.color = "red";
+    }
+    else if(count > 10){
+        counter.style.color = "green";
+    }
+    else{
+        counter.style.color = "black";
+    }
+
+}
+
+if(localStorage.getItem("theme") === "dark") {
+
+    document.body.classList.add("dark-mode");
+
+}
+
+renderTasks();
+allBtn.classList.add("activeFilter");
+
+updateUndoButton();
+
+
+getTasks().forEach(function(task) {
+
+    scheduleReminder(task);
+
+})
+
+
+
+// ENTER ile ekleme
+taskInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        addTaskBtn.click();
+    }
+});
+
+// EKLE
+addTaskBtn.addEventListener("click", function(){
+
+    const taskText = taskInput.value.trim();
+    const dateValue = taskDate.value;
+    const categoryValue = taskCategory.value;
+
+    if(taskText === "") {
+
+        showAlert("UYARI !", "LÜTFEN GÖREV METNİNİ BOŞ BIRAKMAYINIZ !");
+    return;
+
+    }
+    
+
+    if(dateValue) {
+
+        const selectedTime = new Date(dateValue).getTime();
+        const now = new Date().getTime();
+
+        if(selectedTime < now) {
+
+            showAlert("UYARI !", "GEÇMİŞ TARİH VE SAAT SEÇEMEZSİNİZ !");
+            return;
+
+        }
+
+    }
+
+    const tasks = getTasks();
+
+    const newTask = {
+
+        id : Date.now() ,
+        text : taskText ,
+        category : categoryValue ,
+        date : dateValue ,
+        completed : false
+
+    };
+
+    tasks.push(newTask);
+    saveTasks(tasks);
+    scheduleReminder(newTask);
+    renderTasks();
+
+    taskInput.value = "";
+    taskDate.value = "";
+    taskCategory.value = "OKUL";
+
+    
+
+});
+
+// 🔥 filtreler
+
+allBtn.addEventListener("click", function(){
+    currentFilter = "all";
+    taskCategory.value = "OKUL";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = "flex";
+
+    });
+
+    clearFilterButtons();
+    allBtn.classList.add("activeFilter");
+
+});
+
+completedBtn.addEventListener("click", function(){
+    currentFilter = "completed";
+    taskCategory.value = "OKUL";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = li.classList.contains("completed") ? "flex" : "none";
+
+    });
+
+    clearFilterButtons();
+    completedBtn.classList.add("activeFilter");
+
+});
+
+activeBtn.addEventListener("click", function(){
+    currentFilter = "active";
+    taskCategory.value = "OKUL";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = !li.classList.contains("completed") ? "flex" : "none";
+
+    });
+
+    clearFilterButtons();
+    activeBtn.classList.add("activeFilter");
+
+});
+
+
+schoolBtn.addEventListener("click", function(){
+
+    currentFilter = "school";
+    taskCategory.value = "OKUL";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = li.dataset.category === "OKUL" ? "flex" : "none";
+
+    });
+
+    clearFilterButtons();
+    schoolBtn.classList.add("activeFilter");
+
+});
+
+
+personalBtn.addEventListener("click", function(){
+
+    currentFilter = "personal";
+    taskCategory.value = "KİŞİSEL";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = li.dataset.category === "KİŞİSEL" ? "flex" : "none";
+
+    });
+
+    clearFilterButtons();
+    personalBtn.classList.add("activeFilter");
+
+});
+
+
+workBtn.addEventListener("click", function(){
+
+    currentFilter = "work";
+    taskCategory.value = "İŞ";
+
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        li.style.display = li.dataset.category === "İŞ" ? "flex" : "none";
+
+    });
+
+    clearFilterButtons();
+    workBtn.classList.add("activeFilter");
+
+});
+
+function applyCurrentFilter() {
+
+    if(currentFilter === "all") {
+
+        allBtn.click();
+
+    } else if(currentFilter === "completed") {
+
+        completedBtn.click();
+
+    } else if(currentFilter === "active") {
+
+        activeBtn.click();
+
+    } else if(currentFilter === "school") {
+
+        schoolBtn.click();
+
+    } else if(currentFilter === "personal") {
+
+        personalBtn.click();
+
+    } else if(currentFilter === "work") {
+
+        workBtn.click();
+    }
+
+}
+
+
+// 🧹 hepsini sil
+clearAllBtn.addEventListener("click", function(){
+
+    Object.values(reminderTimeouts).forEach(function(timeoutId) {
+
+        clearTimeout(timeoutId);
+
+    });
+
+    Object.values(warningTimeouts).forEach(function(timeoutId) {
+
+        clearTimeout(timeoutId);
+
+    });
+
+    Object.keys(reminderTimeouts).forEach(function(key) {
+
+        delete reminderTimeouts[key];
+
+    });
+
+        Object.keys(warningTimeouts).forEach(function(key) {
+    
+            delete warningTimeouts[key];
+    
+        });
+
+        lastDeletedAllTasks = getTasks();
+        lastDeletedTask = null;
+        updateUndoButton();
+
+    localStorage.removeItem("tasks");
+
+    currentFilter = "all";
+    taskCategory.value = "OKUL";
+    clearFilterButtons();
+    allBtn.classList.add("activeFilter");
+
+    renderTasks();
+
+});
+
+
+undoBtn.addEventListener("click", function(){
+
+            if(lastDeletedAllTasks) {
+
+                saveTasks(lastDeletedAllTasks);
+
+                lastDeletedAllTasks.forEach(function(task) {
+
+                    scheduleReminder(task);
+
+                });
+
+                lastDeletedAllTasks = null;
+                updateUndoButton();
+                renderTasks();
+                return;
+
+            }
+
+            if(lastEditedTask) {
+
+                const tasks = getTasks();
+
+                const updatedTasks = tasks.map(function(task) {
+
+                    if(task.id === lastEditedTask.id) {
+
+                        return lastEditedTask;
+
+                    }
+                    return task;
+
+                });
+
+                saveTasks(updatedTasks);
+                scheduleReminder(lastEditedTask);
+
+                lastEditedTask = null;
+                updateUndoButton();
+                renderTasks();
+                return;
+
+            }
+
+            if(!lastDeletedTask) return;
+
+            const tasks = getTasks();
+            tasks.push(lastDeletedTask);
+            saveTasks(tasks);
+
+            scheduleReminder(lastDeletedTask);
+
+            lastDeletedTask = null;
+            updateUndoButton();
+            renderTasks();
+
+        });
+
+
+// 💾 kaydet
+function getTasks() {
+
+    return JSON.parse(localStorage.getItem("tasks")) || [];
+
+}
+
+function saveTasks(tasks) {
+
+    localStorage.setItem("tasks" , JSON.stringify(tasks));
+
+}
+
+function scheduleReminder(task) {
+
+    if(reminderTimeouts[task.id]) {
+
+        clearTimeout(reminderTimeouts[task.id])
+
+    }
+
+    if(warningTimeouts[task.id]) {
+
+        clearTimeout(warningTimeouts[task.id]);
+
+    }
+
+    if(!task.date) return;
+    if(task.completed) return;
+
+    const selectedTime = new Date(task.date).getTime();
+    const now = new Date().getTime();
+    const delay = selectedTime - now;
+
+    if(delay <= 0) return;
+
+    reminderTimeouts[task.id] = setTimeout(function() {
+
+        new Notification("⏰ HATIRLATMA !" , {
+
+            body : task.text + " ZAMANI GELDİ !"
+            
+        });
+
+        showAlert("⏰ GÖREV ZAMANI!", "GÖREVİN : " + task.text);
+
+        if(audioEnabled) {
+
+            const audio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3")
+            audio.play();
+
+        }
+
+    } , delay);
+
+    if(delay > 10000) {
+
+        warningTimeouts[task.id] = setTimeout(function() {
+
+            new Notification("⚠️ YAKLAŞIYOR !" , {
+
+                body : task.text + " 10 SANİYE SONRA BAŞLAYACAK !"
+
+            });
+
+        } , delay - 10000);
+
+    }
+
+}
+
+function renderTasks() {
+
+    taskList.innerHTML = "";
+
+    const tasks = getTasks();
+
+    if(tasks.length === 0) {
+
+        const emptyMessage = document.createElement("li");
+        emptyMessage.innerText = "📭 HENÜZ GÖREV YOK";
+        emptyMessage.classList.add("emptyMessage");
+        emptyMessage.style.justifyContent = "center";
+        emptyMessage.style.color = "gray";
+        emptyMessage.style.fontStyle = "italic";
+        emptyMessage.style.fontSize = "18px";
+        emptyMessage.style.padding = "20px";
+        emptyMessage.style.opacity = "0.8";
+        emptyMessage.style.cursor = "default";
+        emptyMessage.style.backgroundColor = "transparent";
+        taskList.appendChild(emptyMessage);
+
+        updateDoneCount();
+        applyCurrentFilter();
+        return;
+        
+    }
+
+    tasks.forEach(function(task) {
+
+        const li = document.createElement("li");
+
+        const isEditing = editingTaskIds.has(task.id);
+
+        if(task.completed) {
+
+            li.classList.add("completed");
+
+        }
+
+        li.draggable = true;
+        li.dataset.id = task.id;
+        li.dataset.category = task.category;
+
+        if(isEditing) {
+
+            const editTextInput = document.createElement("input");
+            editTextInput.type = "text";
+            editTextInput.value = task.text;
+            editTextInput.classList.add("editInput");
+
+            const editCategorySelect = document.createElement("select");
+            editCategorySelect.classList.add("editSelect");
+
+            const optionSchool = document.createElement("option");
+            optionSchool.value = "OKUL";
+            optionSchool.innerText = "OKUL";
+
+            const optionPersonal = document.createElement("option");
+            optionPersonal.value = "KİŞİSEL";
+            optionPersonal.innerText = "KİŞİSEL";
+
+            const optionWork = document.createElement("option");
+            optionWork.value = "İŞ";
+            optionWork.innerText = "İŞ";
+
+            editCategorySelect.appendChild(optionSchool);
+            editCategorySelect.appendChild(optionPersonal);
+            editCategorySelect.appendChild(optionWork);
+            editCategorySelect.value = task.category;
+
+            const editDateInput = document.createElement("input");
+            editDateInput.type = "datetime-local";
+            editDateInput.value = task.date || "";
+            editDateInput.classList.add("editDateInput");
+
+            const saveEditBtn = document.createElement("button");
+            saveEditBtn.innerText = "KAYDET";
+            saveEditBtn.classList.add("editSaveBtn");
+
+            const cancelEditBtn = document.createElement("button");
+            cancelEditBtn.innerText = "İPTAL";
+            cancelEditBtn.classList.add("editCancelBtn");
+
+            editTextInput.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+            });
+            
+            editCategorySelect.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+            });
+
+            editDateInput.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+            });
+
+            saveEditBtn.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+                const trimmedText = editTextInput.value.trim();
+                const newCategory = editCategorySelect.value;
+                const newDate = editDateInput.value;
+
+                lastEditedTask = {
+
+                    id : task.id,
+                    text : task.text,
+                    category : task.category,
+                    date : task.date,
+                    completed : task.completed
+
+                };
+
+                lastDeletedTask = null;
+                lastDeletedAllTasks = null;
+                updateUndoButton();
+
+                if(trimmedText === "") {
+
+                        showAlert("UYARI !", "LÜTFEN GÖREV METNİNİ BOŞ BIRAKMAYINIZ !");
+                        return;
+
+                }
+
+                if(newDate) {
+
+                    const selectedTime = new Date(newDate).getTime();
+                    const now = new Date().getTime();
+
+                    if(selectedTime < now) {
+
+                        showAlert("UYARI !", "GEÇMİŞ TARİH VE SAAT SEÇEMEZSİNİZ !");
+                        return;
+
+                    }
+
+                }
+
+                task.text = trimmedText;
+                task.category = newCategory;
+                task.date = newDate;
+
+                if(reminderTimeouts[task.id]) {
+
+                    clearTimeout(reminderTimeouts[task.id]);
+                    delete reminderTimeouts[task.id];
+
+                }
+
+                if(warningTimeouts[task.id]) {
+
+                    clearTimeout(warningTimeouts[task.id]);
+                    delete warningTimeouts[task.id];
+
+                }
+
+                scheduleReminder(task);
+                saveTasks(tasks);
+
+                editingTaskIds.delete(task.id);
+                renderTasks();
+
+            });
+
+            cancelEditBtn.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+                editingTaskIds.delete(task.id);
+                renderTasks();
+
+            });
+
+            li.appendChild(editTextInput);
+            li.appendChild(editCategorySelect);
+            li.appendChild(editDateInput);
+            li.appendChild(saveEditBtn);
+            li.appendChild(cancelEditBtn);
+
+
+        }
+
+        else {
+
+            const span = document.createElement("span");
+
+const categoryBadge = document.createElement("span");
+categoryBadge.innerText = task.category;
+categoryBadge.classList.add("categoryBadge", "category-" + task.category);
+
+const taskTextNode = document.createElement("span");
+taskTextNode.innerText = task.text;
+
+span.appendChild(categoryBadge);
+span.appendChild(taskTextNode);
+
+span.addEventListener("click", function(e) {
+    e.stopPropagation();
+});
+
+span.addEventListener("dblclick", function(e) {
+    e.stopPropagation();
+    editingTaskIds.add(task.id);
+    renderTasks();
+});
+
+const dateSpan = document.createElement("span");
+
+dateSpan.style.marginLeft = "10px";
+dateSpan.style.marginRight = "50px";
+dateSpan.style.position = "relative";
+dateSpan.style.top = "-3px";
+
+if(task.date) {
+    const d = new Date(task.date);
+
+    const day = d.getDate();
+    const month = d.getMonth();
+    const hours = d.getHours().toString().padStart(2, "0");
+    const minutes = d.getMinutes().toString().padStart(2, "0");
+
+    const months = [
+        "OCAK", "ŞUBAT", "MART", "NİSAN", "MAYIS",
+        "HAZİRAN", "TEMMUZ", "AĞUSTOS", "EYLÜL", "EKİM", "KASIM", "ARALIK"
+    ];
+
+    const formattedDate = `${day} ${months[month]} ${hours}:${minutes}`;
+    dateSpan.innerText = "🕒 " + formattedDate;
+}
+
+const deleteBtn = document.createElement("button");
+deleteBtn.innerText = "❌";
+
+li.addEventListener("dragstart", function() {
+    li.classList.add("dragging");
+});
+
+li.addEventListener("dragend", function() {
+    li.classList.remove("dragging");
+
+    const ids = [...taskList.querySelectorAll("li")].map(function(item) {
+        return Number(item.dataset.id);
+    });
+
+    const newOrderedTasks = ids.map(function(id) {
+        return tasks.find(function(t) {
+            return t.id === id;
+        });
+    });
+
+    saveTasks(newOrderedTasks);
+});
+
+li.addEventListener("click", function() {
+    task.completed = !task.completed;
+
+    if(task.completed) {
+        if(reminderTimeouts[task.id]) {
+            clearTimeout(reminderTimeouts[task.id]);
+            delete reminderTimeouts[task.id];
+        }
+
+        if(warningTimeouts[task.id]) {
+            clearTimeout(warningTimeouts[task.id]);
+            delete warningTimeouts[task.id];
+        }
+    } else {
+        scheduleReminder(task);
+    }
+
+    saveTasks(tasks);
+    renderTasks();
+    updateDoneCount();
+});
+
+deleteBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+
+    if(reminderTimeouts[task.id]) {
+
+        clearTimeout(reminderTimeouts[task.id]);
+        delete reminderTimeouts[task.id];
+
+    }
+
+    if(warningTimeouts[task.id]) {
+
+        clearTimeout(warningTimeouts[task.id]);
+        delete warningTimeouts[task.id];
+
+    }
+
+    lastDeletedTask = task;
+    lastDeletedAllTasks = null;
+    updateUndoButton();
+
+    const updatedTasks = tasks.filter(function(t) {
+
+        return t.id !== task.id;
+
+    });
+
+    saveTasks(updatedTasks);
+    renderTasks();
+    updateDoneCount();
+
+});
+
+li.appendChild(span);
+li.appendChild(dateSpan);
+li.appendChild(deleteBtn);
+
+        }
+
+        taskList.appendChild(li);
+
+    });
+
+    updateDoneCount();
+    applyCurrentFilter();
+
+}
+
+
+
+});
+
+
+function updateDoneCount() {
+
+    const items = document.querySelectorAll("#taskList li:not(.emptyMessage)");
+    let done = 0;
+    let school = 0;
+    let personal = 0;
+    let work = 0;
+
+
+    items.forEach(function(li) {
+
+        if(li.classList.contains("completed")) {
+
+            done++;
+
+        }
+
+        if(li.dataset.category === "OKUL") {
+
+            school++;
+
+        }
+
+        else if(li.dataset.category === "KİŞİSEL") {
+
+            personal++;
+
+        }
+
+        else if(li.dataset.category === "İŞ") {
+
+            work++;
+
+        }   
+
+    });
+
+    const total = items.length;
+    const active = total - done;
+
+    document.getElementById("doneCount").innerText = "TAMAMLANAN : " + done;
+    document.getElementById("totalCount").innerText = "TOPLAM : " + total;
+    document.getElementById("activeCount").innerText = "AKTİF : " + active;
+
+    document.getElementById("schoolCount").innerText = "OKUL : " + school;
+    document.getElementById("personalCount").innerText = "KİŞİSEL : " + personal;
+    document.getElementById("workCount").innerText = "İŞ : " + work;
+
+}
+
+
+updateDoneCount();
+
+    </script>
+
+    <p id = "message" class = "hidden">
+        JAVASCRIPT ÇALIŞIYOR!
+    </p>
+
+
+    <div id = "alertBox" class = "alertBox hidden">
+
+        <div class = "alertContent">
+
+            <h1 id = "alertTitle"> UYARI ! </h1>
+            <p id = "alertText"> GÖREV </p>
+            <button id = "closeAlert"> KAPAT </button>
+
+        </div>
+    </div>
+
+
+  </body>
+</html>
