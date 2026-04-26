@@ -379,21 +379,21 @@
         }
 
 
-        .category-OKUL {
+        .category-SCHOOL {
 
             background-color: royalblue;
 
         }
 
 
-        .category-KİŞİSEL {
+        .category-PERSONAL {
 
             background-color: purple;
 
         }
 
 
-        .category-İŞ {
+        .category-WORK {
 
             background-color: seagreen;
 
@@ -716,16 +716,38 @@
 
                 }
 
-                
+                #filterButtons button {
+
+                    min-width: 100px;
+
+                }
+
+                #profileImage {
+
+                    display: block;
+                    width: 140px;
+                    height: 140px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    margin: 20px auto;
+                    border: 4px solid white;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+                }
 
     </style>
 
   </head>
   
   <body>
-    <h1 id = "title">KAAN PERSONAL PAGE</h1>
 
-    <p id = "siteDescription">Görevlerini planla, takip et ve düzenli kal !</p>
+    <h1 id = "title"> KAAN PERSONAL PAGE </h1>
+
+    <img id = "profileImage" src="kvlogo1.png" alt="Profile Image">
+    
+    <br><br>
+
+    <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
 
 <br>
 
@@ -733,39 +755,43 @@
 
     <div id = "todoSection">
 
-    <h2> TODO LIST </h2>
+    <h2> TO - DO LIST ! </h2>
 
 <br>
 
-    <h3 id = "totalCount" class = "statsBox totalStat"> TOPLAM : 0 </h3>
-    <h3 id = "activeCount" class = "statsBox activeStat"> AKTİF : 0 </h3>
-    <h3 id = "doneCount" class = "statsBox doneStat"> TAMAMLANAN : 0 </h3>
-    <h3 id = "schoolCount" class = "statsBox schoolStat"> OKUL : 0 </h3>
-    <h3 id = "personalCount" class = "statsBox personalStat"> KİŞİSEL : 0 </h3>
+    <h3 id = "totalCount" class = "statsBox totalStat"> TOTAL : 0 </h3>
 
-    <h3 id = "workCount" class = "statsBox workStat"> İŞ : 0 </h3>
+    <h3 id = "activeCount" class = "statsBox activeStat"> ACTIVE : 0 </h3>
+
+    <h3 id = "doneCount" class = "statsBox doneStat"> COMPLETED : 0 </h3>
+
+    <h3 id = "schoolCount" class = "statsBox schoolStat"> SCHOOL : 0 </h3>
+
+    <h3 id = "personalCount" class = "statsBox personalStat"> PERSONAL : 0 </h3>
+
+    <h3 id = "workCount" class = "statsBox workStat"> WORK : 0 </h3>
 
     <br><br>
     
 <div id = "taskControls">
 
-    <input id = "taskInput" type = "text" placeholder = "GÖREV YAZ!">
+    <input id = "taskInput" type = "text" placeholder = "ENTER A TASK !">
 
     <select id = "taskCategory">
 
-        <option value = "OKUL"> OKUL </option>
-        <option value = "KİŞİSEL"> KİŞİSEL </option>
-        <option value = "İŞ"> İŞ </option>
+        <option value = "SCHOOL"> SCHOOL </option>
+        <option value = "PERSONAL"> PERSONAL </option>
+        <option value = "WORK"> WORK </option>
 
     </select>
 
     <input type = "datetime-local" id = "taskDate">
 
-    <button id = "addTaskBtn"> EKLE </button>
+    <button id = "addTaskBtn"> ADD </button>
     
-    <button id = "clearAllBtn"> TÜMÜNÜ SİL </button>
+    <button id = "clearAllBtn"> DELETE ALL </button>
 
-    <button id = "undoBtn"> GERİ AL </button>
+    <button id = "undoBtn"> UNDO </button>
 
 </div>
 
@@ -773,14 +799,14 @@
     
     <div id = "filterButtons">
 
-    <button id = "allBtn"> TÜMÜ </button>
+    <button id = "allBtn"> ALL </button>
 
-    <button id = "completedBtn"> TAMAMLANAN </button>
-    <button id = "activeBtn"> YAPILACAK </button>
+    <button id = "activeBtn"> ACTIVE </button>
+    <button id = "completedBtn"> COMPLETED </button>
 
-    <button id = "schoolBtn"> OKUL </button>
-    <button id = "personalBtn"> KİŞİSEL </button>
-    <button id = "workBtn"> İŞ </button>
+    <button id = "schoolBtn"> SCHOOL </button>
+    <button id = "personalBtn"> PERSONAL </button>
+    <button id = "workBtn"> WORK </button>
 
 </div>
 <br> <br>
@@ -795,11 +821,11 @@
     <br>
     <br>
     <br>
-    <a href = "https://www.instagram.com/vkaanv351/" class = "btn" id = "instagramBtn" target = "_blank">INSTAGRAM ' A GİT !</a>
+    <a href = "https://www.instagram.com/vkaanv351/" class = "btn" id = "instagramBtn" target = "_blank"> GO TO INSTAGRAM ! </a>
 
     <br><br><br>
 
-    <h3 id = "counterTitle"> DENEME SAYACI </h3>
+    <h3 id = "counterTitle"> SIMPLE COUNTER </h3>
 
 <br>
 
@@ -809,10 +835,10 @@
 
     <div id = "counterButtons">
 
-    <button id = "colorBtn"> ARKA PLANI DEĞİŞTİR ! </button>
-    <button id = "increaseBtn"> ARTIR! </button>
-    <button id = "decreaseBtn"> AZALT! </button>
-    <button id = "resetCounterBtn"> SIFIRLA! </button>
+    <button id = "colorBtn"> CHANGE BACKGROUND ! </button>
+    <button id = "increaseBtn"> INCREASE ! </button>
+    <button id = "decreaseBtn"> DECREASE ! </button>
+    <button id = "resetCounterBtn"> RESET ! </button>
 
     </div>
     
@@ -951,11 +977,11 @@ function showAlert(title, text) {
     
     alertTitle.classList.remove("alertWarning", "alertReminder");
 
-    if(title === "UYARI !") {
+    if(title === "WARNING !") {
 
         alertTitle.classList.add("alertWarning");
 
-    } else if(title === "⏰ GÖREV ZAMANI!") {
+    } else if(title === "⏰ TASK TIME !") {
 
         alertTitle.classList.add("alertReminder");
 
@@ -1124,8 +1150,8 @@ addTaskBtn.addEventListener("click", function(){
 
     if(taskText === "") {
 
-        showAlert("UYARI !", "LÜTFEN GÖREV METNİNİ BOŞ BIRAKMAYINIZ !");
-    return;
+        showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
+        return;
 
     }
     
@@ -1137,7 +1163,7 @@ addTaskBtn.addEventListener("click", function(){
 
         if(selectedTime < now) {
 
-            showAlert("UYARI !", "GEÇMİŞ TARİH VE SAAT SEÇEMEZSİNİZ !");
+            showAlert("WARNING !", "YOU CANNOT SELECT A PAST DATE AND TIME!");
             return;
 
         }
@@ -1163,7 +1189,7 @@ addTaskBtn.addEventListener("click", function(){
 
     taskInput.value = "";
     taskDate.value = "";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
 
     
 
@@ -1173,7 +1199,7 @@ addTaskBtn.addEventListener("click", function(){
 
 allBtn.addEventListener("click", function(){
     currentFilter = "all";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
         li.style.display = "flex";
@@ -1187,7 +1213,7 @@ allBtn.addEventListener("click", function(){
 
 completedBtn.addEventListener("click", function(){
     currentFilter = "completed";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
         li.style.display = li.classList.contains("completed") ? "flex" : "none";
@@ -1201,7 +1227,7 @@ completedBtn.addEventListener("click", function(){
 
 activeBtn.addEventListener("click", function(){
     currentFilter = "active";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
         li.style.display = !li.classList.contains("completed") ? "flex" : "none";
@@ -1217,10 +1243,10 @@ activeBtn.addEventListener("click", function(){
 schoolBtn.addEventListener("click", function(){
 
     currentFilter = "school";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "OKUL" ? "flex" : "none";
+        li.style.display = li.dataset.category === "SCHOOL" ? "flex" : "none";
 
     });
 
@@ -1233,10 +1259,10 @@ schoolBtn.addEventListener("click", function(){
 personalBtn.addEventListener("click", function(){
 
     currentFilter = "personal";
-    taskCategory.value = "KİŞİSEL";
+    taskCategory.value = "PERSONAL";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "KİŞİSEL" ? "flex" : "none";
+        li.style.display = li.dataset.category === "PERSONAL" ? "flex" : "none";
 
     });
 
@@ -1249,10 +1275,10 @@ personalBtn.addEventListener("click", function(){
 workBtn.addEventListener("click", function(){
 
     currentFilter = "work";
-    taskCategory.value = "İŞ";
+    taskCategory.value = "WORK";
 
     document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "İŞ" ? "flex" : "none";
+        li.style.display = li.dataset.category === "WORK" ? "flex" : "none";
 
     });
 
@@ -1325,7 +1351,7 @@ clearAllBtn.addEventListener("click", function(){
     localStorage.removeItem("tasks");
 
     currentFilter = "all";
-    taskCategory.value = "OKUL";
+    taskCategory.value = "SCHOOL";
     clearFilterButtons();
     allBtn.classList.add("activeFilter");
 
@@ -1431,13 +1457,13 @@ function scheduleReminder(task) {
 
     reminderTimeouts[task.id] = setTimeout(function() {
 
-        new Notification("⏰ HATIRLATMA !" , {
+        new Notification("⏰ REMINDER !" , {
 
-            body : task.text + " ZAMANI GELDİ !"
+            body : task.text + " TIME HAS COME !"
             
         });
 
-        showAlert("⏰ GÖREV ZAMANI!", "GÖREVİN : " + task.text);
+        showAlert("⏰ TASK TIME !", "YOUR TASK : " + task.text);
 
         if(audioEnabled) {
 
@@ -1452,9 +1478,9 @@ function scheduleReminder(task) {
 
         warningTimeouts[task.id] = setTimeout(function() {
 
-            new Notification("⚠️ YAKLAŞIYOR !" , {
+            new Notification("⚠️ COMING UP !" , {
 
-                body : task.text + " 10 SANİYE SONRA BAŞLAYACAK !"
+                body : task.text + " WILL START IN 10 SECONDS !"
 
             });
 
@@ -1473,7 +1499,7 @@ function renderTasks() {
     if(tasks.length === 0) {
 
         const emptyMessage = document.createElement("li");
-        emptyMessage.innerText = "📭 HENÜZ GÖREV YOK";
+        emptyMessage.innerText = "📭 NO TASKS YET";
         emptyMessage.classList.add("emptyMessage");
         emptyMessage.style.justifyContent = "center";
         emptyMessage.style.color = "gray";
@@ -1518,16 +1544,16 @@ function renderTasks() {
             editCategorySelect.classList.add("editSelect");
 
             const optionSchool = document.createElement("option");
-            optionSchool.value = "OKUL";
-            optionSchool.innerText = "OKUL";
+            optionSchool.value = "SCHOOL";
+            optionSchool.innerText = "SCHOOL";
 
             const optionPersonal = document.createElement("option");
-            optionPersonal.value = "KİŞİSEL";
-            optionPersonal.innerText = "KİŞİSEL";
+            optionPersonal.value = "PERSONAL";
+            optionPersonal.innerText = "PERSONAL";
 
             const optionWork = document.createElement("option");
-            optionWork.value = "İŞ";
-            optionWork.innerText = "İŞ";
+            optionWork.value = "WORK";
+            optionWork.innerText = "WORK";
 
             editCategorySelect.appendChild(optionSchool);
             editCategorySelect.appendChild(optionPersonal);
@@ -1540,11 +1566,11 @@ function renderTasks() {
             editDateInput.classList.add("editDateInput");
 
             const saveEditBtn = document.createElement("button");
-            saveEditBtn.innerText = "KAYDET";
+            saveEditBtn.innerText = "SAVE";
             saveEditBtn.classList.add("editSaveBtn");
 
             const cancelEditBtn = document.createElement("button");
-            cancelEditBtn.innerText = "İPTAL";
+            cancelEditBtn.innerText = "CANCEL";
             cancelEditBtn.classList.add("editCancelBtn");
 
             editTextInput.addEventListener("click" , function(ev) {
@@ -1589,7 +1615,7 @@ function renderTasks() {
 
                 if(trimmedText === "") {
 
-                        showAlert("UYARI !", "LÜTFEN GÖREV METNİNİ BOŞ BIRAKMAYINIZ !");
+                        showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
                         return;
 
                 }
@@ -1601,7 +1627,7 @@ function renderTasks() {
 
                     if(selectedTime < now) {
 
-                        showAlert("UYARI !", "GEÇMİŞ TARİH VE SAAT SEÇEMEZSİNİZ !");
+                        showAlert("WARNING !", "YOU CANNOT SELECT A PAST DATE AND TIME!");
                         return;
 
                     }
@@ -1684,6 +1710,7 @@ dateSpan.style.position = "relative";
 dateSpan.style.top = "-3px";
 
 if(task.date) {
+    
     const d = new Date(task.date);
 
     const day = d.getDate();
@@ -1692,8 +1719,10 @@ if(task.date) {
     const minutes = d.getMinutes().toString().padStart(2, "0");
 
     const months = [
-        "OCAK", "ŞUBAT", "MART", "NİSAN", "MAYIS",
-        "HAZİRAN", "TEMMUZ", "AĞUSTOS", "EYLÜL", "EKİM", "KASIM", "ARALIK"
+
+        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY",
+        "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+
     ];
 
     const formattedDate = `${day} ${months[month]} ${hours}:${minutes}`;
@@ -1815,19 +1844,19 @@ function updateDoneCount() {
 
         }
 
-        if(li.dataset.category === "OKUL") {
+        if(li.dataset.category === "SCHOOL") {
 
             school++;
 
         }
 
-        else if(li.dataset.category === "KİŞİSEL") {
+        else if(li.dataset.category === "PERSONAL") {
 
             personal++;
 
         }
 
-        else if(li.dataset.category === "İŞ") {
+        else if(li.dataset.category === "WORK") {
 
             work++;
 
@@ -1838,24 +1867,23 @@ function updateDoneCount() {
     const total = items.length;
     const active = total - done;
 
-    document.getElementById("doneCount").innerText = "TAMAMLANAN : " + done;
-    document.getElementById("totalCount").innerText = "TOPLAM : " + total;
-    document.getElementById("activeCount").innerText = "AKTİF : " + active;
+    document.getElementById("doneCount").innerText = "COMPLETED : " + done;
+    document.getElementById("totalCount").innerText = "TOTAL : " + total;
+    document.getElementById("activeCount").innerText = "ACTIVE : " + active;
 
-    document.getElementById("schoolCount").innerText = "OKUL : " + school;
-    document.getElementById("personalCount").innerText = "KİŞİSEL : " + personal;
-    document.getElementById("workCount").innerText = "İŞ : " + work;
+    document.getElementById("schoolCount").innerText = "SCHOOL : " + school;
+    document.getElementById("personalCount").innerText = "PERSONAL : " + personal;
+    document.getElementById("workCount").innerText = "WORK : " + work;
 
 }
 
 
 updateDoneCount();
 
-      
     </script>
 
     <p id = "message" class = "hidden">
-        JAVASCRIPT ÇALIŞIYOR!
+        JAVASCRIPT IS RUNNING !
     </p>
 
 
@@ -1863,9 +1891,9 @@ updateDoneCount();
 
         <div class = "alertContent">
 
-            <h1 id = "alertTitle"> UYARI ! </h1>
-            <p id = "alertText"> GÖREV </p>
-            <button id = "closeAlert"> KAPAT </button>
+            <h1 id = "alertTitle"> WARNING ! </h1>
+            <p id = "alertText"> TASK </p>
+            <button id = "closeAlert"> CLOSE </button>
 
         </div>
     </div>
