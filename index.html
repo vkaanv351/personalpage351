@@ -735,6 +735,44 @@
 
                 }
 
+
+                #searchInput {
+
+                    display: block;
+                    width: 300px;
+                    margin: 0 auto 20px auto;
+                    padding: 10px;
+                    border-radius: 8px;
+                    border: 3px solid #ff0000;
+
+                }
+
+
+                #searchInput:focus {
+
+                    outline: none;
+                    border-color: rgb(255, 0, 0);
+
+                }
+
+
+                body.dark-mode #searchInput {
+
+                    background-color: #333;
+                    color: white;
+                    border: 1px solid #555;
+
+                }
+
+
+                body.dark-mode #searchInput::placeholder {
+
+                    color: #ccc;
+
+                }
+
+
+
     </style>
 
   </head>
@@ -765,6 +803,8 @@
 
     <h3 id = "doneCount" class = "statsBox doneStat"> COMPLETED : 0 </h3>
 
+    <br>
+
     <h3 id = "schoolCount" class = "statsBox schoolStat"> SCHOOL : 0 </h3>
 
     <h3 id = "personalCount" class = "statsBox personalStat"> PERSONAL : 0 </h3>
@@ -794,6 +834,12 @@
     <button id = "undoBtn"> UNDO </button>
 
 </div>
+
+<br><br>
+
+
+<input id = "searchInput" type = "text" placeholder = "SEARCH TASKS...">
+
 
     <br><br>
     
@@ -878,6 +924,16 @@ const workBtn = document.querySelector("#workBtn");
 const schoolCount = document.querySelector("#schoolCount");
 const personalCount = document.querySelector("#personalCount");
 const workCount = document.querySelector("#workCount");
+
+const searchInput = document.querySelector("#searchInput");
+
+
+searchInput.addEventListener("input", function() {
+
+    applySearchFilter();
+
+});
+
 
 let currentFilter = "all";
 
@@ -1313,6 +1369,37 @@ function applyCurrentFilter() {
 
         workBtn.click();
     }
+
+    applySearchFilter();
+
+}
+
+
+function applySearchFilter() {
+
+    const searchText = searchInput.value.toLowerCase();
+
+    document.querySelectorAll("#taskList li").forEach(function(li) {
+
+        if(li.classList.contains("emptyMessage")) return;
+
+        const text = li.innerText.toLowerCase();
+
+        if(text.includes(searchText)) {
+
+            if(li.style.display !== "none") {
+
+                li.style.display = "flex";
+
+            }
+
+        } else {
+
+            li.style.display = "none";
+
+        }
+
+    });
 
 }
 
