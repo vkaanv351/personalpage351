@@ -725,8 +725,8 @@
                 #profileImage {
 
                     display: block;
-                    width: 140px;
-                    height: 140px;
+                    width:  80px;
+                    height: 80px;
                     object-fit: cover;
                     border-radius: 50%;
                     margin: 20px auto;
@@ -779,9 +779,9 @@
   
   <body>
 
-    <h1 id = "title"> KAAN PERSONAL PAGE </h1>
+    <h1 id = "title"> TO-DO LIST </h1>
 
-    <img id = "profileImage" src="kvlogo1.png" alt="Profile Image">
+    
     
     <br><br>
 
@@ -793,7 +793,7 @@
 
     <div id = "todoSection">
 
-    <h2> TO - DO LIST ! </h2>
+    <h2> LIST : </h2>
 
 <br>
 
@@ -888,7 +888,9 @@
 
     </div>
     
+    <br><br><br>
 
+    <img id = "profileImage" src="kvlogo1.png" alt="Profile Image">
 
     <script>
 
@@ -1384,14 +1386,42 @@ function applySearchFilter() {
         if(li.classList.contains("emptyMessage")) return;
 
         const text = li.innerText.toLowerCase();
+        const category = li.dataset.category;
 
-        if(text.includes(searchText)) {
+        let matchesFilter = false;
 
-            if(li.style.display !== "none") {
+        if(currentFilter === "all") {
 
-                li.style.display = "flex";
+            matchesFilter = true;
 
-            }
+        } else if(currentFilter === "completed") {
+
+            matchesFilter = li.classList.contains("completed");
+
+        } else if(currentFilter === "active") {
+
+            matchesFilter = !li.classList.contains("completed");
+
+        } else if(currentFilter === "school") {
+
+            matchesFilter = category === "SCHOOL";
+
+        } else if(currentFilter === "personal") {
+
+            matchesFilter = category === "PERSONAL";
+
+        } else if(currentFilter === "work") {
+
+            matchesFilter = category === "WORK";
+
+        }
+
+
+        const matchesSearch = text.includes(searchText);
+
+        if(matchesFilter && matchesSearch) {
+
+            li.style.display = "flex";
 
         } else {
 
@@ -1439,6 +1469,9 @@ clearAllBtn.addEventListener("click", function(){
 
     currentFilter = "all";
     taskCategory.value = "SCHOOL";
+    searchInput.value = "";
+
+
     clearFilterButtons();
     allBtn.classList.add("activeFilter");
 
@@ -1964,13 +1997,15 @@ function updateDoneCount() {
 
 }
 
-
 updateDoneCount();
 
     </script>
 
+
     <p id = "message" class = "hidden">
+      
         JAVASCRIPT IS RUNNING !
+      
     </p>
 
 
@@ -1983,8 +2018,10 @@ updateDoneCount();
             <button id = "closeAlert"> CLOSE </button>
 
         </div>
+      
     </div>
 
 
   </body>
+  
 </html>
