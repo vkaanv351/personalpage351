@@ -323,7 +323,8 @@
         }
 
 
-        body.dark-mode input {
+        body.dark-mode input,
+        body.dark-mode select {
 
             background-color: #333;
             color: white;
@@ -396,6 +397,40 @@
         .category-WORK {
 
             background-color: seagreen;
+
+        }
+
+
+        .priorityBadge {
+
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 8px;
+            color: white;
+
+        }
+
+        
+        .priority-LOW {
+
+            background-color: gray;
+
+        }
+
+
+        .priority-MEDIUM {
+
+            background-color: orange;
+
+        }
+
+
+        .priority-HIGH {
+
+            background-color: crimson;
 
         }
 
@@ -584,6 +619,7 @@
 
         #taskInput,
         #taskCategory,
+        #taskPriority,
         #taskDate {
 
             padding: 10px;
@@ -595,6 +631,7 @@
 
         #taskInput:focus,
         #taskCategory:focus,
+        #taskPriority:focus,
         #taskDate:focus {
 
             outline: none;
@@ -686,7 +723,7 @@
 
             #todoSection {
 
-                max-width: 900px;
+                max-width: 1050px;
                 margin: 0 auto;
 
             }
@@ -700,15 +737,18 @@
 
                 }
 
+
                 #taskControls,
                 #filterButtons {
 
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                     flex-wrap: wrap;
-                    gap: 10px;
+                    gap: 8px;
 
                 }
+
 
                 #taskControls {
 
@@ -716,11 +756,13 @@
 
                 }
 
+
                 #filterButtons button {
 
                     min-width: 100px;
 
                 }
+
 
                 #profileImage {
 
@@ -837,7 +879,7 @@
 
     <h3 id = "workCount" class = "statsBox workStat"> WORK : 0 </h3>
 
-    <br><br>
+    <br><br><br><br>
     
 <div id = "taskControls">
 
@@ -845,11 +887,21 @@
 
     <select id = "taskCategory">
 
-        <option value = "SCHOOL"> SCHOOL </option>
-        <option value = "PERSONAL"> PERSONAL </option>
-        <option value = "WORK"> WORK </option>
+        <option value = "SCHOOL" > SCHOOL </option>
+        <option value = "PERSONAL" > PERSONAL </option>
+        <option value = "WORK" > WORK </option>
+        
 
     </select>
+
+    <select id="taskPriority">
+
+        <option value = "LOW" > LOW </option>
+        <option value = "MEDIUM" > MEDIUM </option>
+        <option value = "HIGH" > HIGH </option>
+
+    </select>
+
 
     <input type = "datetime-local" id = "taskDate">
 
@@ -861,7 +913,7 @@
 
 </div>
 
-<br><br>
+<br><br><br><br>
 
 
 <div id = "searchBox">
@@ -872,7 +924,7 @@
 </div>
 
 
-    <br><br>
+    <br><br><br><br>
     
     <div id = "filterButtons">
 
@@ -886,7 +938,7 @@
     <button id = "workBtn"> WORK </button>
 
 </div>
-<br> <br>
+<br> <br> <br>
     <div class = "card">
 
     <ul id = "taskList" class = "todoList">
@@ -905,7 +957,7 @@
 
     <h2 id = "counter">0</h2>
 
-    <br><br><br>
+    <br><br><br><br>
 
     <div id = "counterButtons">
 
@@ -940,6 +992,7 @@ const taskInput = document.querySelector("#taskInput");
 const addTaskBtn = document.querySelector("#addTaskBtn");
 const taskList = document.querySelector("#taskList");
 const taskCategory = document.querySelector("#taskCategory");
+const taskPriority = document.querySelector("#taskPriority");
 
 const allBtn = document.querySelector("#allBtn");
 const completedBtn = document.querySelector("#completedBtn");
@@ -1261,6 +1314,7 @@ addTaskBtn.addEventListener("click", function(){
     const taskText = taskInput.value.trim();
     const dateValue = taskDate.value;
     const categoryValue = taskCategory.value;
+    const priorityValue = taskPriority.value;
 
     if(taskText === "") {
 
@@ -1291,6 +1345,7 @@ addTaskBtn.addEventListener("click", function(){
         id : Date.now() ,
         text : taskText ,
         category : categoryValue ,
+        priority : priorityValue ,
         date : dateValue ,
         completed : false
 
@@ -1304,7 +1359,7 @@ addTaskBtn.addEventListener("click", function(){
     taskInput.value = "";
     taskDate.value = "";
     taskCategory.value = "SCHOOL";
-
+    taskPriority.value = "LOW";
     
 
 });
@@ -1862,10 +1917,16 @@ const categoryBadge = document.createElement("span");
 categoryBadge.innerText = task.category;
 categoryBadge.classList.add("categoryBadge", "category-" + task.category);
 
+
+const priorityBadge = document.createElement("span");
+priorityBadge.innerText = task.priority || "LOW";
+priorityBadge.classList.add("priorityBadge", "priority-" + (task.priority || "LOW"));
+
 const taskTextNode = document.createElement("span");
 taskTextNode.innerText = task.text;
 
 span.appendChild(categoryBadge);
+span.appendChild(priorityBadge);
 span.appendChild(taskTextNode);
 
 span.addEventListener("click", function(e) {
@@ -2074,7 +2135,6 @@ updateDoneCount();
     </div>
 
 
-
   </body>
-  
+
 </html>
