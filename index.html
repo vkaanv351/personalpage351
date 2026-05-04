@@ -218,7 +218,7 @@
             border-radius: 15px;
             text-align: center;
 
-            animation: pop 0.4 ease;
+            animation: pop 0.4s ease;
 
         }
 
@@ -271,12 +271,6 @@
 
         }
 
-
-        .hidden {
-
-            display: none;
-
-        }
 
 
         body.dark-mode {
@@ -868,6 +862,19 @@
 
                 }
 
+                
+                .alertBox {
+
+                    display: none;
+
+                }
+
+
+                .alertBox:not(.hidden) {
+
+                    display: flex;
+
+                }
 
 
     </style>
@@ -1006,7 +1013,16 @@
 
     <script>
 
+
+
         document.addEventListener("DOMContentLoaded" , function() {
+
+
+        const alertBox = document.getElementById("alertBox");
+        const alertTitle = document.getElementById("alertTitle");
+        const alertText = document.getElementById("alertText");
+        const closeAlert = document.getElementById("closeAlert");
+        
 
         let lastDeletedTask = null;
         let lastDeletedAllTasks = null;
@@ -1034,6 +1050,7 @@ const completedBtn = document.querySelector("#completedBtn");
 const activeBtn = document.querySelector("#activeBtn");
 const clearAllBtn = document.querySelector("#clearAllBtn");
 const undoBtn = document.querySelector("#undoBtn");
+undoBtn.classList.add("undoDisabled");
 
 const allCount = document.querySelector("#totalCount");
 const activeCount = document.querySelector("#activeCount");
@@ -1161,10 +1178,7 @@ const resetCounterBtn = document.querySelector("#resetCounterBtn");
 
 const taskDate = document.querySelector("#taskDate");
 
-const alertBox = document.getElementById("alertBox");
-const alertTitle = document.getElementById("alertTitle");
-const alertText = document.getElementById("alertText");
-const closeAlert = document.getElementById("closeAlert");
+
 
 function showAlert(title, text) {
 
@@ -1187,12 +1201,13 @@ function showAlert(title, text) {
 
 }
 
+
 closeAlert.addEventListener("click" , function(){
 
     alertBox.classList.add("hidden");
     taskInput.focus();
 
-})
+});
 
 let audioEnabled = false;
 
@@ -1425,6 +1440,8 @@ addTaskBtn.addEventListener("click", function(){
     saveTasks(tasks);
     scheduleReminder(newTask);
     renderTasks();
+
+    showAlert("SUCCESS" , "TASK ADDED!");
 
     taskInput.value = "";
     taskDate.value = "";
@@ -1720,12 +1737,21 @@ undoBtn.addEventListener("click", function(){
         });
 
 
-// 💾 kaydet
+
 function getTasks() {
 
-    return JSON.parse(localStorage.getItem("tasks")) || [];
+    try {
+
+        return JSON.parse(localStorage.getItem("tasks")) || [];
+
+    } catch(e) {
+
+        return [];
+
+    }
 
 }
+
 
 function saveTasks(tasks) {
 
@@ -1801,14 +1827,30 @@ function scheduleReminder(task) {
 
 function renderTasks() {
 
+
     taskList.innerHTML = "";
 
     const tasks = getTasks();
 
+    tasks.sort((a, b) => {
+
+        const priorityOrder = {
+
+            "HIGH" : 3,
+            "MEDIUM" : 2,
+            "LOW" : 1
+
+        };
+
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+
+    });
+
+
     if(tasks.length === 0) {
 
         const emptyMessage = document.createElement("li");
-        emptyMessage.innerText = "📭 NO TASKS YET";
+        emptyMessage.innerText = "📭 NO TASKS YET , START BY ADDING ONE!";
         emptyMessage.classList.add("emptyMessage");
         emptyMessage.style.justifyContent = "center";
         emptyMessage.style.color = "gray";
@@ -1823,6 +1865,9 @@ function renderTasks() {
         updateDoneCount();
         applyCurrentFilter();
         return;
+        
+
+       
         
     }
 
@@ -2194,6 +2239,7 @@ function updateDoneCount() {
 
 
 updateDoneCount();
+
 
     </script>
 
