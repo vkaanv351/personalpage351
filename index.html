@@ -261,6 +261,14 @@
         }
 
 
+        .alertSuccess {
+
+            color: seagreen;
+
+        }
+
+
+
         .alertContent button {
 
             margin-top: 20px;
@@ -1185,7 +1193,7 @@ function showAlert(title, text) {
     alertTitle.innerText = title;
     alertText.innerText = text;
     
-    alertTitle.classList.remove("alertWarning", "alertReminder");
+    alertTitle.classList.remove("alertWarning", "alertReminder" , "alertSuccess");
 
     if(title === "WARNING !") {
 
@@ -1194,6 +1202,10 @@ function showAlert(title, text) {
     } else if(title === "⏰ TASK TIME !") {
 
         alertTitle.classList.add("alertReminder");
+
+    } else if(title === "SUCCESS") {
+
+        alertTitle.classList.add("alertSuccess");
 
     }
 
@@ -1208,6 +1220,7 @@ closeAlert.addEventListener("click" , function(){
     taskInput.focus();
 
 });
+
 
 let audioEnabled = false;
 
@@ -1914,6 +1927,28 @@ function renderTasks() {
             editCategorySelect.appendChild(optionWork);
             editCategorySelect.value = task.category;
 
+
+            const editPrioritySelect = document.createElement("select");
+            editPrioritySelect.classList.add("editSelect");
+
+            const optionLow = document.createElement("option");
+            optionLow.value = "LOW";
+            optionLow.innerText = "LOW";
+
+            const optionMedium = document.createElement("option");
+            optionMedium.value = "MEDIUM";
+            optionMedium.innerText = "MEDIUM";
+
+            const optionHigh = document.createElement("option");
+            optionHigh.value = "HIGH";
+            optionHigh.innerText = "HIGH";
+
+            editPrioritySelect.appendChild(optionLow);
+            editPrioritySelect.appendChild(optionMedium);
+            editPrioritySelect.appendChild(optionHigh);
+            editPrioritySelect.value = task.priority || "LOW";
+
+
             const editDateInput = document.createElement("input");
             editDateInput.type = "datetime-local";
             editDateInput.value = task.date || "";
@@ -1927,23 +1962,34 @@ function renderTasks() {
             cancelEditBtn.innerText = "CANCEL";
             cancelEditBtn.classList.add("editCancelBtn");
 
+
             editTextInput.addEventListener("click" , function(ev) {
 
                 ev.stopPropagation();
 
             });
             
+
             editCategorySelect.addEventListener("click" , function(ev) {
 
                 ev.stopPropagation();
 
             });
 
+
             editDateInput.addEventListener("click" , function(ev) {
 
                 ev.stopPropagation();
 
             });
+
+
+            editPrioritySelect.addEventListener("click" , function(ev) {
+
+                ev.stopPropagation();
+
+            });
+
 
             saveEditBtn.addEventListener("click" , function(ev) {
 
@@ -1952,16 +1998,9 @@ function renderTasks() {
                 const trimmedText = editTextInput.value.trim();
                 const newCategory = editCategorySelect.value;
                 const newDate = editDateInput.value;
+                const newPriority = editPrioritySelect.value;
 
-                lastEditedTask = {
-
-                    id : task.id,
-                    text : task.text,
-                    category : task.category,
-                    date : task.date,
-                    completed : task.completed
-
-                };
+                lastEditedTask = { ...task };
 
                 lastDeletedTask = null;
                 lastDeletedAllTasks = null;
@@ -1991,6 +2030,7 @@ function renderTasks() {
                 task.text = trimmedText;
                 task.category = newCategory;
                 task.date = newDate;
+                task.priority = newPriority;
 
                 if(reminderTimeouts[task.id]) {
 
@@ -2023,8 +2063,10 @@ function renderTasks() {
 
             });
 
+            
             li.appendChild(editTextInput);
             li.appendChild(editCategorySelect);
+            li.appendChild(editPrioritySelect);
             li.appendChild(editDateInput);
             li.appendChild(saveEditBtn);
             li.appendChild(cancelEditBtn);
