@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> PERSONAL PAGE </title>
-
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
 
 
@@ -885,6 +885,20 @@
                 }
 
 
+                body.dark-mode #progressContainer {
+
+                    background-color: #333;
+                    border-color: #555;
+
+                }
+
+                body.dark-mode #progressText {
+
+                    color: #eee;
+
+                }
+
+
     </style>
 
   </head>
@@ -906,6 +920,17 @@
     <div id = "todoSection">
 
     <h2> LIST : </h2>
+
+    <div id = "progressContainer" style = "background: #ddd; border-radius: 10px;
+    height: 20px; width: 100%; margin-bottom: 20px; overflow: hidden; border: 1px solid #999;">
+
+    <div id="progressBar" style = "background: linear-gradient(90deg, #48ff00, #2ea300);
+    height: 100%; width: 0%; transition: width 0.5s;"></div>
+
+    </div>
+
+    <p id = "progressText" style = "text-align: center; font-weight: bold;
+    margin-top: -15px; margin-bottom: 25px;"> 0% COMPLETED </p>
 
 <br>
 
@@ -1818,7 +1843,7 @@ function scheduleReminder(task) {
 
     } , delay);
 
-    if(delay > 10000) {
+    if(delay > 600000) {
 
         warningTimeouts[task.id] = setTimeout(function() {
 
@@ -1826,13 +1851,13 @@ function scheduleReminder(task) {
 
                 new Notification("⚠️ WARNING !" , {
 
-                    body : task.text + " WILL START IN 10 SECONDS !"
+                    body : task.text + " WILL START IN 10 MINUTES !"
                     
                 });
 
             }
 
-        } , delay - 10000);
+        } , delay - 600000);
 
     }
 
@@ -2128,11 +2153,14 @@ if(task.date) {
     ];
 
     const formattedDate = `${day} ${months[month]} ${hours}:${minutes}`;
-    dateSpan.innerText = "🕒 " + formattedDate;
+    dateSpan.innerHTML = '<i class = "fas fa-clock"></i> ' + formattedDate;
 }
 
+
 const deleteBtn = document.createElement("button");
-deleteBtn.innerText = "❌";
+deleteBtn.innerHTML = '<i class = "fas fa-trash"></i>';
+deleteBtn.style.color = "crimson";
+
 
 li.addEventListener("dragstart", function() {
     li.classList.add("dragging");
@@ -2268,6 +2296,26 @@ function updateDoneCount() {
 
     const total = items.length;
     const active = total - done;
+
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+
+    const percentage = total > 0 ? Math.round((done / total) * 100) : 0;
+
+    progressBar.style.width = percentage + "%";
+    progressText.innerText = "%" + percentage + " COMPLETED";
+
+
+    if(percentage === 100 && total > 0) {
+
+        progressBar.style.boxShadow = "0 0 10px #48ff00";
+
+    } else {
+
+        progressBar.style.boxShadow = "none";
+
+    }
+
 
     document.getElementById("doneCount").innerText = "COMPLETED : " + done;
     document.getElementById("totalCount").innerText = "TOTAL : " + total;
