@@ -899,6 +899,65 @@
                 }
 
 
+                .priority-card-HIGH {
+
+                    border-left: 8px solid crimson !important;
+                    box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+                    animation: glow-red 2s infinite alternate;
+
+                }
+
+
+                .priority-card-MEDIUM {
+
+                    border-left: 8px solid orange !important;
+
+                }
+
+
+                .priority-card-LOW {
+
+                    border-left: 8px solid #999 !important;
+
+                }
+
+
+                @keyframes glow-red {
+
+                    from { box-shadow: 0 0 5px rgba(220, 20, 60, 0.2); }
+
+                    to { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); }
+
+                }
+
+
+                .priority-card-MEDIUM {
+
+                    border-left: 8px solid orange !important;
+                    box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
+                    animation: glow-orange 3s infinite alternate;
+
+                }
+
+
+                .priority-card-LOW {
+
+                    border-left: 8px solid #999 !important;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+
+                }
+
+
+                @keyframes glow-orange {
+
+                    from { box-shadow: 0 0 3px rgba(255, 165, 0, 0.1); }
+
+                    to { box-shadow: 0 0 10px rgba(255, 165, 0, 0.3); }
+
+                }
+
+
+
     </style>
 
   </head>
@@ -1912,6 +1971,8 @@ function renderTasks() {
     tasks.forEach(function(task) {
 
         const li = document.createElement("li");
+
+        li.classList.add("priority-card-" + (task.priority || "LOW"));
 
         const isEditing = editingTaskIds.has(task.id);
 
