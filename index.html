@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> PERSONAL PAGE </title>
+
     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
 
 
@@ -737,7 +743,7 @@
 
                 display: block;
                 width: fit-content;
-                margin: 180px auto 20px auto;
+                margin: 0;
 
                 }
 
@@ -782,7 +788,7 @@
                     height: 80px;
                     object-fit: cover;
                     border-radius: 50%;
-                    margin: 20px auto;
+                    margin: 0;
                     border: 4px solid white;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
@@ -974,6 +980,34 @@
                 }
 
 
+                #downloadPdfBtn {
+
+                    background-color: #9b59b6;
+                    color: white;
+                    border-radius: 8px;
+
+                }
+
+
+                #downloadPdfBtn:hover {
+
+                    background-color: #8e44ad;
+                    transform: scale(1.05);
+
+                }
+
+
+                .aboutMe {
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 50px;
+                    margin-top: 10px;
+                    margin-bottom: 40px;
+
+                }
+
 
     </style>
 
@@ -1058,6 +1092,8 @@
 
     <button id = "undoBtn"> UNDO </button>
 
+    <button id = "downloadPdfBtn"> DOWNLOAD PDF </button>
+
 </div>
 
 <br><br><br><br>
@@ -1116,11 +1152,16 @@
     </div>
 
 
+    <br><br><br><br><br><br><br>
+
+    <div class = "aboutMe">
+
+    <img id = "profileImage" src = "kvlogo1.png" alt = "Profile Image">
     <a href = "https://www.instagram.com/vkaanv351/" class = "btn" id = "instagramBtn" target = "_blank"> GO TO INSTAGRAM ! </a>
 
-    <br>
+    </div>
 
-    <img id = "profileImage" src="kvlogo1.png" alt="Profile Image">
+    
 
     <script>
 
@@ -1168,6 +1209,50 @@ const completedBtn = document.querySelector("#completedBtn");
 const activeBtn = document.querySelector("#activeBtn");
 const clearAllBtn = document.querySelector("#clearAllBtn");
 const clearCompletedBtn = document.querySelector("#clearCompletedBtn");
+
+const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
+
+
+downloadPdfBtn.addEventListener("click", function() {
+
+    const element = document.getElementById('todoSection');
+
+    const opt = {
+
+        margin: 10 ,
+        filename: 'My_Daily_Progress.pdf' ,
+        image: { type: 'jpeg' , quality: 0.98 } ,
+        html2canvas: { scale: 2 , useCORS: true } ,
+        jsPDF: { unit: 'mm' , format: 'a4' , orientation: 'portrait' }
+
+    };
+
+
+    const controls = document.querySelector("#taskControls");
+    const filters = document.querySelector("#filterButtons");
+    const search = document.querySelector("#searchBox");
+
+    controls.style.display = 'none';
+    filters.style.display = 'none';
+    search.style.display = 'none';
+
+
+    html2pdf().set(opt).from(element).save().then(() => {
+
+        controls.style.display = 'flex';
+        filters.style.display = 'flex';
+        search.style.display = 'flex';
+
+    });
+
+    
+    showAlert("SUCCESS" , "YOUR PDF IS READY !");
+
+
+});
+
+
+
 const undoBtn = document.querySelector("#undoBtn");
 undoBtn.classList.add("undoDisabled");
 
