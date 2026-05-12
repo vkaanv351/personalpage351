@@ -122,12 +122,17 @@
 
         #taskList li {
 
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
             align-items: center;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 8px;
+            gap: 15px;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            border-left: 8px solid #999;
+            transition: transform 0.2s;
 
         }
 
@@ -154,16 +159,6 @@
         }
 
 
-        #taskList li {
-
-            cursor: grab;
-            transition: transform 0.2s ease;
-            background-color: #cccccc;
-            margin-bottom: 8px;
-            padding: 10px;
-            border-radius: 6px;
-
-        }
 
 
         #taskList li:not(.dragging):hover {
@@ -313,8 +308,7 @@
 
         body.dark-mode #taskList li {
 
-            background-color: #333;
-            color: white;
+            background-color: #222;
 
         }
 
@@ -1062,6 +1056,56 @@
                     border: 1px solid #999;
                     flex-grow: 1;
                     min-width: 200px;
+
+                }
+
+
+                .task-content-wrapper {
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 5px;
+
+                }
+
+
+                .task-header-row {
+
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 8px;
+
+                }
+
+
+                .taskNoteDisplay {
+
+                    display: block;
+                    font-size: 12.5px;
+                    color: #666;
+                    font-style: italic;
+                    padding-left: 8px;
+                    border-left: 2px solid #ddd;
+                    margin-top: 2px;
+
+                }
+
+
+                body.dark-mode .taskNoteDisplay {
+
+                    color: #bbb;
+                    border-left-color: #444;
+
+                }
+
+
+                .task-date-display {
+
+                    font-size: 12px;
+                    color: #555;
+                    white-space: nowrap;
 
                 }
 
@@ -2363,171 +2407,109 @@ function renderTasks() {
 
         }
 
+        
         else {
+            
 
-            const span = document.createElement("span");
-
-const categoryBadge = document.createElement("span");
-categoryBadge.innerText = task.category;
-categoryBadge.classList.add("categoryBadge", "category-" + task.category);
+            const contentWrapper = document.createElement("div");
+            contentWrapper.classList.add("task-content-wrapper");
 
 
-const priorityBadge = document.createElement("span");
-priorityBadge.innerText = task.priority || "LOW";
-priorityBadge.classList.add("priorityBadge", "priority-" + (task.priority || "LOW"));
-
-const taskTextNode = document.createElement("span");
-taskTextNode.innerText = task.text;
+            const headerRow = document.createElement("div");
+            headerRow.classList.add("task-header-row");
 
 
-if(task.note) {
-
-    const noteEl = document.createElement("small");
-    noteEl.innerText = "📝 " + task.note;
-    noteEl.classList.add("taskNoteDisplay");
-    span.appendChild(noteEl);
-
-}
+            const categoryBadge = document.createElement("span");
+            categoryBadge.innerText = task.category;
+            categoryBadge.classList.add("categoryBadge", "category-" + task.category);
 
 
-span.appendChild(categoryBadge);
-span.appendChild(priorityBadge);
-span.appendChild(taskTextNode);
-
-span.addEventListener("click", function(e) {
-    e.stopPropagation();
-});
-
-span.addEventListener("dblclick", function(e) {
-    e.stopPropagation();
-    editingTaskIds.add(task.id);
-    renderTasks();
-});
-
-const dateSpan = document.createElement("span");
-
-dateSpan.style.marginLeft = "10px";
-dateSpan.style.marginRight = "50px";
-dateSpan.style.position = "relative";
-dateSpan.style.top = "-3px";
-
-if(task.date) {
-    
-    const d = new Date(task.date);
-
-    const day = d.getDate();
-    const month = d.getMonth();
-    const hours = d.getHours().toString().padStart(2, "0");
-    const minutes = d.getMinutes().toString().padStart(2, "0");
-
-    const months = [
-
-        "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY",
-        "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-
-    ];
-
-    const formattedDate = `${day} ${months[month]} ${hours}:${minutes}`;
-    dateSpan.innerHTML = '<i class = "fas fa-clock"></i> ' + formattedDate;
-}
+            const priorityBadge = document.createElement("span");
+            priorityBadge.innerText = task.priority || "LOW";
+            priorityBadge.classList.add("priorityBadge", "priority-" + (task.priority || "LOW"));
 
 
-const deleteBtn = document.createElement("button");
-deleteBtn.innerHTML = '<i class = "fas fa-trash"></i>';
-deleteBtn.style.color = "crimson";
+            const taskTextNode = document.createElement("span");
+            taskTextNode.innerText = task.text;
+            taskTextNode.style.fontWeight = "bold";
 
 
-li.addEventListener("dragstart", function() {
-    li.classList.add("dragging");
-});
+            headerRow.appendChild(categoryBadge);
+            headerRow.appendChild(priorityBadge);
+            headerRow.appendChild(taskTextNode);
+            contentWrapper.appendChild(headerRow);
 
-li.addEventListener("dragend", function() {
-    li.classList.remove("dragging");
+            
 
-    const ids = [...taskList.querySelectorAll("li[data-id]")].map(function(item) {
-        return Number(item.dataset.id);
-    });
+            if(task.note) {
+                const noteEl = document.createElement("small");
+                noteEl.innerText = "📝 " + task.note;
+                noteEl.classList.add("taskNoteDisplay");
+                contentWrapper.appendChild(noteEl);
+            }
 
-    const newOrderedTasks = ids.map(function(id) {
-        return tasks.find(function(t) {
-            return t.id === id;
-        });
-    });
+            
 
-    saveTasks(newOrderedTasks);
-});
+            const dateSpan = document.createElement("span");
+            dateSpan.classList.add("task-date-display");
 
-li.addEventListener("click", function() {
-    task.completed = !task.completed;
 
-    if(task.completed) {
+            if(task.date) {
+                const d = new Date(task.date);
+                const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+                const formattedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
+                dateSpan.innerHTML = '<i class="fas fa-clock"></i> ' + formattedDate;
+            }
 
-        tickSound.currentTime = 0;
-        tickSound.play().catch(e => console.log("Ses engellendi: Sayfaya bir kez tıklamanız lazım."));
+            
 
-    
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteBtn.style.color = "crimson";
+            deleteBtn.style.background = "transparent";
+            deleteBtn.style.padding = "5px";
+            deleteBtn.style.cursor = "pointer";
 
-    }
 
-    if(task.completed) {
-        if(reminderTimeouts[task.id]) {
-            clearTimeout(reminderTimeouts[task.id]);
-            delete reminderTimeouts[task.id];
-        }
 
-        if(warningTimeouts[task.id]) {
-            clearTimeout(warningTimeouts[task.id]);
-            delete warningTimeouts[task.id];
-        }
-    } else {
-        scheduleReminder(task);
-    }
+            deleteBtn.onclick = function(e) {
+                e.stopPropagation();
+                lastDeletedTask = task;
+                lastDeletedAllTasks = null;
+                updateUndoButton();
+                const tasks = getTasks();
+                const updatedTasks = tasks.filter(t => t.id !== task.id);
+                saveTasks(updatedTasks);
+                renderTasks();
 
-    saveTasks(tasks);
-    renderTasks();
-    updateDoneCount();
-});
+            };
 
-deleteBtn.addEventListener("click", function(e) {
-    e.stopPropagation();
+            li.onclick = function() {
 
-    if(reminderTimeouts[task.id]) {
+                task.completed = !task.completed;
+                if(task.completed) {
+                    tickSound.currentTime = 0;
+                    tickSound.play().catch(e => {});
 
-        clearTimeout(reminderTimeouts[task.id]);
-        delete reminderTimeouts[task.id];
+                }
+                const tasks = getTasks();
+                const updatedTasks = tasks.map(t => t.id === task.id ? task : t);
+                saveTasks(updatedTasks);
+                renderTasks();
 
-    }
+            };
 
-    if(warningTimeouts[task.id]) {
+          
+            li.appendChild(contentWrapper);
+            li.appendChild(dateSpan);
+            li.appendChild(deleteBtn);
 
-        clearTimeout(warningTimeouts[task.id]);
-        delete warningTimeouts[task.id];
-
-    }
-
-    lastDeletedTask = task;
-    lastDeletedAllTasks = null;
-    updateUndoButton();
-
-    const updatedTasks = tasks.filter(function(t) {
-
-        return t.id !== task.id;
-
-    });
-
-    saveTasks(updatedTasks);
-    renderTasks();
-    updateDoneCount();
-
-});
-
-li.appendChild(span);
-li.appendChild(dateSpan);
-li.appendChild(deleteBtn);
 
         }
+
 
         taskList.appendChild(li);
+
 
     });
 
@@ -2635,6 +2617,7 @@ updateDoneCount();
 
     <div id = "alertBox" class = "alertBox hidden">
 
+        
         <div class = "alertContent">
 
             <h1 id = "alertTitle"> WARNING ! </h1>
@@ -2642,6 +2625,7 @@ updateDoneCount();
             <button id = "closeAlert"> CLOSE </button>
 
         </div>
+
         
     </div>
 
