@@ -1110,6 +1110,36 @@
                 }
 
 
+                #pomodoroContainer button {
+
+                    background-color: seagreen;
+                    color: white;
+                    border-radius: 8px;
+                    margin: 5px;
+
+                }
+
+
+                #timerDisplay {
+
+                    font-family: 'Courier New', Courier, monospace;
+                    color: seagreen;
+
+                }
+
+
+                body.dark-mode #timerDisplay {
+
+                    color: #48ff00;
+
+                }
+
+
+                body.dark-mode #timerDisplay { color: #48ff00; }
+
+                body.dark-mode #pomodoroContainer h3 { color: #48ff00; }
+
+
     </style>
 
   </head>
@@ -1122,11 +1152,48 @@
     
     <br><br>
 
+
     <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
 
 <br>
 
     
+
+    <div id = "pomodoroContainer" class = "card" style = "text-align: center; border-color: #2ea300; margin-bottom: 30px;">
+
+    <h3 style = "margin-top: 0; color: #2ea300;"><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
+
+    <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">25:00</h2>
+
+
+    <div style = "margin-bottom: 15px;">
+
+
+        <input type = "number" id = "customMinutes" placeholder = "DK" style = "width: 60px;
+        text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+
+
+        <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db;
+        color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
+
+
+    </div>
+
+
+
+    <div id = "timerControls">
+
+        <button id = "startTimer" style = "background-color: #2ea300; color: white; border-radius: 8px;">START</button>
+        
+        <button id = "pauseTimer" style = "background-color: orange; color: white; border-radius: 8px;">PAUSE</button>
+
+        <button id = "resetTimer" style = "background-color: #999; color: white; border-radius: 8px;">RESET</button>
+
+    </div>
+
+    </div>
+
+
 
     <div id = "todoSection">
 
@@ -1485,6 +1552,56 @@ const decreaseBtn = document.querySelector("#decreaseBtn");
 const resetCounterBtn = document.querySelector("#resetCounterBtn");
 
 const taskDate = document.querySelector("#taskDate");
+
+
+
+// --- POMODORO SİSTEMİ BAŞLANGIÇ ---
+
+let timer;
+
+let timeLeft = 25 * 60; // Burayı 5 yaparsan 5 saniyede test edersin!
+
+const timerDisplay = document.getElementById("timerDisplay");
+
+function updateTimerDisplay() {
+
+    let mins = Math.floor(timeLeft / 60);
+    let secs = timeLeft % 60;
+    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    
+}
+
+document.getElementById("startTimer").onclick = function() {
+    if (timer) return;
+    timer = setInterval(function() {
+        if (timeLeft > 0) {
+            timeLeft--;
+            updateTimerDisplay();
+        } else {
+            clearInterval(timer);
+            timer = null;
+            showAlert("⏰ FOCUS OVER!", "GREAT STUDY SESSION DOSTUM!");
+            if(typeof confetti === 'function') {
+                confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+            }
+            successSound.play().catch(e => {});
+        }
+    }, 1000);
+};
+
+document.getElementById("pauseTimer").onclick = function() {
+    clearInterval(timer);
+    timer = null;
+};
+
+document.getElementById("resetTimer").onclick = function() {
+    clearInterval(timer);
+    timer = null;
+    timeLeft = 25 * 60;
+    updateTimerDisplay();
+};
+// --- POMODORO SİSTEMİ BİTİŞ ---
+
 
 
 
@@ -2166,6 +2283,88 @@ function scheduleReminder(task) {
     }
 
 }
+
+
+
+const startBtn = document.getElementById("startTimer");
+const pauseBtn = document.getElementById("pauseTimer");
+const resetBtn = document.getElementById("resetTimer");
+
+
+function updateTimerDisplay() {
+
+    let mins = Math.floor(timeLeft / 60);
+    let secs = timeLeft % 60;
+    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+
+startBtn.onclick = () => {
+
+    if(timer) return;
+
+    timer = setInterval(() => {
+
+        if(timeLeft > 0) {
+
+            timeLeft--;
+            updateTimerDisplay();
+
+        } else {
+            clearInterval(timer);
+            timer = null;
+            showAlert("🏁 TIME'S UP!", "GREAT JOB ON YOUR STUDY BLOCK !");
+            confetti({particleCount: 150, spread: 70, origin: { y: 0.6 }});
+
+        }
+
+    }, 1000);
+
+};
+
+
+pauseBtn.onclick = () => {
+
+    clearInterval(timer);
+    timer = null;
+
+};
+
+
+resetBtn.onclick = () => {
+
+    clearInterval(timer);
+    timer = null;
+    timeLeft = 25 * 60;
+    updateTimerDisplay();
+
+};
+
+
+const setTimerBtn = document.getElementById("setTimerBtn");
+const customMinutesInput = document.getElementById("customMinutes");
+
+setTimerBtn.onclick = function() {
+
+    const mins = parseInt(customMinutesInput.value);
+    if(isNaN(mins) || mins <= 0 || mins > 300) {
+
+        showAlert("WARNING !" , "PLEASE ENTER A VALID MINUTE (1-300) !");
+        return;
+
+    }
+
+
+    clearInterval(timer);
+    timer = null;
+    timeLeft = mins * 60;
+    updateTimerDisplay();
+    showAlert("SUCCESS" , "TIMER SET TO " + mins + " MINUTES !");
+
+    
+};
+
+
 
 function renderTasks() {
 
