@@ -6,122 +6,82 @@
     <title> PERSONAL PAGE </title>
 
     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <script src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-
-
-
         body {
-
             background-color: #f2f2f2;
             font-family: Arial, Helvetica, sans-serif;
             padding: 40px;
-
         }
-
         
         h1 {
-
             text-align: center;
             color: #333;
-
         }
-
 
         h2 {
-
             color: #444;
-
         }
 
-
         .todoList {
-
             background-color: transparent;
             list-style-type: none;
             padding: 0;
             margin:  0;
-
         }
 
-
         button {
-
             padding: 12px 24px;
             background-color: rgb(0, 217, 255);
             border: none;
             cursor: pointer;
             transition: all 0.2s ease;
-
         }
 
-
         .btndlt {
-
             background-color: rgb(32, 236, 114);
             padding: 10px 15px;
             border: none;
             cursor: pointer;
-
         }
 
-
         .btn {
-
             background-color: orange;
             padding: 12px 24px;
             text-decoration: none;
             color: white;
             display: inline-block;
-            
         }
-
-        
 
         .btn:hover {
-
             background-color: orangered;
-
         }
 
-
-
         .card {
-
             background-color: #f0f0f0;
             padding: 25px;
             border-radius: 10px;
-            width: 500px;
+            width: 500px; /* Orijinal PC genişliği */
+            max-width: 95%; /* Mobil için esneklik sigortası */
+            box-sizing: border-box;
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
             border: #303030 solid 5px;
-
         }
-
-
 
         li {
-
             padding: 8px 0;
-
         }
-
 
         .hidden {
-
             display: none;
-
         }
 
-
         #taskList li {
-
             display: grid;
             grid-template-columns: 1fr auto auto;
             align-items: center;
@@ -133,232 +93,147 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             border-left: 8px solid #999;
             transition: transform 0.2s;
-
         }
-
 
         .completed {
-
             color: gray;
             text-decoration: line-through;
-
         }
-
 
         .argb {
-
             background-color: rgb(48, 202, 27);
-
         }
-
 
         .dragging {
-
             opacity: 0.5;
-
         }
-
-
-
 
         #taskList li:not(.dragging):hover {
-
             transform: scale(1.02);
-
         }
-
 
         #taskList li:active {
-
             cursor: grabbing;
-
         }
 
-
         .dragging {
-
             opacity: 0.5;
             background-color: #ddd;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-
         }
 
-
         small {
-
             display: block;
             font-size: 12px;
             color: gray;
             margin-top: 5px;
-
         }
 
-
         .alertBox {
-
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-
             background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
-
             z-index: 9999;
-
         }
 
-
         .alertContent {
-
             background: white;
             padding: 40px;
             border-radius: 15px;
             text-align: center;
-
             animation: pop 0.4s ease;
-
         }
 
         @keyframes pop {
-
             from {
-
                 transform: scale(0.5);
                 opacity: 0;
-
             }
             to {
-
                 transform: scale(1);
                 opacity: 1;
-
             }
-            
         }
-
 
         .alertContent h1 {
-
             margin-bottom: 10px;
-
         }
-
 
         .alertWarning {
-
             color: red;
-
         }
-
 
         .alertReminder {
-
             color: orange;
-
         }
-
 
         .alertSuccess {
-
             color: seagreen;
-
         }
 
-
-
         .alertContent button {
-
             margin-top: 20px;
             padding: 10px 20px;
             background: orange;
             border: none;
             cursor: pointer;
-
         }
-
-
 
         body.dark-mode {
-
             background-color: #111;
             color: white;
-
         }
-
 
         body.dark-mode h1 ,
         body.dark-mode h2 ,
         body.dark-mode h3 {
-
             color: white;
-
         }
-
 
         body.dark-mode .card {
-
             background-color: #222;
-
         }
-
 
         body.dark-mode #taskList li {
-
             background-color: #222;
-
         }
-
 
         body.dark-mode input,
         body.dark-mode select {
-
             background-color: #333;
             color: white;
             border: 1px solid #555;
-
         }
-
 
         body.dark-mode input::placeholder {
-
             color: #ccc;
-
         }
-
 
         .activeFilter {
-
             background-color: orangered;
             color: white;
-
         }
 
-
         .statsBox {
-
             background-color: white;
             padding: 12px 16px;
             border-radius: 8px;
             margin-bottom: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-
         }
-
 
         body.dark-mode .statsBox {
-
             background-color: #222;
             color: white;
-
         }
-
 
         .categoryBadge {
-
             display: inline-block;
             padding: 4px 8px;
             border-radius: 6px;
@@ -366,33 +241,21 @@
             font-weight: bold;
             margin-right: 8px;
             color: white;
-
         }
-
 
         .category-SCHOOL {
-
             background-color: royalblue;
-
         }
-
 
         .category-PERSONAL {
-
             background-color: purple;
-
         }
-
 
         .category-WORK {
-
             background-color: seagreen;
-
         }
 
-
         .priorityBadge {
-
             display: inline-block;
             padding: 4px 8px;
             border-radius: 6px;
@@ -400,67 +263,43 @@
             font-weight: bold;
             margin-right: 8px;
             color: white;
-
         }
-
         
         .priority-LOW {
-
             background-color: gray;
-
         }
-
 
         .priority-MEDIUM {
-
             background-color: orange;
-
         }
-
 
         .priority-HIGH {
-
             background-color: crimson;
-
         }
-
 
         .editInput ,
         .editSelect ,
         .editDateInput {
-
             padding: 8px;
             border-radius: 6px;
             border: 1px solid #999;
             margin-right: 8px;
-
         }
-
 
         .editInput {
-
             width: 120px;
-
         }
-
 
         .editSelect {
-
             width: 90px;
-
         }
-
 
         .editDateInput {
-
             width: 150px;
-
         }
-
 
         .editSaveBtn,
         .editCancelBtn {
-
             padding: 8px 12px;
             border-radius: 6px;
             border: none;
@@ -468,99 +307,62 @@
             margin-left: 4px;
             transition: all 0.2s ease;
         }
-
         
         .editSaveBtn {
-
             background-color: crimson;
             color: white;
-
         }
-
 
         .editSaveBtn:hover {
-
             background-color: mediumseagreen;
             transform: scale(1.03);
-
         }
-
 
         .editCancelBtn {
-
             background-color: gray;
             color: white;
-
         }
-
 
         .editCancelBtn:hover {
-
             background-color: dimgray;
             transform: scale(1.03);
-
         }
         
-
         body.dark-mode .editInput,
         body.dark-mode .editSelect,
         body.dark-mode .editDateInput {
-
             background-color: #333;
             color: white;
             border: 1px solid #666;
-
         }
-
 
         .doneStat {
-
             border-left: 8px solid rgb(72, 255, 0);
-
         }
-
 
         .totalStat {
-
             border-left: 8px solid rgb(251, 255, 0);
-
         }
-
 
         .activeStat {
-
             border-left: 8px solid rgb(255, 145, 0);
-
         }
-
 
         .schoolStat {
-
             border-left: 8px solid royalblue;
-
         }
-
 
         .personalStat {
-
             border-left: 8px solid purple;
-
         }
-
 
         .workStat {
-
             border-left: 8px solid seagreen;
-
         }
-
 
         .statsBox {
-
             cursor: pointer;
-
         }
-
         
         #allBtn:hover,
         #completedBtn:hover,
@@ -568,13 +370,9 @@
         #schoolBtn:hover,
         #personalBtn:hover,
         #workBtn:hover {
-
             background-color: darkorange;
             transform: scale(1.03);
-
         }
-
-
 
         #allBtn,
         #activeBtn,
@@ -582,2253 +380,1331 @@
         #schoolBtn,
         #personalBtn,
         #workBtn {
-
-                    border-radius: 8px;
-
-                }
-
-
+            border-radius: 8px;
+        }
 
         #addTaskBtn {
-
-                background-color: seagreen;
-                color: white;
-    
-            }
-    
-
-            #addTaskBtn:hover {
-    
-                background-color: mediumseagreen;
-                transform: scale(1.03);
-
+            background-color: seagreen;
+            color: white;
         }
-
+    
+        #addTaskBtn:hover {
+            background-color: mediumseagreen;
+            transform: scale(1.03);
+        }
 
         #clearAllBtn {
-
             background-color: crimson;
             color: white;
-
         }
-
 
         #clearAllBtn:hover {
-
             background-color: red;
             transform: scale(1.03);
-
         }
-
 
         #taskInput,
         #taskCategory,
         #taskPriority,
         #taskDate {
-
             padding: 10px;
             border-radius: 8px;
             border: 1px solid #999;
-
         }
-
 
         #taskInput:focus,
         #taskCategory:focus,
         #taskPriority:focus,
         #taskDate:focus {
-
             outline: none;
             border-color: rgb(255, 0, 0);
-
         }
-
 
         .undoDisabled {
-
             opacity: 0.5;
             cursor: not-allowed;
-
         }
-
 
         .undoActive {
-
             opacity: 1;
             cursor: pointer;
-
         }
 
-
         #siteDescription {
-
             text-align: center;
             color: #666;
             margin-top: -10px;
             margin-bottom: 25px;
+        }
 
+        body.dark-mode #siteDescription {
+            color: #ccc;
+        }
+
+        body.dark-mode #counter {
+            color: #bbb;
+        }
+
+        #counterTitle {
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        body.dark-mode #counterTitle {
+            color: #ccc;
+        }
+
+        #counterTitle ,
+        #counter {
+            text-align: center;
+        }
+
+        #counter {
+            margin-top: 0;
+        }
+
+        #counterButtons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        #todoSection {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        #instagramBtn {
+            display: block;
+            width: fit-content;
+            margin: 0;
+        }
+
+        #taskControls,
+        #filterButtons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        #taskControls {
+            margin-bottom: 12px;
+        }
+
+        #taskControls button {
+            padding: 10px 18px;
+        }
+
+        #filterButtons button {
+            min-width: 100px;
+        }
+
+        #profileImage {
+            display: block;
+            width:  80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        body.dark-mode #searchInput {
+            background-color: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+
+        body.dark-mode #searchInput::placeholder {
+            color: #ccc;
+        }
+
+        #searchBox {
+            position: relative;
+            width: 320px;
+            margin: 0 auto 20px auto;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px 38px 10px 10px;
+            border-radius: 8px;
+            border: 3px solid #ff0000;
+            box-sizing: border-box;
+        }
+        
+        #clearSearchBtn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            color: gray;
+            border: none;
+            padding: 0;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #clearSearchBtn:hover {
+            color: red;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        #addTaskBtn,
+        #clearAllBtn,
+        #undoBtn {
+            border-radius: 8px;
+        }
+
+        #colorBtn,
+        #increaseBtn,
+        #decreaseBtn,
+        #resetCounterBtn,
+        #instagramBtn {
+            border-radius: 8px;
+        }
+        
+        .alertBox {
+            display: none;
+        }
+
+        .alertBox:not(.hidden) {
+            display: flex;
+        }
+
+        body.dark-mode #progressContainer {
+            background-color: #333;
+            border-color: #555;
+        }
+
+        body.dark-mode #progressText {
+            color: #eee;
+        }
+
+        .priority-card-HIGH {
+            border-left: 8px solid crimson !important;
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+            animation: glow-red 2s infinite alternate;
+        }
+
+        .priority-card-MEDIUM {
+            border-left: 8px solid orange !important;
+        }
+
+        .priority-card-LOW {
+            border-left: 8px solid #999 !important;
+        }
+
+        @keyframes glow-red {
+            from { box-shadow: 0 0 5px rgba(220, 20, 60, 0.2); }
+            to { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); }
+        }
+
+        .priority-card-MEDIUM {
+            border-left: 8px solid orange !important;
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
+            animation: glow-orange 3s infinite alternate;
+        }
+
+        .priority-card-LOW {
+            border-left: 8px solid #999 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes glow-orange {
+            from { box-shadow: 0 0 3px rgba(255, 165, 0, 0.1); }
+            to { box-shadow: 0 0 10px rgba(255, 165, 0, 0.3); }
+        }
+
+        #clearCompletedBtn {
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+        }
+
+        #clearCompletedBtn:hover {
+            background-color: #2980b9;
+            transform: scale(1.03);
+        }
+
+        #downloadPdfBtn {
+            background-color: #9b59b6;
+            color: white;
+            border-radius: 8px;
+        }
+
+        #downloadPdfBtn:hover {
+            background-color: #8e44ad;
+            transform: scale(1.05);
+        }
+
+        .aboutMe {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .taskNoteDisplay {
+            display: block;
+            font-size: 13px;
+            color: #777;
+            margin-top: 4px;
+            font-style: italic;
+            width: 100%;
+        }
+
+        body.dark-mode .taskNoteDisplay {
+            color: #aaa;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
             }
-
-
-            body.dark-mode #siteDescription {
-
-                color: #ccc;
-
-             }
-
-
-             body.dark-mode #counter {
-
-                color: #bbb;
-
-                }
-
-
-            #counterTitle {
-
-                color: #666;
-                margin-bottom: 8px;
-
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
+        }
 
+        .task-item-animate {
+            animation: slideIn 0.4s ease-out forwards;
+        }
 
-            body.dark-mode #counterTitle {
+        #taskNote {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #999;
+            flex-grow: 1;
+            min-width: 200px;
+        }
 
-                color: #ccc;
+        .task-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
 
+        .task-header-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .taskNoteDisplay {
+            display: block;
+            font-size: 12.5px;
+            color: #666;
+            font-style: italic;
+            padding-left: 8px;
+            border-left: 2px solid #ddd;
+            margin-top: 2px;
+        }
+
+        body.dark-mode .taskNoteDisplay {
+            color: #bbb;
+            border-left-color: #444;
+        }
+
+        .task-date-display {
+            font-size: 12px;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        #pomodoroContainer button {
+            background-color: seagreen;
+            color: white;
+            border-radius: 8px;
+            margin: 5px;
+        }
+
+        #timerDisplay {
+            font-family: 'Courier New', Courier, monospace;
+            color: seagreen;
+        }
+
+        body.dark-mode #timerDisplay {
+            color: #48ff00;
+        }
+
+        body.dark-mode #timerDisplay { color: #48ff00; }
+        body.dark-mode #pomodoroContainer h3 { color: #48ff00; }
+
+        /* AKILLI MOBİL KORUMA KALKANI - Sadece küçük ekranlarda çalışır */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
             }
-
-
-            #counterTitle ,
-            #counter {
-
-                text-align: center;
-
+            #taskControls {
+                flex-direction: column;
+                align-items: stretch;
             }
-
-
-            #counter {
-
-                margin-top: 0;
-
+            #taskControls input, 
+            #taskControls select, 
+            #taskControls button {
+                width: 100% !important;
             }
-
-
-            #counterButtons {
-
-                display: flex;
-                justify-content: center;
-                gap: 12px;
-                flex-wrap: wrap;
-                margin-top: 20px;
-
+            #taskList li {
+                grid-template-columns: 1fr;
+                gap: 10px;
             }
-
-
-            #todoSection {
-
-                max-width: 1200px;
-                margin: 0 auto;
-
-            }
-
-
-            #instagramBtn {
-
-                display: block;
-                width: fit-content;
-                margin: 0;
-
-                }
-
-
-                #taskControls,
-                #filterButtons {
-
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-wrap: wrap;
-                    gap: 6px;
-
-                }
-
-
-                #taskControls {
-
-                    margin-bottom: 12px;
-
-                }
-
-
-                #taskControls button {
-
-                    padding: 10px 18px;
-
-                }
-
-
-                #filterButtons button {
-
-                    min-width: 100px;
-
-                }
-
-
-                #profileImage {
-
-                    display: block;
-                    width:  80px;
-                    height: 80px;
-                    object-fit: cover;
-                    border-radius: 50%;
-                    margin: 0;
-                    border: 4px solid white;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-
-                }
-
-
-
-                body.dark-mode #searchInput {
-
-                    background-color: #333;
-                    color: white;
-                    border: 1px solid #555;
-
-                }
-
-
-                body.dark-mode #searchInput::placeholder {
-
-                    color: #ccc;
-
-                }
-
-
-                #searchBox {
-
-                    position: relative;
-                    width: 320px;
-                    margin: 0 auto 20px auto;
-
-                }
-
-
-                #searchInput {
-
-                    width: 100%;
-                    padding: 10px 38px 10px 10px;
-                    border-radius: 8px;
-                    border: 3px solid #ff0000;
-                    box-sizing: border-box;
-
-                }
-
-                
-                #clearSearchBtn {
-
-                    position: absolute;
-                    right: 8px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    background-color: transparent;
-                    color: gray;
-                    border: none;
-                    padding: 0;
-                    font-size: 18px;
-                    cursor: pointer;
-                    display: none;
-
-                }
-
-
-                #clearSearchBtn:hover {
-
-                    color: red;
-                    transform: translateY(-50%) scale(1.1);
-
-                }
-
-
-                #addTaskBtn,
-                #clearAllBtn,
-                #undoBtn {
-
-                    border-radius: 8px;
-
-                }
-
-
-                #colorBtn,
-                #increaseBtn,
-                #decreaseBtn,
-                #resetCounterBtn,
-                #instagramBtn {
-
-                    border-radius: 8px;
-
-                }
-
-                
-                .alertBox {
-
-                    display: none;
-
-                }
-
-
-                .alertBox:not(.hidden) {
-
-                    display: flex;
-
-                }
-
-
-                body.dark-mode #progressContainer {
-
-                    background-color: #333;
-                    border-color: #555;
-
-                }
-
-                body.dark-mode #progressText {
-
-                    color: #eee;
-
-                }
-
-
-                .priority-card-HIGH {
-
-                    border-left: 8px solid crimson !important;
-                    box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
-                    animation: glow-red 2s infinite alternate;
-
-                }
-
-
-                .priority-card-MEDIUM {
-
-                    border-left: 8px solid orange !important;
-
-                }
-
-
-                .priority-card-LOW {
-
-                    border-left: 8px solid #999 !important;
-
-                }
-
-
-                @keyframes glow-red {
-
-                    from { box-shadow: 0 0 5px rgba(220, 20, 60, 0.2); }
-
-                    to { box-shadow: 0 0 15px rgba(220, 20, 60, 0.5); }
-
-                }
-
-
-                .priority-card-MEDIUM {
-
-                    border-left: 8px solid orange !important;
-                    box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
-                    animation: glow-orange 3s infinite alternate;
-
-                }
-
-
-                .priority-card-LOW {
-
-                    border-left: 8px solid #999 !important;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-
-                }
-
-
-                @keyframes glow-orange {
-
-                    from { box-shadow: 0 0 3px rgba(255, 165, 0, 0.1); }
-
-                    to { box-shadow: 0 0 10px rgba(255, 165, 0, 0.3); }
-
-                }
-
-
-                #clearCompletedBtn {
-
-                    background-color: #3498db;
-                    color: white;
-                    border-radius: 8px;
-
-                }
-
-
-                #clearCompletedBtn:hover {
-
-                    background-color: #2980b9;
-                    transform: scale(1.03);
-
-                }
-
-
-                #downloadPdfBtn {
-
-                    background-color: #9b59b6;
-                    color: white;
-                    border-radius: 8px;
-
-                }
-
-
-                #downloadPdfBtn:hover {
-
-                    background-color: #8e44ad;
-                    transform: scale(1.05);
-
-                }
-
-
-                .aboutMe {
-
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 50px;
-                    margin-top: 10px;
-                    margin-bottom: 40px;
-
-                }
-
-
-                .taskNoteDisplay {
-
-                    display: block;
-                    font-size: 13px;
-                    color: #777;
-                    margin-top: 4px;
-                    font-style: italic;
-                    width: 100%;
-                    
-
-                }
-
-
-                body.dark-mode .taskNoteDisplay {
-
-                    color: #aaa;
-
-                }
-
-
-                @keyframes slideIn {
-
-                    from {
-
-                        opacity: 0;
-                        transform: translateX(-30px);
-
-                    }
-
-                    to {
-
-                        opacity: 1;
-                        transform: translateX(0);
-
-                    }
-
-                }
-
-
-                .task-item-animate {
-
-                    animation: slideIn 0.4s ease-out forwards;
-
-                }
-
-
-                #taskNote {
-
-                    padding: 10px;
-                    border-radius: 8px;
-                    border: 1px solid #999;
-                    flex-grow: 1;
-                    min-width: 200px;
-
-                }
-
-
-                .task-content-wrapper {
-
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 5px;
-
-                }
-
-
-                .task-header-row {
-
-                    display: flex;
-                    align-items: center;
-                    flex-wrap: wrap;
-                    gap: 8px;
-
-                }
-
-
-                .taskNoteDisplay {
-
-                    display: block;
-                    font-size: 12.5px;
-                    color: #666;
-                    font-style: italic;
-                    padding-left: 8px;
-                    border-left: 2px solid #ddd;
-                    margin-top: 2px;
-
-                }
-
-
-                body.dark-mode .taskNoteDisplay {
-
-                    color: #bbb;
-                    border-left-color: #444;
-
-                }
-
-
-                .task-date-display {
-
-                    font-size: 12px;
-                    color: #555;
-                    white-space: nowrap;
-
-                }
-
-
-                #pomodoroContainer button {
-
-                    background-color: seagreen;
-                    color: white;
-                    border-radius: 8px;
-                    margin: 5px;
-
-                }
-
-
-                #timerDisplay {
-
-                    font-family: 'Courier New', Courier, monospace;
-                    color: seagreen;
-
-                }
-
-
-                body.dark-mode #timerDisplay {
-
-                    color: #48ff00;
-
-                }
-
-
-                body.dark-mode #timerDisplay { color: #48ff00; }
-
-                body.dark-mode #pomodoroContainer h3 { color: #48ff00; }
-
-
+        }
     </style>
-
   </head>
   
   <body>
 
     <h1 id = "title"> TO-DO LIST </h1>
-
-    
     
     <br><br>
 
-
     <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
-
-<br>
-
-    
+    <br>
 
     <div id = "pomodoroContainer" class = "card" style = "text-align: center; border-color: #2ea300; margin-bottom: 30px;">
+        <h3 style = "margin-top: 0; color: #2ea300;"><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
+        <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">25:00</h2>
 
-    <h3 style = "margin-top: 0; color: #2ea300;"><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
+        <div style = "margin-bottom: 15px;">
+            <input type = "number" id = "customMinutes" placeholder = "DK" style = "width: 60px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+            <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db; color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
+        </div>
 
-    <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">25:00</h2>
-
-
-    <div style = "margin-bottom: 15px;">
-
-
-        <input type = "number" id = "customMinutes" placeholder = "DK" style = "width: 60px;
-        text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-
-
-        <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db;
-        color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
-
-
+        <div id = "timerControls">
+            <button id = "startTimer" style = "background-color: #2ea300; color: white; border-radius: 8px;">START</button>
+            <button id = "pauseTimer" style = "background-color: orange; color: white; border-radius: 8px;">PAUSE</button>
+            <button id = "resetTimer" style = "background-color: #999; color: white; border-radius: 8px;">RESET</button>
+            <button id = "muteBtn" style = "background-color: #34495e; color: white; border-radius: 8px;"><i class="fas fa-volume-up"></i></button>
+        </div>
     </div>
-
-
-
-    <div id = "timerControls">
-
-        <button id = "startTimer" style = "background-color: #2ea300; color: white; border-radius: 8px;">START</button>
-        
-        <button id = "pauseTimer" style = "background-color: orange; color: white; border-radius: 8px;">PAUSE</button>
-
-        <button id = "resetTimer" style = "background-color: #999; color: white; border-radius: 8px;">RESET</button>
-
-    </div>
-
-    </div>
-
-
 
     <div id = "todoSection">
+        <h2> LIST : </h2>
 
-    <h2> LIST : </h2>
+        <div id = "progressContainer" style = "background: #ddd; border-radius: 10px; height: 20px; width: 100%; margin-bottom: 20px; overflow: hidden; border: 1px solid #999;">
+            <div id="progressBar" style = "background: linear-gradient(90deg, #48ff00, #2ea300); height: 100%; width: 0%; transition: width 0.5s;"></div>
+        </div>
 
-    <div id = "progressContainer" style = "background: #ddd; border-radius: 10px;
-    height: 20px; width: 100%; margin-bottom: 20px; overflow: hidden; border: 1px solid #999;">
+        <p id = "progressText" style = "text-align: center; font-weight: bold; margin-top: -15px; margin-bottom: 25px;"> 0% COMPLETED </p>
+        <br>
 
-    <div id="progressBar" style = "background: linear-gradient(90deg, #48ff00, #2ea300);
-    height: 100%; width: 0%; transition: width 0.5s;"></div>
+        <h3 id = "totalCount" class = "statsBox totalStat"> TOTAL : 0 </h3>
+        <h3 id = "activeCount" class = "statsBox activeStat"> ACTIVE : 0 </h3>
+        <h3 id = "doneCount" class = "statsBox doneStat"> COMPLETED : 0 </h3>
+        <br>
+        <h3 id = "schoolCount" class = "statsBox schoolStat"> SCHOOL : 0 </h3>
+        <h3 id = "personalCount" class = "statsBox personalStat"> PERSONAL : 0 </h3>
+        <h3 id = "workCount" class = "statsBox workStat"> WORK : 0 </h3>
+        <br><br><br><br>
+        
+        <div id = "taskControls">
+            <input id = "taskInput" type = "text" placeholder = "ENTER A TASK !">
+            <input id = "taskNote" type = "text" placeholder = "ENTER A NOTE (OPTIONAL)">
+            <select id = "taskCategory">
+                <option value = "SCHOOL" > SCHOOL </option>
+                <option value = "PERSONAL" > PERSONAL </option>
+                <option value = "WORK" > WORK </option>
+            </select>
 
+            <select id="taskPriority">
+                <option value = "LOW" > LOW </option>
+                <option value = "MEDIUM" > MEDIUM </option>
+                <option value = "HIGH" > HIGH </option>
+            </select>
+
+            <input type = "datetime-local" id = "taskDate">
+            <button id = "addTaskBtn"> ADD </button>
+            <button id = "clearAllBtn"> DELETE ALL </button>
+            <button id = "clearCompletedBtn"> DELETE COMPLETED </button>
+            <button id = "undoBtn"> UNDO </button>
+            <button id = "downloadPdfBtn"> DOWNLOAD PDF </button>
+        </div>
+        <br><br><br><br>
+
+        <div id = "searchBox">
+            <input id = "searchInput" type = "text" placeholder = "SEARCH TASKS...">
+            <button id = "clearSearchBtn"> x </button>
+        </div>
+        <br><br><br><br>
+        
+        <div id = "filterButtons">
+            <button id = "allBtn"> ALL </button>
+            <button id = "activeBtn"> ACTIVE </button>
+            <button id = "completedBtn"> COMPLETED </button>
+            <button id = "schoolBtn"> SCHOOL </button>
+            <button id = "personalBtn"> PERSONAL </button>
+            <button id = "workBtn"> WORK </button>
+        </div>
+        <br> <br> <br>
+
+        <div class = "card">
+            <ul id = "taskList" class = "todoList"></ul>
+        </div>
     </div>
 
-    <p id = "progressText" style = "text-align: center; font-weight: bold;
-    margin-top: -15px; margin-bottom: 25px;"> 0% COMPLETED </p>
-
-<br>
-
-    <h3 id = "totalCount" class = "statsBox totalStat"> TOTAL : 0 </h3>
-
-    <h3 id = "activeCount" class = "statsBox activeStat"> ACTIVE : 0 </h3>
-
-    <h3 id = "doneCount" class = "statsBox doneStat"> COMPLETED : 0 </h3>
-
-    <br>
-
-    <h3 id = "schoolCount" class = "statsBox schoolStat"> SCHOOL : 0 </h3>
-
-    <h3 id = "personalCount" class = "statsBox personalStat"> PERSONAL : 0 </h3>
-
-    <h3 id = "workCount" class = "statsBox workStat"> WORK : 0 </h3>
-
-    <br><br><br><br>
-    
-<div id = "taskControls">
-
-    <input id = "taskInput" type = "text" placeholder = "ENTER A TASK !">
-
-    <input id = "taskNote" type = "text" placeholder = "ENTER A NOTE (OPTIONAL)">
-
-    <select id = "taskCategory">
-
-        <option value = "SCHOOL" > SCHOOL </option>
-        <option value = "PERSONAL" > PERSONAL </option>
-        <option value = "WORK" > WORK </option>
-        
-
-    </select>
-
-    <select id="taskPriority">
-
-        <option value = "LOW" > LOW </option>
-        <option value = "MEDIUM" > MEDIUM </option>
-        <option value = "HIGH" > HIGH </option>
-
-    </select>
-
-
-    <input type = "datetime-local" id = "taskDate">
-
-    <button id = "addTaskBtn"> ADD </button>
-    
-    <button id = "clearAllBtn"> DELETE ALL </button>
-
-    <button id = "clearCompletedBtn"> DELETE COMPLETED </button>
-
-    <button id = "undoBtn"> UNDO </button>
-
-    <button id = "downloadPdfBtn"> DOWNLOAD PDF </button>
-
-</div>
-
-<br><br><br><br>
-
-
-<div id = "searchBox">
-
-    <input id = "searchInput" type = "text" placeholder = "SEARCH TASKS...">
-    <button id = "clearSearchBtn"> x </button>
-
-</div>
-
-
-    <br><br><br><br>
-    
-    <div id = "filterButtons">
-
-    <button id = "allBtn"> ALL </button>
-
-    <button id = "activeBtn"> ACTIVE </button>
-    <button id = "completedBtn"> COMPLETED </button>
-
-    <button id = "schoolBtn"> SCHOOL </button>
-    <button id = "personalBtn"> PERSONAL </button>
-    <button id = "workBtn"> WORK </button>
-
-</div>
-<br> <br> <br>
-    <div class = "card">
-
-    <ul id = "taskList" class = "todoList">
-    </ul>
-
-</div>
-
-</div>
-    <br>
-    <br>
     <br><br><br><br><br><br>
-
     <h3 id = "counterTitle"> SIMPLE COUNTER </h3>
-
-
     <h2 id = "counter">0</h2>
-
     <br>
 
     <div id = "counterButtons">
-
-    <button id = "colorBtn"> CHANGE BACKGROUND ! </button>
-    <button id = "increaseBtn"> INCREASE ! </button>
-    <button id = "decreaseBtn"> DECREASE ! </button>
-    <button id = "resetCounterBtn"> RESET ! </button>
-
-   
+        <button id = "colorBtn"> CHANGE BACKGROUND ! </button>
+        <button id = "increaseBtn"> INCREASE ! </button>
+        <button id = "decreaseBtn"> DECREASE ! </button>
+        <button id = "resetCounterBtn"> RESET ! </button>
     </div>
-
-
     <br><br><br><br><br><br><br>
 
     <div class = "aboutMe">
-
-    <img id = "profileImage" src = "kvlogo1.png" alt = "Profile Image">
-    <a href = "https://www.instagram.com/vkaanv351/" class = "btn" id = "instagramBtn" target = "_blank"> GO TO INSTAGRAM ! </a>
-
+        <img id = "profileImage" src = "kvlogo1.png" alt = "Profile Image">
+        <a href = "https://www.instagram.com/vkaanv351/" class = "btn" id = "instagramBtn" target = "_blank"> GO TO INSTAGRAM ! </a>
     </div>
 
-    
-
     <script>
-
-
         const tickSound = new Audio("https://assets.mixkit.co/active_storage/sfx/607/607-preview.mp3");
         const successSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3")
-
 
         tickSound.volume = 0.4;
         successSound.volume = 0.5;
 
-
         document.addEventListener("DOMContentLoaded" , function() {
-
-
-        const alertBox = document.getElementById("alertBox");
-        const alertTitle = document.getElementById("alertTitle");
-        const alertText = document.getElementById("alertText");
-        const closeAlert = document.getElementById("closeAlert");
-        
-
-        let lastDeletedTask = null;
-        let lastDeletedAllTasks = null;
-        let lastEditedTask = null;    
-
-        let count = 0;
-        
-        
-        if ("Notification" in window && Notification.permission !== "granted") {
-
-            Notification.requestPermission();
-
-        }
-
-
-
-const taskInput = document.querySelector("#taskInput");
-const taskNote = document.querySelector("#taskNote");
-const addTaskBtn = document.querySelector("#addTaskBtn");
-const taskList = document.querySelector("#taskList");
-const taskCategory = document.querySelector("#taskCategory");
-const taskPriority = document.querySelector("#taskPriority");
-
-const allBtn = document.querySelector("#allBtn");
-const completedBtn = document.querySelector("#completedBtn");
-const activeBtn = document.querySelector("#activeBtn");
-const clearAllBtn = document.querySelector("#clearAllBtn");
-const clearCompletedBtn = document.querySelector("#clearCompletedBtn");
-
-const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
-
-
-downloadPdfBtn.addEventListener("click", function() {
-
-    const element = document.getElementById('todoSection');
-
-    const opt = {
-
-        margin: 10 ,
-        filename: 'My_Daily_Progress.pdf' ,
-        image: { type: 'jpeg' , quality: 0.98 } ,
-        html2canvas: { scale: 2 , useCORS: true } ,
-        jsPDF: { unit: 'mm' , format: 'a4' , orientation: 'portrait' }
-
-    };
-
-
-    const controls = document.querySelector("#taskControls");
-    const filters = document.querySelector("#filterButtons");
-    const search = document.querySelector("#searchBox");
-
-    controls.style.display = 'none';
-    filters.style.display = 'none';
-    search.style.display = 'none';
-
-
-    html2pdf().set(opt).from(element).save().then(() => {
-
-        controls.style.display = 'flex';
-        filters.style.display = 'flex';
-        search.style.display = 'flex';
-
-    });
-
-    
-    showAlert("SUCCESS" , "YOUR PDF IS READY !");
-
-
-});
-
-
-
-const undoBtn = document.querySelector("#undoBtn");
-undoBtn.classList.add("undoDisabled");
-
-const allCount = document.querySelector("#totalCount");
-const activeCount = document.querySelector("#activeCount");
-const doneCount = document.querySelector("#doneCount");
-
-const schoolBtn = document.querySelector("#schoolBtn");
-const personalBtn = document.querySelector("#personalBtn");
-const workBtn = document.querySelector("#workBtn");
-
-const schoolCount = document.querySelector("#schoolCount");
-const personalCount = document.querySelector("#personalCount");
-const workCount = document.querySelector("#workCount");
-
-const searchInput = document.querySelector("#searchInput");
-const clearSearchBtn = document.querySelector("#clearSearchBtn");
-
-
-
-searchInput.addEventListener("input", function() {
-
-    applySearchFilter();
-
-    if(searchInput.value.trim() !== "") {
-
-        clearSearchBtn.style.display = "block";
-
-    } else {
-
-        clearSearchBtn.style.display = "none";
-
-    }
-
-});
-
-
-
-clearSearchBtn.addEventListener("click", function() {
-
-    searchInput.value = "";
-    clearSearchBtn.style.display = "none";
-    applySearchFilter();
-    searchInput.focus();
-
-});
-
-
-
-let currentFilter = "all";
-
-
-
-allCount.addEventListener("click", function() {
-
-    allBtn.click();
-
-});
-
-
-activeCount.addEventListener("click", function() {
-
-    activeBtn.click();
-
-});
-
-
-doneCount.addEventListener("click", function() {
-
-    completedBtn.click();
-
-});
-
-
-schoolCount.addEventListener("click", function() {
-
-    schoolBtn.click();
-
-});
-
-
-personalCount.addEventListener("click", function() {
-
-    personalBtn.click();
-
-});
-
-
-workCount.addEventListener("click", function() {
-
-    workBtn.click();
-
-});
-
-
-function clearFilterButtons() {
-
-    allBtn.classList.remove("activeFilter");
-    completedBtn.classList.remove("activeFilter");
-    activeBtn.classList.remove("activeFilter");
-    schoolBtn.classList.remove("activeFilter");
-    personalBtn.classList.remove("activeFilter");
-    workBtn.classList.remove("activeFilter");    
-
-}
-
-function updateUndoButton() {
-
-    undoBtn.classList.remove("undoDisabled" , "undoActive");
-
-    if(lastDeletedTask || lastDeletedAllTasks || lastEditedTask) {
-
-        undoBtn.classList.add("undoActive");
-
-    } else {
-
-        undoBtn.classList.add("undoDisabled");
-
-    }
-
-}
-
-const counter = document.querySelector("#counter");
-const increaseBtn = document.querySelector("#increaseBtn");
-const decreaseBtn = document.querySelector("#decreaseBtn");
-const resetCounterBtn = document.querySelector("#resetCounterBtn");
-
-const taskDate = document.querySelector("#taskDate");
-
-
-
-// --- POMODORO SİSTEMİ BAŞLANGIÇ ---
-
-let timer;
-
-let timeLeft = 25 * 60; // Burayı 5 yaparsan 5 saniyede test edersin!
-
-const timerDisplay = document.getElementById("timerDisplay");
-
-function updateTimerDisplay() {
-
-    let mins = Math.floor(timeLeft / 60);
-    let secs = timeLeft % 60;
-    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    
-}
-
-document.getElementById("startTimer").onclick = function() {
-    if (timer) return;
-    timer = setInterval(function() {
-        if (timeLeft > 0) {
-            timeLeft--;
-            updateTimerDisplay();
-        } else {
-            clearInterval(timer);
-            timer = null;
-            showAlert("⏰ FOCUS OVER!", "GREAT STUDY SESSION DOSTUM!");
-            if(typeof confetti === 'function') {
-                confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-            }
-            successSound.play().catch(e => {});
-        }
-    }, 1000);
-};
-
-document.getElementById("pauseTimer").onclick = function() {
-    clearInterval(timer);
-    timer = null;
-};
-
-document.getElementById("resetTimer").onclick = function() {
-    clearInterval(timer);
-    timer = null;
-    timeLeft = 25 * 60;
-    updateTimerDisplay();
-};
-// --- POMODORO SİSTEMİ BİTİŞ ---
-
-
-
-
-function showAlert(title, text) {
-
-    alertTitle.innerText = title;
-    alertText.innerText = text;
-    
-    alertTitle.classList.remove("alertWarning", "alertReminder" , "alertSuccess");
-
-    if(title === "WARNING !") {
-
-        alertTitle.classList.add("alertWarning");
-
-    } else if(title === "⏰ TASK TIME !") {
-
-        alertTitle.classList.add("alertReminder");
-
-    } else if(title === "SUCCESS") {
-
-        alertTitle.classList.add("alertSuccess");
-
-    }
-
-    alertBox.classList.remove("hidden");
-
-}
-
-
-closeAlert.addEventListener("click" , function(){
-
-    alertBox.classList.add("hidden");
-    taskInput.focus();
-
-});
-
-
-let audioEnabled = false;
-
-const reminderTimeouts = {};
-const warningTimeouts = {};
-
-const editingTaskIds = new Set();
-
-
-taskList.addEventListener("dragover" , function(e) {
-
-    e.preventDefault();
-
-    const afterElement = getDragAfterElement(taskList , e.clientY);
-    const dragging = document.querySelector(".dragging");
-
-
-    if(!dragging) return;
-
-    if(afterElement == null){
-
-        taskList.appendChild(dragging);
-
-    } else {
-
-        taskList.insertBefore(dragging , afterElement);
-
-    }
-
-});
-
-
-function getDragAfterElement(container , y) {
-
-    const elements = [...container.querySelectorAll("li:not(.dragging)")];
-
-    return elements.reduce((closest , child ) => {
-
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-
-        if(offset < 0 && offset > closest.offset) {
-
-            return { offset : offset , element : child};
-
-        } else {
-
-            return closest;
+            const alertBox = document.getElementById("alertBox");
+            const alertTitle = document.getElementById("alertTitle");
+            const alertText = document.getElementById("alertText");
+            const closeAlert = document.getElementById("closeAlert");
             
-        }
-
-    } , { offset : Number.NEGATIVE_INFINITY }).element;
-
-}
-
-
-const colorBtn = document.querySelector("#colorBtn");
-
-colorBtn.addEventListener("click", function(){
-
-    document.body.classList.toggle("dark-mode");
-
-if(document.body.classList.contains("dark-mode")) {
-
-    localStorage.setItem("theme" , "dark");
-
-} else {
-
-    localStorage.setItem("theme" , "light");
-
-}
-
-updateColor();
-
-});
-
-
-increaseBtn.addEventListener("click", function(){
-    count++;
-    counter.innerText = count;
-    updateColor();
-});
-
-decreaseBtn.addEventListener("click", function(){
-    count--;
-    counter.innerText = count;
-    updateColor();
-});
-
-resetCounterBtn.addEventListener("click", function(){
-    count = 0;
-    counter.innerText = count;
-    updateColor();
-});
-
-function updateColor(){
-
-    if(count < 0){
-        counter.style.color = "red";
-    }
-    else if(count > 10){
-        counter.style.color = "green";
-    }
-    else{
-        if(document.body.classList.contains("dark-mode")) {
-
-            counter.style.color = "#bbb";
-
-        } else {
-
-            counter.style.color = "black";
-
-        }
-    }
-
-}
-
-if(localStorage.getItem("theme") === "dark") {
-
-    document.body.classList.add("dark-mode");
-
-}
-
-renderTasks();
-allBtn.classList.add("activeFilter");
-
-updateUndoButton();
-
-
-getTasks().forEach(function(task) {
-
-    scheduleReminder(task);
-
-})
-
-
-
-setInterval(function() {
-
-    const tasks = getTasks();
-    const now = new Date().getTime();
-
-    tasks.forEach(function(task) {
-
-        if(!task.completed && task.date) {
-
-            const taskTime = new Date(task.date).getTime();
-
-            if(now >= taskTime && !task.notified) {
-
-                if ("Notification" in window && Notification.permission === "granted") {
-
-                    new Notification("⏰ REMINDER !" , {
-
-                        body : task.text + " TIME HAS COME !"
-                        
-                    });
-
-                }
-
-                showAlert("⏰ TASK TIME !" , task.text);
-
-                task.notified = true;
-                saveTasks(tasks);
-
+            let lastDeletedTask = null;
+            let lastDeletedAllTasks = null;
+            let lastEditedTask = null;    
+            let count = 0;
+            
+            if ("Notification" in window && Notification.permission !== "granted") {
+                Notification.requestPermission();
             }
 
-        }
-
-    });
-
-}, 1000);
-
-
-
-// ENTER ile ekleme
-taskInput.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-        addTaskBtn.click();
-    }
-});
-
-// EKLE
-addTaskBtn.addEventListener("click", function(){
-
-    const taskText = taskInput.value.trim();
-    const dateValue = taskDate.value;
-    const categoryValue = taskCategory.value;
-    const priorityValue = taskPriority.value;
-
-    if(taskText === "") {
-
-        showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
-        return;
-
-    }
-    
-
-    if(dateValue) {
-
-        const selectedTime = new Date(dateValue).getTime();
-        const now = new Date().getTime();
-
-        if(selectedTime < now) {
-
-            showAlert("WARNING !", "YOU CANNOT SELECT A PAST DATE AND TIME!");
-            return;
-
-        }
-
-    }
-
-    
-    const tasks = getTasks();
-
-    const newTask = {
-
-        id : Date.now() ,
-        text : taskText ,
-        note : taskNote.value.trim() ,
-        category : categoryValue ,
-        priority : priorityValue ,
-        date : dateValue ,
-        completed : false ,
-        notified : false
-
-    };
-
-
-    tasks.push(newTask);
-    saveTasks(tasks);
-    scheduleReminder(newTask);
-    renderTasks();
-
-    showAlert("SUCCESS" , "TASK ADDED!");
-
-    taskInput.value = "";
-    taskDate.value = "";
-    taskCategory.value = "SCHOOL";
-    taskPriority.value = "LOW";
-    
-
-});
-
-// 🔥 filtreler
-
-allBtn.addEventListener("click", function(){
-    currentFilter = "all";
-    taskCategory.value = "SCHOOL";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = "flex";
-
-    });
-
-    clearFilterButtons();
-    allBtn.classList.add("activeFilter");
-
-});
-
-completedBtn.addEventListener("click", function(){
-    currentFilter = "completed";
-    taskCategory.value = "SCHOOL";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.classList.contains("completed") ? "flex" : "none";
-
-    });
-
-    clearFilterButtons();
-    completedBtn.classList.add("activeFilter");
-
-});
-
-activeBtn.addEventListener("click", function(){
-    currentFilter = "active";
-    taskCategory.value = "SCHOOL";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = !li.classList.contains("completed") ? "flex" : "none";
-
-    });
-
-    clearFilterButtons();
-    activeBtn.classList.add("activeFilter");
-
-});
-
-
-schoolBtn.addEventListener("click", function(){
-
-    currentFilter = "school";
-    taskCategory.value = "SCHOOL";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "SCHOOL" ? "flex" : "none";
-
-    });
-
-    clearFilterButtons();
-    schoolBtn.classList.add("activeFilter");
-
-});
-
-
-personalBtn.addEventListener("click", function(){
-
-    currentFilter = "personal";
-    taskCategory.value = "PERSONAL";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "PERSONAL" ? "flex" : "none";
-
-    });
-
-    clearFilterButtons();
-    personalBtn.classList.add("activeFilter");
-
-});
-
-
-workBtn.addEventListener("click", function(){
-
-    currentFilter = "work";
-    taskCategory.value = "WORK";
-
-    document.querySelectorAll("#taskList li").forEach(li=>{
-        li.style.display = li.dataset.category === "WORK" ? "flex" : "none";
-
-    });
-
-    clearFilterButtons();
-    workBtn.classList.add("activeFilter");
-
-});
-
-function applyCurrentFilter() {
-
-    if(currentFilter === "all") {
-
-        allBtn.click();
-
-    } else if(currentFilter === "completed") {
-
-        completedBtn.click();
-
-    } else if(currentFilter === "active") {
-
-        activeBtn.click();
-
-    } else if(currentFilter === "school") {
-
-        schoolBtn.click();
-
-    } else if(currentFilter === "personal") {
-
-        personalBtn.click();
-
-    } else if(currentFilter === "work") {
-
-        workBtn.click();
-    }
-
-    applySearchFilter();
-
-}
-
-
-function applySearchFilter() {
-
-    const searchText = searchInput.value.toLowerCase();
-
-    document.querySelectorAll("#taskList li").forEach(function(li) {
-
-        if(li.classList.contains("emptyMessage")) return;
-
-        const text = li.innerText.toLowerCase();
-        const category = li.dataset.category;
-
-        let matchesFilter = false;
-
-        if(currentFilter === "all") {
-
-            matchesFilter = true;
-
-        } else if(currentFilter === "completed") {
-
-            matchesFilter = li.classList.contains("completed");
-
-        } else if(currentFilter === "active") {
-
-            matchesFilter = !li.classList.contains("completed");
-
-        } else if(currentFilter === "school") {
-
-            matchesFilter = category === "SCHOOL";
-
-        } else if(currentFilter === "personal") {
-
-            matchesFilter = category === "PERSONAL";
-
-        } else if(currentFilter === "work") {
-
-            matchesFilter = category === "WORK";
-
-        }
-
-
-        const matchesSearch = text.includes(searchText);
-
-        if(matchesFilter && matchesSearch) {
-
-            li.style.display = "flex";
-
-        } else {
-
-            li.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-// 🧹 hepsini sil
-clearAllBtn.addEventListener("click", function(){
-
-    Object.values(reminderTimeouts).forEach(function(timeoutId) {
-
-        clearTimeout(timeoutId);
-
-    });
-
-    Object.values(warningTimeouts).forEach(function(timeoutId) {
-
-        clearTimeout(timeoutId);
-
-    });
-
-    Object.keys(reminderTimeouts).forEach(function(key) {
-
-        delete reminderTimeouts[key];
-
-    });
-
-        Object.keys(warningTimeouts).forEach(function(key) {
-    
-            delete warningTimeouts[key];
-    
-        });
-
-        lastDeletedAllTasks = getTasks();
-        lastDeletedTask = null;
-        updateUndoButton();
-
-    localStorage.removeItem("tasks");
-
-    currentFilter = "all";
-    taskCategory.value = "SCHOOL";
-    searchInput.value = "";
-
-
-    clearFilterButtons();
-    allBtn.classList.add("activeFilter");
-
-    renderTasks();
-
-});
-
-
-
-clearCompletedBtn.addEventListener("click", function() {
-
-    const tasks = getTasks();
-
-    const remainingTasks = tasks.filter(task => !task.completed);
-
-    if (tasks.length === remainingTasks.length) {
-
-        showAlert("WARNING !", "THERE ARE NO COMPLETED TASKS TO DELETE !");
-        return; 
-
-    }
-
-    lastDeletedAllTasks = tasks;
-    updateUndoButton();
-
-    saveTasks(remainingTasks);
-    renderTasks();
-    updateDoneCount();
-
-    showAlert("SUCCESS", "COMPLETED TASKS CLEARED !");
-
-    
-});
-
-
-
-undoBtn.addEventListener("click", function(){
-
-            if(lastDeletedAllTasks) {
-
-                saveTasks(lastDeletedAllTasks);
-
-                lastDeletedAllTasks.forEach(function(task) {
-
-                    scheduleReminder(task);
-
+            const taskInput = document.querySelector("#taskInput");
+            const taskNote = document.querySelector("#taskNote");
+            const addTaskBtn = document.querySelector("#addTaskBtn");
+            const taskList = document.querySelector("#taskList");
+            const taskCategory = document.querySelector("#taskCategory");
+            const taskPriority = document.querySelector("#taskPriority");
+
+            const allBtn = document.querySelector("#allBtn");
+            const completedBtn = document.querySelector("#completedBtn");
+            const activeBtn = document.querySelector("#activeBtn");
+            const clearAllBtn = document.querySelector("#clearAllBtn");
+            const clearCompletedBtn = document.querySelector("#clearCompletedBtn");
+            const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
+
+            downloadPdfBtn.addEventListener("click", function() {
+                const element = document.getElementById('todoSection');
+                const opt = {
+                    margin: 10 ,
+                    filename: 'My_Daily_Progress.pdf' ,
+                    image: { type: 'jpeg' , quality: 0.98 } ,
+                    html2canvas: { scale: 2 , useCORS: true } ,
+                    jsPDF: { unit: 'mm' , format: 'a4' , orientation: 'portrait' }
+                };
+
+                const controls = document.querySelector("#taskControls");
+                const filters = document.querySelector("#filterButtons");
+                const search = document.querySelector("#searchBox");
+
+                controls.style.display = 'none';
+                filters.style.display = 'none';
+                search.style.display = 'none';
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    controls.style.display = 'flex';
+                    filters.style.display = 'flex';
+                    search.style.display = 'flex';
                 });
-
-                lastDeletedAllTasks = null;
-                updateUndoButton();
-                renderTasks();
-                return;
-
-            }
-
-            if(lastEditedTask) {
-
-                const tasks = getTasks();
-
-                const updatedTasks = tasks.map(function(task) {
-
-                    if(task.id === lastEditedTask.id) {
-
-                        return lastEditedTask;
-
-                    }
-                    return task;
-
-                });
-
-                saveTasks(updatedTasks);
-                scheduleReminder(lastEditedTask);
-
-                lastEditedTask = null;
-                updateUndoButton();
-                renderTasks();
-                return;
-
-            }
-
-            if(!lastDeletedTask) return;
-
-            const tasks = getTasks();
-            tasks.push(lastDeletedTask);
-            saveTasks(tasks);
-
-            scheduleReminder(lastDeletedTask);
-
-            lastDeletedTask = null;
-            updateUndoButton();
-            renderTasks();
-
-        })
-
-
-
-function getTasks() {
-
-    try {
-
-        return JSON.parse(localStorage.getItem("tasks")) || [];
-
-    } catch(e) {
-
-        return [];
-
-    }
-
-}
-
-
-function saveTasks(tasks) {
-
-    localStorage.setItem("tasks" , JSON.stringify(tasks));
-
-}
-
-function scheduleReminder(task) {
-
-    if(reminderTimeouts[task.id]) {
-
-        clearTimeout(reminderTimeouts[task.id])
-
-    }
-
-    if(warningTimeouts[task.id]) {
-
-        clearTimeout(warningTimeouts[task.id]);
-
-    }
-
-    if(!task.date) return;
-    if(task.completed) return;
-
-    const selectedTime = new Date(task.date).getTime();
-    const now = new Date().getTime();
-    const delay = selectedTime - now;
-
-    if(delay <= 0) return;
-
-    reminderTimeouts[task.id] = setTimeout(function() {
-
-        if ("Notification" in window && Notification.permission === "granted") {
-
-            new Notification("⏰ REMINDER !" , {
-
-                body : task.text + " TIME HAS COME !"
                 
+                showAlert("SUCCESS" , "YOUR PDF IS READY !");
             });
 
-        }
+            const undoBtn = document.querySelector("#undoBtn");
+            undoBtn.classList.add("undoDisabled");
 
-        showAlert("⏰ TASK TIME !", "YOUR TASK : " + task.text);
+            const allCount = document.querySelector("#totalCount");
+            const activeCount = document.querySelector("#activeCount");
+            const doneCount = document.querySelector("#doneCount");
 
-        if(audioEnabled) {
+            const schoolBtn = document.querySelector("#schoolBtn");
+            const personalBtn = document.querySelector("#personalBtn");
+            const workBtn = document.querySelector("#workBtn");
 
-            const audio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3")
-            audio.play();
+            const schoolCount = document.querySelector("#schoolCount");
+            const personalCount = document.querySelector("#personalCount");
+            const workCount = document.querySelector("#workCount");
 
-        }
+            const searchInput = document.querySelector("#searchInput");
+            const clearSearchBtn = document.querySelector("#clearSearchBtn");
 
-    } , delay);
+            searchInput.addEventListener("input", function() {
+                applySearchFilter();
+                if(searchInput.value.trim() !== "") {
+                    clearSearchBtn.style.display = "block";
+                } else {
+                    clearSearchBtn.style.display = "none";
+                }
+            });
 
-    if(delay > 600000) {
+            clearSearchBtn.addEventListener("click", function() {
+                searchInput.value = "";
+                clearSearchBtn.style.display = "none";
+                applySearchFilter();
+                searchInput.focus();
+            });
 
-        warningTimeouts[task.id] = setTimeout(function() {
+            let currentFilter = "all";
 
-            if ("Notification" in window && Notification.permission === "granted") {
+            allCount.addEventListener("click", function() { allBtn.click(); });
+            activeCount.addEventListener("click", function() { activeBtn.click(); });
+            doneCount.addEventListener("click", function() { completedBtn.click(); });
+            schoolCount.addEventListener("click", function() { schoolBtn.click(); });
+            personalCount.addEventListener("click", function() { personalBtn.click(); });
+            workCount.addEventListener("click", function() { workBtn.click(); });
 
-                new Notification("⚠️ WARNING !" , {
-
-                    body : task.text + " WILL START IN 10 MINUTES !"
-                    
-                });
-
+            function clearFilterButtons() {
+                allBtn.classList.remove("activeFilter");
+                completedBtn.classList.remove("activeFilter");
+                activeBtn.classList.remove("activeFilter");
+                schoolBtn.classList.remove("activeFilter");
+                personalBtn.classList.remove("activeFilter");
+                workBtn.classList.remove("activeFilter");    
             }
 
-        } , delay - 600000);
-
-    }
-
-}
-
-
-
-const startBtn = document.getElementById("startTimer");
-const pauseBtn = document.getElementById("pauseTimer");
-const resetBtn = document.getElementById("resetTimer");
-
-
-function updateTimerDisplay() {
-
-    let mins = Math.floor(timeLeft / 60);
-    let secs = timeLeft % 60;
-    timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
-
-
-startBtn.onclick = () => {
-
-    if(timer) return;
-
-    timer = setInterval(() => {
-
-        if(timeLeft > 0) {
-
-            timeLeft--;
-            updateTimerDisplay();
-
-        } else {
-            clearInterval(timer);
-            timer = null;
-            showAlert("🏁 TIME'S UP!", "GREAT JOB ON YOUR STUDY BLOCK !");
-            confetti({particleCount: 150, spread: 70, origin: { y: 0.6 }});
-
-        }
-
-    }, 1000);
-
-};
-
-
-pauseBtn.onclick = () => {
-
-    clearInterval(timer);
-    timer = null;
-
-};
-
-
-resetBtn.onclick = () => {
-
-    clearInterval(timer);
-    timer = null;
-    timeLeft = 25 * 60;
-    updateTimerDisplay();
-
-};
-
-
-const setTimerBtn = document.getElementById("setTimerBtn");
-const customMinutesInput = document.getElementById("customMinutes");
-
-setTimerBtn.onclick = function() {
-
-    const mins = parseInt(customMinutesInput.value);
-    if(isNaN(mins) || mins <= 0 || mins > 300) {
-
-        showAlert("WARNING !" , "PLEASE ENTER A VALID MINUTE (1-300) !");
-        return;
-
-    }
-
-
-    clearInterval(timer);
-    timer = null;
-    timeLeft = mins * 60;
-    updateTimerDisplay();
-    showAlert("SUCCESS" , "TIMER SET TO " + mins + " MINUTES !");
-
-    
-};
-
-
-
-function renderTasks() {
-
-
-    taskList.innerHTML = "";
-
-    const tasks = getTasks();
-
-    tasks.sort((a, b) => {
-
-        const priorityOrder = {
-
-            "HIGH" : 3,
-            "MEDIUM" : 2,
-            "LOW" : 1
-
-        };
-
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
-
-    });
-
-
-    if(tasks.length === 0) {
-
-        const emptyMessage = document.createElement("li");
-        emptyMessage.innerText = "📭 NO TASKS YET , START BY ADDING ONE!";
-        emptyMessage.classList.add("emptyMessage");
-        emptyMessage.style.justifyContent = "center";
-        emptyMessage.style.color = "gray";
-        emptyMessage.style.fontStyle = "italic";
-        emptyMessage.style.fontSize = "18px";
-        emptyMessage.style.padding = "20px";
-        emptyMessage.style.opacity = "0.8";
-        emptyMessage.style.cursor = "default";
-        emptyMessage.style.backgroundColor = "transparent";
-        taskList.appendChild(emptyMessage);
-
-        updateDoneCount();
-        applyCurrentFilter();
-        return;
-        
-
-       
-        
-    }
-
-    tasks.forEach(function(task) {
-
-        const li = document.createElement("li");
-
-        li.classList.add("task-item-animate");
-
-        li.classList.add("priority-card-" + (task.priority || "LOW"));
-
-        const isEditing = editingTaskIds.has(task.id);
-
-        if(task.completed) {
-
-            li.classList.add("completed");
-
-        }
-
-        li.draggable = true;
-        li.dataset.id = task.id;
-        li.dataset.category = task.category;
-
-        if(isEditing) {
-
-            const editTextInput = document.createElement("input");
-            editTextInput.type = "text";
-            editTextInput.value = task.text;
-            editTextInput.classList.add("editInput");
-
-            const editCategorySelect = document.createElement("select");
-            editCategorySelect.classList.add("editSelect");
-
-            const optionSchool = document.createElement("option");
-            optionSchool.value = "SCHOOL";
-            optionSchool.innerText = "SCHOOL";
-
-            const optionPersonal = document.createElement("option");
-            optionPersonal.value = "PERSONAL";
-            optionPersonal.innerText = "PERSONAL";
-
-            const optionWork = document.createElement("option");
-            optionWork.value = "WORK";
-            optionWork.innerText = "WORK";
-
-            editCategorySelect.appendChild(optionSchool);
-            editCategorySelect.appendChild(optionPersonal);
-            editCategorySelect.appendChild(optionWork);
-            editCategorySelect.value = task.category;
-
-
-            const editPrioritySelect = document.createElement("select");
-            editPrioritySelect.classList.add("editSelect");
-
-            const optionLow = document.createElement("option");
-            optionLow.value = "LOW";
-            optionLow.innerText = "LOW";
-
-            const optionMedium = document.createElement("option");
-            optionMedium.value = "MEDIUM";
-            optionMedium.innerText = "MEDIUM";
-
-            const optionHigh = document.createElement("option");
-            optionHigh.value = "HIGH";
-            optionHigh.innerText = "HIGH";
-
-            editPrioritySelect.appendChild(optionLow);
-            editPrioritySelect.appendChild(optionMedium);
-            editPrioritySelect.appendChild(optionHigh);
-            editPrioritySelect.value = task.priority || "LOW";
-
-
-            const editDateInput = document.createElement("input");
-            editDateInput.type = "datetime-local";
-            editDateInput.value = task.date || "";
-            editDateInput.classList.add("editDateInput");
-
-            const saveEditBtn = document.createElement("button");
-            saveEditBtn.innerText = "SAVE";
-            saveEditBtn.classList.add("editSaveBtn");
-
-            const cancelEditBtn = document.createElement("button");
-            cancelEditBtn.innerText = "CANCEL";
-            cancelEditBtn.classList.add("editCancelBtn");
-
-
-            editTextInput.addEventListener("click" , function(ev) {
-
-                ev.stopPropagation();
-
-            });
-            
-
-            editCategorySelect.addEventListener("click" , function(ev) {
-
-                ev.stopPropagation();
-
+            function updateUndoButton() {
+                undoBtn.classList.remove("undoDisabled" , "undoActive");
+                if(lastDeletedTask || lastDeletedAllTasks || lastEditedTask) {
+                    undoBtn.classList.add("undoActive");
+                } else {
+                    undoBtn.classList.add("undoDisabled");
+                }
+            }
+
+            const counter = document.querySelector("#counter");
+            const increaseBtn = document.querySelector("#increaseBtn");
+            const decreaseBtn = document.querySelector("#decreaseBtn");
+            const resetCounterBtn = document.querySelector("#resetCounterBtn");
+            const taskDate = document.querySelector("#taskDate");
+
+            // --- POMODORO SİSTEMİ BAŞLANGIÇ ---
+            let timer;
+            let timeLeft = 25 * 60;
+
+            const timerDisplay = document.getElementById("timerDisplay");
+
+            function updateTimerDisplay() {
+                let mins = Math.floor(timeLeft / 60);
+                let secs = timeLeft % 60;
+                timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }
+
+            document.getElementById("startTimer").onclick = function() {
+                if (timer) return;
+                timer = setInterval(function() {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                        showAlert("⏰ FOCUS OVER!", "GREAT STUDY SESSION DOSTUM!");
+                        if(typeof confetti === 'function') {
+                            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+                        }
+                        if (audioEnabled) successSound.play().catch(e => {});
+                    }
+                }, 1000);
+            };
+
+            document.getElementById("pauseTimer").onclick = function() {
+                clearInterval(timer);
+                timer = null;
+            };
+
+            document.getElementById("resetTimer").onclick = function() {
+                clearInterval(timer);
+                timer = null;
+                timeLeft = 25 * 60;
+                updateTimerDisplay();
+            };
+
+            const setTimerBtn = document.getElementById("setTimerBtn");
+            const customMinutesInput = document.getElementById("customMinutes");
+
+            setTimerBtn.onclick = function() {
+                const mins = parseInt(customMinutesInput.value);
+                if(isNaN(mins) || mins <= 0 || mins > 300) {
+                    showAlert("WARNING !" , "PLEASE ENTER A VALID MINUTE (1-300) !");
+                    return;
+                }
+                clearInterval(timer);
+                timer = null;
+                timeLeft = mins * 60;
+                updateTimerDisplay();
+                showAlert("SUCCESS" , "TIMER SET TO " + mins + " MINUTES !");
+            };
+            // --- POMODORO SİSTEMİ BİTİŞ ---
+
+            function showAlert(title, text) {
+                alertTitle.innerText = title;
+                alertText.innerText = text;
+                alertTitle.classList.remove("alertWarning", "alertReminder" , "alertSuccess");
+
+                if(title === "WARNING !") {
+                    alertTitle.classList.add("alertWarning");
+                } else if(title === "⏰ TASK TIME !") {
+                    alertTitle.classList.add("alertReminder");
+                } else if(title === "SUCCESS") {
+                    alertTitle.classList.add("alertSuccess");
+                }
+                alertBox.classList.remove("hidden");
+            }
+
+            closeAlert.addEventListener("click" , function(){
+                alertBox.classList.add("hidden");
+                taskInput.focus();
             });
 
+            let audioEnabled = true;
 
-            editDateInput.addEventListener("click" , function(ev) {
+            const muteBtn = document.getElementById("muteBtn");
+            muteBtn.onclick = function() {
 
-                ev.stopPropagation();
+                audioEnabled = !audioEnabled;
+                if(audioEnabled) {
 
-            });
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    muteBtn.style.backgroundColor = "#34495e";
 
+                } else {
 
-            editPrioritySelect.addEventListener("click" , function(ev) {
-
-                ev.stopPropagation();
-
-            });
-
-
-            saveEditBtn.addEventListener("click" , function(ev) {
-
-                ev.stopPropagation();
-
-                const trimmedText = editTextInput.value.trim();
-                const newCategory = editCategorySelect.value;
-                const newDate = editDateInput.value;
-                const newPriority = editPrioritySelect.value;
-
-                lastEditedTask = { ...task };
-
-                lastDeletedTask = null;
-                lastDeletedAllTasks = null;
-                updateUndoButton();
-
-                if(trimmedText === "") {
-
-                        showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
-                        return;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    muteBtn.style.backgroundColor = "crimson";
 
                 }
 
-                if(newDate) {
+            }
 
-                    const selectedTime = new Date(newDate).getTime();
+            const reminderTimeouts = {};
+            const warningTimeouts = {};
+            const editingTaskIds = new Set();
+
+            taskList.addEventListener("dragover" , function(e) {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(taskList , e.clientY);
+                const dragging = document.querySelector(".dragging");
+                if(!dragging) return;
+                if(afterElement == null){
+                    taskList.appendChild(dragging);
+                } else {
+                    taskList.insertBefore(dragging , afterElement);
+                }
+            });
+
+            function getDragAfterElement(container , y) {
+                const elements = [...container.querySelectorAll("li:not(.dragging)")];
+                return elements.reduce((closest , child ) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if(offset < 0 && offset > closest.offset) {
+                        return { offset : offset , element : child};
+                    } else {
+                        return closest;
+                    }
+                } , { offset : Number.NEGATIVE_INFINITY }).element;
+            }
+
+            const colorBtn = document.querySelector("#colorBtn");
+            colorBtn.addEventListener("click", function(){
+                document.body.classList.toggle("dark-mode");
+                if(document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme" , "dark");
+                } else {
+                    localStorage.setItem("theme" , "light");
+                }
+                updateColor();
+            });
+
+            increaseBtn.addEventListener("click", function(){
+                count++;
+                counter.innerText = count;
+                updateColor();
+            });
+
+            decreaseBtn.addEventListener("click", function(){
+                count--;
+                counter.innerText = count;
+                updateColor();
+            });
+
+            resetCounterBtn.addEventListener("click", function(){
+                count = 0;
+                counter.innerText = count;
+                updateColor();
+            });
+
+            function updateColor(){
+                if(count < 0){
+                    counter.style.color = "red";
+                }
+                else if(count > 10){
+                    counter.style.color = "green";
+                }
+                else{
+                    if(document.body.classList.contains("dark-mode")) {
+                        counter.style.color = "#bbb";
+                    } else {
+                        counter.style.color = "black";
+                    }
+                }
+            }
+
+            if(localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+
+            renderTasks();
+            allBtn.classList.add("activeFilter");
+            updateUndoButton();
+
+            getTasks().forEach(function(task) {
+                scheduleReminder(task);
+            });
+
+            setInterval(function() {
+                const tasks = getTasks();
+                const now = new Date().getTime();
+
+                tasks.forEach(function(task) {
+                    if(!task.completed && task.date) {
+                        const taskTime = new Date(task.date).getTime();
+                        if(now >= taskTime && !task.notified) {
+                            if ("Notification" in window && Notification.permission === "granted") {
+                                new Notification("⏰ REMINDER !" , {
+                                    body : task.text + " TIME HAS COME !"
+                                });
+                            }
+                            showAlert("⏰ TASK TIME !" , task.text);
+                            task.notified = true;
+                            saveTasks(tasks);
+                        }
+                    }
+                });
+            }, 1000);
+
+            taskInput.addEventListener("keypress", function(e){
+                if(e.key === "Enter"){
+                    addTaskBtn.click();
+                }
+            });
+
+            addTaskBtn.addEventListener("click", function(){
+                const taskText = taskInput.value.trim();
+                const dateValue = taskDate.value;
+                const categoryValue = taskCategory.value;
+                const priorityValue = taskPriority.value;
+
+                if(taskText === "") {
+                    showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
+                    return;
+                }
+                
+                if(dateValue) {
+                    const selectedTime = new Date(dateValue).getTime();
                     const now = new Date().getTime();
-
                     if(selectedTime < now) {
-
                         showAlert("WARNING !", "YOU CANNOT SELECT A PAST DATE AND TIME!");
                         return;
-
                     }
-
                 }
 
-                task.text = trimmedText;
-                task.category = newCategory;
-                task.date = newDate;
-                task.priority = newPriority;
+                const tasks = getTasks();
+                const newTask = {
+                    id : Date.now() ,
+                    text : taskText ,
+                    note : taskNote.value.trim() ,
+                    category : categoryValue ,
+                    priority : priorityValue ,
+                    date : dateValue ,
+                    completed : false ,
+                    notified : false
+                };
 
-                if(reminderTimeouts[task.id]) {
-
-                    clearTimeout(reminderTimeouts[task.id]);
-                    delete reminderTimeouts[task.id];
-
-                }
-
-                if(warningTimeouts[task.id]) {
-
-                    clearTimeout(warningTimeouts[task.id]);
-                    delete warningTimeouts[task.id];
-
-                }
-
-                scheduleReminder(task);
+                tasks.push(newTask);
                 saveTasks(tasks);
-
-                editingTaskIds.delete(task.id);
+                scheduleReminder(newTask);
                 renderTasks();
 
+                showAlert("SUCCESS" , "TASK ADDED!");
+                taskInput.value = "";
+                taskDate.value = "";
+                taskCategory.value = "SCHOOL";
+                taskPriority.value = "LOW";
             });
 
-            cancelEditBtn.addEventListener("click" , function(ev) {
-
-                ev.stopPropagation();
-
-                editingTaskIds.delete(task.id);
-                renderTasks();
-
+            allBtn.addEventListener("click", function(){
+                currentFilter = "all";
+                taskCategory.value = "SCHOOL";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = "flex";
+                });
+                clearFilterButtons();
+                allBtn.classList.add("activeFilter");
             });
 
-            
-            li.appendChild(editTextInput);
-            li.appendChild(editCategorySelect);
-            li.appendChild(editPrioritySelect);
-            li.appendChild(editDateInput);
-            li.appendChild(saveEditBtn);
-            li.appendChild(cancelEditBtn);
+            completedBtn.addEventListener("click", function(){
+                currentFilter = "completed";
+                taskCategory.value = "SCHOOL";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = li.classList.contains("completed") ? "flex" : "none";
+                });
+                clearFilterButtons();
+                completedBtn.classList.add("activeFilter");
+            });
 
+            activeBtn.addEventListener("click", function(){
+                currentFilter = "active";
+                taskCategory.value = "SCHOOL";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = !li.classList.contains("completed") ? "flex" : "none";
+                });
+                clearFilterButtons();
+                activeBtn.classList.add("activeFilter");
+            });
 
-        }
+            schoolBtn.addEventListener("click", function(){
+                currentFilter = "school";
+                taskCategory.value = "SCHOOL";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = li.dataset.category === "SCHOOL" ? "flex" : "none";
+                });
+                clearFilterButtons();
+                schoolBtn.classList.add("activeFilter");
+            });
 
-        
-        else {
-            
+            personalBtn.addEventListener("click", function(){
+                currentFilter = "personal";
+                taskCategory.value = "PERSONAL";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = li.dataset.category === "PERSONAL" ? "flex" : "none";
+                });
+                clearFilterButtons();
+                personalBtn.classList.add("activeFilter");
+            });
 
-            const contentWrapper = document.createElement("div");
-            contentWrapper.classList.add("task-content-wrapper");
+            workBtn.addEventListener("click", function(){
+                currentFilter = "work";
+                taskCategory.value = "WORK";
+                document.querySelectorAll("#taskList li").forEach(li=>{
+                    li.style.display = li.dataset.category === "WORK" ? "flex" : "none";
+                });
+                clearFilterButtons();
+                workBtn.classList.add("activeFilter");
+            });
 
-
-            const headerRow = document.createElement("div");
-            headerRow.classList.add("task-header-row");
-
-
-            const categoryBadge = document.createElement("span");
-            categoryBadge.innerText = task.category;
-            categoryBadge.classList.add("categoryBadge", "category-" + task.category);
-
-
-            const priorityBadge = document.createElement("span");
-            priorityBadge.innerText = task.priority || "LOW";
-            priorityBadge.classList.add("priorityBadge", "priority-" + (task.priority || "LOW"));
-
-
-            const taskTextNode = document.createElement("span");
-            taskTextNode.innerText = task.text;
-            taskTextNode.style.fontWeight = "bold";
-
-
-            headerRow.appendChild(categoryBadge);
-            headerRow.appendChild(priorityBadge);
-            headerRow.appendChild(taskTextNode);
-            contentWrapper.appendChild(headerRow);
-
-            
-
-            if(task.note) {
-                const noteEl = document.createElement("small");
-                noteEl.innerText = "📝 " + task.note;
-                noteEl.classList.add("taskNoteDisplay");
-                contentWrapper.appendChild(noteEl);
+            function applyCurrentFilter() {
+                if(currentFilter === "all") { allBtn.click(); } 
+                else if(currentFilter === "completed") { completedBtn.click(); } 
+                else if(currentFilter === "active") { activeBtn.click(); } 
+                else if(currentFilter === "school") { schoolBtn.click(); } 
+                else if(currentFilter === "personal") { personalBtn.click(); } 
+                else if(currentFilter === "work") { workBtn.click(); }
+                applySearchFilter();
             }
 
-            
+            function applySearchFilter() {
+                const searchText = searchInput.value.toLowerCase();
+                document.querySelectorAll("#taskList li").forEach(function(li) {
+                    if(li.classList.contains("emptyMessage")) return;
+                    const text = li.innerText.toLowerCase();
+                    const category = li.dataset.category;
+                    let matchesFilter = false;
 
-            const dateSpan = document.createElement("span");
-            dateSpan.classList.add("task-date-display");
+                    if(currentFilter === "all") { matchesFilter = true; } 
+                    else if(currentFilter === "completed") { matchesFilter = li.classList.contains("completed"); } 
+                    else if(currentFilter === "active") { matchesFilter = !li.classList.contains("completed"); } 
+                    else if(currentFilter === "school") { matchesFilter = category === "SCHOOL"; } 
+                    else if(currentFilter === "personal") { matchesFilter = category === "PERSONAL"; } 
+                    else if(currentFilter === "work") { matchesFilter = category === "WORK"; }
 
-
-            if(task.date) {
-                const d = new Date(task.date);
-                const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-                const formattedDate = `${d.getDate()} ${months[d.getMonth()]} ${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
-                dateSpan.innerHTML = '<i class="fas fa-clock"></i> ' + formattedDate;
+                    const matchesSearch = text.includes(searchText);
+                    if(matchesFilter && matchesSearch) {
+                        li.style.display = "flex";
+                    } else {
+                        li.style.display = "none";
+                    }
+                });
             }
 
-            
+            clearAllBtn.addEventListener("click", function(){
+                Object.values(reminderTimeouts).forEach(function(timeoutId) { clearTimeout(timeoutId); });
+                Object.values(warningTimeouts).forEach(function(timeoutId) { clearTimeout(timeoutId); });
+                Object.keys(reminderTimeouts).forEach(function(key) { delete reminderTimeouts[key]; });
+                Object.keys(warningTimeouts).forEach(function(key) { delete warningTimeouts[key]; });
 
-            const deleteBtn = document.createElement("button");
-            deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-            deleteBtn.style.color = "crimson";
-            deleteBtn.style.background = "transparent";
-            deleteBtn.style.padding = "5px";
-            deleteBtn.style.cursor = "pointer";
-
-
-
-            deleteBtn.onclick = function(e) {
-                e.stopPropagation();
-                lastDeletedTask = task;
-                lastDeletedAllTasks = null;
+                lastDeletedAllTasks = getTasks();
+                lastDeletedTask = null;
                 updateUndoButton();
-                const tasks = getTasks();
-                const updatedTasks = tasks.filter(t => t.id !== task.id);
-                saveTasks(updatedTasks);
+                localStorage.removeItem("tasks");
+
+                currentFilter = "all";
+                taskCategory.value = "SCHOOL";
+                searchInput.value = "";
+                clearFilterButtons();
+                allBtn.classList.add("activeFilter");
                 renderTasks();
+            });
 
-            };
-
-            li.onclick = function() {
-
-                task.completed = !task.completed;
-                if(task.completed) {
-                    tickSound.currentTime = 0;
-                    tickSound.play().catch(e => {});
-
+            clearCompletedBtn.addEventListener("click", function() {
+                const tasks = getTasks();
+                const remainingTasks = tasks.filter(task => !task.completed);
+                if (tasks.length === remainingTasks.length) {
+                    showAlert("WARNING !", "THERE ARE NO COMPLETED TASKS TO DELETE !");
+                    return; 
                 }
-                const tasks = getTasks();
-                const updatedTasks = tasks.map(t => t.id === task.id ? task : t);
-                saveTasks(updatedTasks);
+                lastDeletedAllTasks = tasks;
+                updateUndoButton();
+                saveTasks(remainingTasks);
                 renderTasks();
+                showAlert("SUCCESS", "COMPLETED TASKS CLEARED !");
+            });
 
-            };
+            undoBtn.addEventListener("click", function(){
+                if(lastDeletedAllTasks) {
+                    saveTasks(lastDeletedAllTasks);
+                    lastDeletedAllTasks.forEach(function(task) { scheduleReminder(task); });
+                    lastDeletedAllTasks = null;
+                    updateUndoButton();
+                    renderTasks();
+                    return;
+                }
+                if(lastEditedTask) {
+                    const tasks = getTasks();
+                    const updatedTasks = tasks.map(function(task) {
+                        if(task.id === lastEditedTask.id) { return lastEditedTask; }
+                        return task;
+                    });
+                    saveTasks(updatedTasks);
+                    scheduleReminder(lastEditedTask);
+                    lastEditedTask = null;
+                    updateUndoButton();
+                    renderTasks();
+                    return;
+                }
+                if(!lastDeletedTask) return;
+                const tasks = getTasks();
+                tasks.push(lastDeletedTask);
+                saveTasks(tasks);
+                scheduleReminder(lastDeletedTask);
+                lastDeletedTask = null;
+                updateUndoButton();
+                renderTasks();
+            });
 
-          
-            li.appendChild(contentWrapper);
-            li.appendChild(dateSpan);
-            li.appendChild(deleteBtn);
+            function getTasks() {
+                try { return JSON.parse(localStorage.getItem("tasks")) || []; } 
+                catch(e) { return []; }
+            }
 
+            function saveTasks(tasks) {
+                localStorage.setItem("tasks" , JSON.stringify(tasks));
+            }
 
-        }
+            function scheduleReminder(task) {
+                if(reminderTimeouts[task.id]) { clearTimeout(reminderTimeouts[task.id]); }
+                if(warningTimeouts[task.id]) { clearTimeout(warningTimeouts[task.id]); }
+                if(!task.date || task.completed) return;
 
+                const selectedTime = new Date(task.date).getTime();
+                const now = new Date().getTime();
+                const delay = selectedTime - now;
+                if(delay <= 0) return;
 
-        taskList.appendChild(li);
+                reminderTimeouts[task.id] = setTimeout(function() {
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification("⏰ REMINDER !" , { body : task.text + " TIME HAS COME !" });
+                    }
+                    showAlert("⏰ TASK TIME !", "YOUR TASK : " + task.text);
+                    if(audioEnabled) {
+                        const audio = new Audio("https://www.soundjay.com/buttons/sounds/button-3.mp3");
+                        audio.play();
+                    }
+                } , delay);
 
+                if(delay > 600000) {
+                    warningTimeouts[task.id] = setTimeout(function() {
+                        if ("Notification" in window && Notification.permission === "granted") {
+                            new Notification("⚠️ WARNING !" , { body : task.text + " WILL START IN 10 MINUTES !" });
+                        }
+                    } , delay - 600000);
+                }
+            }
 
-    });
+            function renderTasks() {
+                taskList.innerHTML = "";
+                const tasks = getTasks();
+                tasks.sort((a, b) => {
+                    const priorityOrder = { "HIGH" : 3, "MEDIUM" : 2, "LOW" : 1 };
+                    return priorityOrder[b.priority] - priorityOrder[a.priority];
+                });
 
-    updateDoneCount();
-    applyCurrentFilter();
+                if(tasks.length === 0) {
+                    const emptyMessage = document.createElement("li");
+                    emptyMessage.innerText = "📭 NO TASKS YET , START BY ADDING ONE!";
+                    emptyMessage.classList.add("emptyMessage");
+                    emptyMessage.style.justifyContent = "center";
+                    emptyMessage.style.color = "gray";
+                    emptyMessage.style.fontStyle = "italic";
+                    emptyMessage.style.fontSize = "18px";
+                    emptyMessage.style.padding = "20px";
+                    emptyMessage.style.opacity = "0.8";
+                    emptyMessage.style.cursor = "default";
+                    emptyMessage.style.backgroundColor = "transparent";
+                    taskList.appendChild(emptyMessage);
+                    updateDoneCount();
+                    applyCurrentFilter();
+                    return;
+                }
 
-}
+                tasks.forEach(function(task) {
+                    const li = document.createElement("li");
+                    li.classList.add("task-item-animate");
+                    li.classList.add("priority-card-" + (task.priority || "LOW"));
+                    const isEditing = editingTaskIds.has(task.id);
 
+                    if(task.completed) { li.classList.add("completed"); }
+                    li.draggable = true;
+                    li.dataset.id = task.id;
+                    li.dataset.category = task.category;
 
+                    if(isEditing) {
+                        const editTextInput = document.createElement("input");
+                        editTextInput.type = "text";
+                        editTextInput.value = task.text;
+                        editTextInput.classList.add("editInput");
 
-});
+                        const editCategorySelect = document.createElement("select");
+                        editCategorySelect.classList.add("editSelect");
+                        ["SCHOOL", "PERSONAL", "WORK"].forEach(cat => {
+                            const opt = document.createElement("option");
+                            opt.value = cat; opt.innerText = cat;
+                            editCategorySelect.appendChild(opt);
+                        });
+                        editCategorySelect.value = task.category;
 
+                        const editPrioritySelect = document.createElement("select");
+                        editPrioritySelect.classList.add("editSelect");
+                        ["LOW", "MEDIUM", "HIGH"].forEach(prio => {
+                            const opt = document.createElement("option");
+                            opt.value = prio; opt.innerText = prio;
+                            editPrioritySelect.appendChild(opt);
+                        });
+                        editPrioritySelect.value = task.priority || "LOW";
 
-function updateDoneCount() {
+                        const editDateInput = document.createElement("input");
+                        editDateInput.type = "datetime-local";
+                        editDateInput.value = task.date || "";
+                        editDateInput.classList.add("editDateInput");
 
-    const items = document.querySelectorAll("#taskList li:not(.emptyMessage)");
-    let done = 0;
-    let school = 0;
-    let personal = 0;
-    let work = 0;
+                        const saveEditBtn = document.createElement("button");
+                        saveEditBtn.innerText = "SAVE";
+                        saveEditBtn.classList.add("editSaveBtn");
 
+                        const cancelEditBtn = document.createElement("button");
+                        cancelEditBtn.innerText = "CANCEL";
+                        cancelEditBtn.classList.add("editCancelBtn");
 
-    items.forEach(function(li) {
+                        [editTextInput, editCategorySelect, editDateInput, editPrioritySelect].forEach(el => {
+                            el.addEventListener("click", ev => ev.stopPropagation());
+                        });
 
-        if(li.classList.contains("completed")) {
+                        saveEditBtn.addEventListener("click" , function(ev) {
+                            ev.stopPropagation();
+                            const trimmedText = editTextInput.value.trim();
+                            if(trimmedText === "") {
+                                showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
+                                return;
+                            }
+                            if(editDateInput.value) {
+                                if(new Date(editDateInput.value).getTime() < new Date().getTime()) {
+                                    showAlert("WARNING !", "YOU CANNOT SELECT A PAST DATE AND TIME!");
+                                    return;
+                                }
+                            }
+                            lastEditedTask = { ...task };
+                            lastDeletedTask = null; lastDeletedAllTasks = null;
+                            updateUndoButton();
 
-            done++;
+                            task.text = trimmedText;
+                            task.category = editCategorySelect.value;
+                            task.date = editDateInput.value;
+                            task.priority = editPrioritySelect.value;
 
-        }
+                            if(reminderTimeouts[task.id]) clearTimeout(reminderTimeouts[task.id]);
+                            if(warningTimeouts[task.id]) clearTimeout(warningTimeouts[task.id]);
+                            scheduleReminder(task);
+                            saveTasks(tasks);
+                            editingTaskIds.delete(task.id);
+                            renderTasks();
+                        });
 
-        if(li.dataset.category === "SCHOOL") {
+                        cancelEditBtn.addEventListener("click" , function(ev) {
+                            ev.stopPropagation();
+                            editingTaskIds.delete(task.id);
+                            renderTasks();
+                        });
+                        
+                        li.appendChild(editTextInput);
+                        li.appendChild(editCategorySelect);
+                        li.appendChild(editPrioritySelect);
+                        li.appendChild(editDateInput);
+                        li.appendChild(saveEditBtn);
+                        li.appendChild(cancelEditBtn);
+                    } else {
+                        const contentWrapper = document.createElement("div");
+                        contentWrapper.classList.add("task-content-wrapper");
 
-            school++;
+                        const headerRow = document.createElement("div");
+                        headerRow.classList.add("task-header-row");
 
-        }
+                        const categoryBadge = document.createElement("span");
+                        categoryBadge.innerText = task.category;
+                        categoryBadge.classList.add("categoryBadge", "category-" + task.category);
 
-        else if(li.dataset.category === "PERSONAL") {
+                        const priorityBadge = document.createElement("span");
+                        priorityBadge.innerText = task.priority || "LOW";
+                        priorityBadge.classList.add("priorityBadge", "priority-" + (task.priority || "LOW"));
 
-            personal++;
+                        const taskTextNode = document.createElement("span");
+                        taskTextNode.innerText = task.text;
+                        taskTextNode.style.fontWeight = "bold";
 
-        }
+                        headerRow.appendChild(categoryBadge);
+                        headerRow.appendChild(priorityBadge);
+                        headerRow.appendChild(taskTextNode);
+                        contentWrapper.appendChild(headerRow);
 
-        else if(li.dataset.category === "WORK") {
+                        if(task.note) {
+                            const noteEl = document.createElement("small");
+                            noteEl.innerText = "📝 " + task.note;
+                            noteEl.classList.add("taskNoteDisplay");
+                            contentWrapper.appendChild(noteEl);
+                        }
 
-            work++;
+                        const dateSpan = document.createElement("span");
+                        dateSpan.classList.add("task-date-display");
 
-        }   
+                        if(task.date) {
+                            const d = new Date(task.date);
+                            const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+                            dateSpan.innerHTML = '<i class="fas fa-clock"></i> ' + `${d.getDate()} ${months[d.getMonth()]} ${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
+                        }
 
-    });
+                        const deleteBtn = document.createElement("button");
+                        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                        deleteBtn.style.color = "crimson";
+                        deleteBtn.style.background = "transparent";
+                        deleteBtn.style.padding = "5px";
+                        deleteBtn.style.cursor = "pointer";
 
-    const total = items.length;
-    const active = total - done;
+                        deleteBtn.onclick = function(e) {
+                            e.stopPropagation();
+                            lastDeletedTask = task; lastDeletedAllTasks = null;
+                            updateUndoButton();
+                            saveTasks(getTasks().filter(t => t.id !== task.id));
+                            renderTasks();
+                        };
 
-    const progressBar = document.getElementById("progressBar");
-    const progressText = document.getElementById("progressText");
+                        li.onclick = function() {
+                            task.completed = !task.completed;
+                            if(task.completed && audioEnabled) {
+                                tickSound.currentTime = 0;
+                                tickSound.play().catch(e => {});
+                            }
+                            saveTasks(getTasks().map(t => t.id === task.id ? task : t));
+                            renderTasks();
+                        };
+                      
+                        li.appendChild(contentWrapper);
+                        li.appendChild(dateSpan);
+                        li.appendChild(deleteBtn);
+                    }
+                    taskList.appendChild(li);
+                });
+                updateDoneCount();
+                applyCurrentFilter();
+            }
 
-    const percentage = total > 0 ? Math.round((done / total) * 100) : 0;
+            function updateDoneCount() {
+                const items = document.querySelectorAll("#taskList li:not(.emptyMessage)");
+                let done = 0, school = 0, personal = 0, work = 0;
 
-    progressBar.style.width = percentage + "%";
-    progressText.innerText = "%" + percentage + " COMPLETED";
+                items.forEach(function(li) {
+                    if(li.classList.contains("completed")) { done++; }
+                    if(li.dataset.category === "SCHOOL") { school++; }
+                    else if(li.dataset.category === "PERSONAL") { personal++; }
+                    else if(li.dataset.category === "WORK") { work++; }   
+                });
 
+                const total = items.length;
+                const active = total - done;
 
-    if(percentage === 100 && total > 0) {
+                const progressBar = document.getElementById("progressBar");
+                const progressText = document.getElementById("progressText");
+                const percentage = total > 0 ? Math.round((done / total) * 100) : 0;
 
-        progressBar.style.boxShadow = "0 0 10px #48ff00";
+                progressBar.style.width = percentage + "%";
+                progressText.innerText = "%" + percentage + " COMPLETED";
 
-        successSound.currentTime = 0;
-        successSound.play().catch(e => console.log("BAŞARI SESİ ENGELLENDİ."));
+                if(percentage === 100 && total > 0) {
+                    progressBar.style.boxShadow = "0 0 10px #48ff00";
+                    successSound.currentTime = 0;
+                    if (audioEnabled)successSound.play().catch(e => console.log("BAŞARI SESİ ENGELLENDİ."));
 
-    if(typeof confetti === 'function') {
+                    if(typeof confetti === 'function') {
+                        confetti({ particleCount : 150 , spread : 70 , origin : { y : 0.6 } });
+                    }
+                }
 
+                // Skor tablosu artık parantez hatasından kurtuldu, her an canlı güncelleniyor!
+                document.getElementById("doneCount").innerText = "COMPLETED : " + done;
+                document.getElementById("totalCount").innerText = "TOTAL : " + total;
+                document.getElementById("activeCount").innerText = "ACTIVE : " + active;
+                document.getElementById("schoolCount").innerText = "SCHOOL : " + school;
+                document.getElementById("personalCount").innerText = "PERSONAL : " + personal;
+                document.getElementById("workCount").innerText = "WORK : " + work;
+            }
 
-        confetti({
-
-            particleCount : 150 ,
-            spread : 70 ,
-            origin : { y : 0.6 }
-
+            updateDoneCount();
         });
-
-    }
-
-
-
-    document.getElementById("doneCount").innerText = "COMPLETED : " + done;
-    document.getElementById("totalCount").innerText = "TOTAL : " + total;
-    document.getElementById("activeCount").innerText = "ACTIVE : " + active;
-
-    document.getElementById("schoolCount").innerText = "SCHOOL : " + school;
-    document.getElementById("personalCount").innerText = "PERSONAL : " + personal;
-    document.getElementById("workCount").innerText = "WORK : " + work;
-
-}}
-
-
-updateDoneCount();
-
-
     </script>
 
-    <p id = "message" class = "hidden">
-        JAVASCRIPT IS RUNNING !
-    </p>
-
+    <p id = "message" class = "hidden"> JAVASCRIPT IS RUNNING ! </p>
 
     <div id = "alertBox" class = "alertBox hidden">
-
-        
         <div class = "alertContent">
-
             <h1 id = "alertTitle"> WARNING ! </h1>
             <p id = "alertText"> TASK </p>
             <button id = "closeAlert"> CLOSE </button>
-
         </div>
-
-        
     </div>
-
-
   </body>
-
 </html>
