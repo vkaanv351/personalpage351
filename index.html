@@ -773,6 +773,12 @@
     <br><br>
 
     <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
+
+    <div id = "motivationBox" class = "card" style = "text-align: center; border-color: #e67e22; margin-bottom: 20px; background-color: #fffaf0;">
+        <p id = "quoteText" style = "font-size: 16px; font-style: italic; color: #444; margin : 0 0 8px 0; line-height: 1.4;"> " LOADING YOUR DAILY DOSE OF DISCIPLINE... " </p>
+        <div id = "quoteAuthor" style = "font-weight: bold; color: #e67e22; font-size: 13px;"> - MINDSET </div>
+    </div>
+
     <br>
 
     <div id = "pomodoroContainer" class = "card" style = "text-align: center; border-color: #2ea300; margin-bottom: 30px;">
@@ -896,6 +902,26 @@
                 Notification.requestPermission();
             }
 
+            // --- MOTİVASYON SÖZÜ SİSTEMİ (İNTERNETTEN CANLI ÇEKME) ---
+            function displayRandomQuote() {
+                document.getElementById("quoteText").innerText = '"Loading your daily dose of discipline..."';
+                document.getElementById("quoteAuthor").innerText = "- Mindset";
+
+                fetch("https://dummyjson.com/quotes/random")
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById("quoteText").innerText = `"${data.quote}"`;
+                        document.getElementById("quoteAuthor").innerText = `- ${data.author}`;
+                    })
+                    .catch(error => {
+                        document.getElementById("quoteText").innerText = '"Discipline equals freedom."';
+                        document.getElementById("quoteAuthor").innerText = "- Jocko Willink";
+                    });
+            }
+
+            // Sayfa ilk açıldığında otomatik olarak çalıştır ve sözü getir
+            displayRandomQuote();
+
             const taskInput = document.querySelector("#taskInput");
             const taskNote = document.querySelector("#taskNote");
             const addTaskBtn = document.querySelector("#addTaskBtn");
@@ -1002,7 +1028,6 @@
             const increaseBtn = document.querySelector("#increaseBtn");
             const decreaseBtn = document.querySelector("#decreaseBtn");
             const resetCounterBtn = document.querySelector("#resetCounterBtn");
-            const taskDate = document.querySelector("#taskDate");
 
             // --- POMODORO SİSTEMİ BAŞLANGIÇ ---
             let timer;
@@ -1030,6 +1055,7 @@
                             confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
                         }
                         if (audioEnabled) successSound.play().catch(e => {});
+                        displayRandomQuote();
                     }
                 }, 1000);
             };
@@ -1087,20 +1113,14 @@
 
             const muteBtn = document.getElementById("muteBtn");
             muteBtn.onclick = function() {
-
                 audioEnabled = !audioEnabled;
                 if(audioEnabled) {
-
                     muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
                     muteBtn.style.backgroundColor = "#34495e";
-
                 } else {
-
                     muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
                     muteBtn.style.backgroundColor = "crimson";
-
                 }
-
             }
 
             const reminderTimeouts = {};
@@ -1149,6 +1169,7 @@
                 updateColor();
             });
 
+            box = null;
             decreaseBtn.addEventListener("click", function(){
                 count--;
                 counter.innerText = count;
@@ -1677,14 +1698,13 @@
                 if(percentage === 100 && total > 0) {
                     progressBar.style.boxShadow = "0 0 10px #48ff00";
                     successSound.currentTime = 0;
-                    if (audioEnabled)successSound.play().catch(e => console.log("BAŞARI SESİ ENGELLENDİ."));
+                    if (audioEnabled) successSound.play().catch(e => console.log("BAŞARI SESİ ENGELLENDİ."));
 
                     if(typeof confetti === 'function') {
                         confetti({ particleCount : 150 , spread : 70 , origin : { y : 0.6 } });
                     }
                 }
 
-                // Skor tablosu artık parantez hatasından kurtuldu, her an canlı güncelleniyor!
                 document.getElementById("doneCount").innerText = "COMPLETED : " + done;
                 document.getElementById("totalCount").innerText = "TOTAL : " + total;
                 document.getElementById("activeCount").innerText = "ACTIVE : " + active;
