@@ -796,6 +796,12 @@
             <button id = "resetTimer" style = "background-color: #999; color: white; border-radius: 8px;">RESET</button>
             <button id = "muteBtn" style = "background-color: #34495e; color: white; border-radius: 8px;"><i class="fas fa-volume-up"></i></button>
         </div>
+
+        <div id = "pomodoroStats" style = "margin-top : 20px; font-size : 14px; font-weight : bold; color : #2ea300; border-top : 1px dashed #ccc; padding-top : 15px;">
+            <i class = "fas fa-trophy"></i>  TOTAL FOCUS BLOCKS : <span id = "pomoCountDisplay">0</span>
+            <span style = "margin: 0 10px; color: #ccc;"> | </span>
+            <i class = "fas fa-hourglass-half"></i>  TOTAL TIME : <span id = "pomoTimeDisplay">0</span> MIN
+        </div>
     </div>
 
     <div id = "todoSection">
@@ -921,6 +927,23 @@
 
             // Sayfa ilk açıldığında otomatik olarak çalıştır ve sözü getir
             displayRandomQuote();
+
+            function updatePomodoroDisplay() {
+                const totalBlocks = parseInt(localStorage.getItem("totalPomodoros")) || 0;
+                const totalMinutes = totalBlocks * 25;
+
+                document.getElementById("pomoCountDisplay").innerText = totalBlocks;
+                document.getElementById("pomoTimeDisplay").innerText = totalMinutes;
+            }
+
+            function incrementPomodoroStats() {
+                let totalBlocks = parseInt(localStorage.getItem("totalPomodoros")) || 0;
+                totalBlocks++;
+                localStorage.setItem("totalPomodoros", totalBlocks);
+                updatePomodoroDisplay();
+            }
+            
+            updatePomodoroDisplay();
 
             const taskInput = document.querySelector("#taskInput");
             const taskNote = document.querySelector("#taskNote");
@@ -1056,6 +1079,7 @@
                         }
                         if (audioEnabled) successSound.play().catch(e => {});
                         displayRandomQuote();
+                        incrementPomodoroStats(); // <-- BURAYA EKLENDİ, ARTIK SÜRE BİTİNCE TETİKLENECEK!
                     }
                 }, 1000);
             };
