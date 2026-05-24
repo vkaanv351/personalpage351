@@ -600,7 +600,6 @@
 
         .priority-card-LOW {
             border-left: 8px solid #999 !important;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes glow-red {
@@ -612,6 +611,11 @@
             border-left: 8px solid orange !important;
             box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
             animation: glow-orange 3s infinite alternate;
+        }
+
+        .priority-card-LOW {
+            border-left: 8px solid #999 !important;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes glow-orange {
@@ -740,69 +744,24 @@
         body.dark-mode #timerDisplay { color: #48ff00; }
         body.dark-mode #pomodoroContainer h3 { color: #48ff00; }
 
-        .habit-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 10px;
-        }
-
-        body.dark-mode .habit-item {
-            background-color : #222;
-            color: white;
-        }
-
-        .badge-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100px;
-            text-align: center;
-            opacity: 0.25;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: grayscale(100%);
-        }
-        
-        .badge-box.unlocked {
-            opacity: 1;
-            filter: grayscale(0%);
-            transform: scale(1.05);
-        }
-        
-        .badge-icon {
-            font-size: 36px;
-            margin-bottom: 6px;
-            transition: transform 0.3s;
-        }
-        
-        .badge-box.unlocked .badge-icon {
-            animation: trophy-bounce 0.6s ease alternate infinite;
-        }
-        
-        .badge-title {
-            font-size: 11px;
-            font-weight: bold;
-            color: #555;
-        }
-        
-        body.dark-mode .badge-title {
-            color: #ddd;
-        }
-        
-        .badge-desc {
-            font-size: 9px;
-            color: #888;
-            margin-top: 2px;
-            line-height: 1.2;
-        }
-
-        @keyframes trophy-bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-4px); }
+        /* AKILLI MOBİL KORUMA KALKANI - Sadece küçük ekranlarda çalışır */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+            #taskControls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #taskControls input, 
+            #taskControls select, 
+            #taskControls button {
+                width: 100% !important;
+            }
+            #taskList li {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
     </style>
   </head>
@@ -831,12 +790,20 @@
             <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db; color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
         </div>
 
+
+
         <div style = "margin-bottom: 15px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap;">
-            <button id = "preset25" style = "padding: 6px 12px; background-color: #e74c3c; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-brain"></i> 25 MIN FOCUS</button>
-            <button id = "preset5" style = "padding: 6px 12px; background-color: #2ecc71; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-coffee"></i> 5 MIN BREAK</button>
-            <button id = "preset15" style = "padding: 6px 12px; background-color: #f1c40f; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-couch"></i> 15 MIN BREAK</button>
+
+
+        <button id = "preset25" style = "padding: 6px 12px; background-color: #e74c3c; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-brain"></i> 25 MIN FOCUS</button>
+        <button id = "preset5" style = "padding: 6px 12px; background-color: #2ecc71; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-coffee"></i> 5 MIN BREAK</button>
+        <button id = "preset15" style = "padding: 6px 12px; background-color: #f1c40f; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-couch"></i> 15 MIN BREAK</button>
+
+
         </div>
         
+
+
         <div id = "timerControls">
             <button id = "startTimer" style = "background-color: #2ea300; color: white; border-radius: 8px;">START</button>
             <button id = "pauseTimer" style = "background-color: orange; color: white; border-radius: 8px;">PAUSE</button>
@@ -849,21 +816,6 @@
             <span style = "margin: 0 10px; color: #ccc;"> | </span>
             <i class = "fas fa-hourglass-half"></i>  TOTAL TIME : <span id = "pomoTimeDisplay">0</span> MIN
         </div>
-    </div>
-
-    <div id="habitSection" class="card" style="border-color: #e67e22; margin-bottom: 30px;">
-        <h3 style="margin-top: 0; color: #e67e22; text-align: center;"><i class="fas fa-link"></i> DON'T BREAK THE CHAIN!</h3>
-        <div id="habitList"></div>
-        
-        <div style="margin-top: 20px; display: flex; gap: 8px; justify-content: center; border-top: 1px dashed #ccc; padding-top: 15px;">
-            <input type="text" id="habitInput" placeholder="(Enter custom habits...)" style="flex-grow: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
-            <button id="addHabitBtn" style="padding: 10px 20px; background-color: #e67e22; color: white; border-radius: 8px; font-size: 12px; font-weight: bold;">ADD</button>
-        </div>
-    </div>
-
-    <div id="badgeSection" class="card" style="border-color: #9b59b6; margin-bottom: 30px; background-color: #faf5ff;">
-        <h3 style="margin-top: 0; color: #9b59b6; text-align: center;"><i class="fas fa-medal"></i> DISCIPLINE TROPHIES</h3>
-        <div id="badgeContainer" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 15px;"></div>
     </div>
 
     <div id = "todoSection">
@@ -961,69 +913,16 @@
             const alertText = document.getElementById("alertText");
             const closeAlert = document.getElementById("closeAlert");
             
-            const taskInput = document.querySelector("#taskInput");
-            const taskNote = document.querySelector("#taskNote");
-            const addTaskBtn = document.querySelector("#addTaskBtn");
-            const taskList = document.querySelector("#taskList");
-            const taskCategory = document.querySelector("#taskCategory");
-            const taskPriority = document.querySelector("#taskPriority");
-            const taskDate = document.getElementById("taskDate");
-
-            const allBtn = document.querySelector("#allBtn");
-            const completedBtn = document.querySelector("#completedBtn");
-            const activeBtn = document.querySelector("#activeBtn");
-            const schoolBtn = document.querySelector("#schoolBtn");
-            const personalBtn = document.querySelector("#personalBtn");
-            const workBtn = document.querySelector("#workBtn");
-            const clearAllBtn = document.querySelector("#clearAllBtn");
-            const clearCompletedBtn = document.querySelector("#clearCompletedBtn");
-            const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
-            const undoBtn = document.querySelector("#undoBtn");
-
-            const allCount = document.querySelector("#totalCount");
-            const activeCount = document.querySelector("#activeCount");
-            const doneCount = document.querySelector("#doneCount");
-            const schoolCount = document.querySelector("#schoolCount");
-            const personalCount = document.querySelector("#personalCount");
-            const workCount = document.querySelector("#workCount");
-
-            const searchInput = document.querySelector("#searchInput");
-            const clearSearchBtn = document.querySelector("#clearSearchBtn");
-
-            const counter = document.querySelector("#counter");
-            const increaseBtn = document.querySelector("#increaseBtn");
-            const decreaseBtn = document.querySelector("#decreaseBtn");
-            const resetCounterBtn = document.querySelector("#resetCounterBtn");
-            const colorBtn = document.querySelector("#colorBtn");
-
-            const timerDisplay = document.getElementById("timerDisplay");
-            const startTimerBtn = document.getElementById("startTimer");
-            const pauseTimerBtn = document.getElementById("pauseTimer");
-            const resetTimerBtn = document.getElementById("resetTimer");
-            const muteBtn = document.getElementById("muteBtn");
-            const customMinutesInput = document.getElementById("customMinutes");
-            const setTimerBtn = document.getElementById("setTimerBtn");
-
-            const preset25 = document.getElementById("preset25");
-            const preset5 = document.getElementById("preset5");
-            const preset15 = document.getElementById("preset15");
-
-            // YENİ ELEMANLARIN TANIMLAMALARI
-            const habitInput = document.getElementById("habitInput");
-            const addHabitBtn = document.getElementById("addHabitBtn");
-            
             let lastDeletedTask = null;
             let lastDeletedAllTasks = null;
             let lastEditedTask = null;    
             let count = 0;
-            let currentFilter = "all";
-            let audioEnabled = true;
             
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
             }
 
-            // --- MOTİVASYON SÖZÜ SİSTEMİ ---
+            // --- MOTİVASYON SÖZÜ SİSTEMİ (İNTERNETTEN CANLI ÇEKME) ---
             function displayRandomQuote() {
                 document.getElementById("quoteText").innerText = '"Loading your daily dose of discipline..."';
                 document.getElementById("quoteAuthor").innerText = "- Mindset";
@@ -1040,6 +939,7 @@
                     });
             }
 
+            // Sayfa ilk açıldığında otomatik olarak çalıştır ve sözü getir
             displayRandomQuote();
 
             function updatePomodoroDisplay() {
@@ -1058,6 +958,20 @@
             }
             
             updatePomodoroDisplay();
+
+            const taskInput = document.querySelector("#taskInput");
+            const taskNote = document.querySelector("#taskNote");
+            const addTaskBtn = document.querySelector("#addTaskBtn");
+            const taskList = document.querySelector("#taskList");
+            const taskCategory = document.querySelector("#taskCategory");
+            const taskPriority = document.querySelector("#taskPriority");
+
+            const allBtn = document.querySelector("#allBtn");
+            const completedBtn = document.querySelector("#completedBtn");
+            const activeBtn = document.querySelector("#activeBtn");
+            const clearAllBtn = document.querySelector("#clearAllBtn");
+            const clearCompletedBtn = document.querySelector("#clearCompletedBtn");
+            const downloadPdfBtn = document.querySelector("#downloadPdfBtn");
 
             downloadPdfBtn.addEventListener("click", function() {
                 const element = document.getElementById('todoSection');
@@ -1086,7 +1000,23 @@
                 showAlert("SUCCESS" , "YOUR PDF IS READY !");
             });
 
+            const undoBtn = document.querySelector("#undoBtn");
             undoBtn.classList.add("undoDisabled");
+
+            const allCount = document.querySelector("#totalCount");
+            const activeCount = document.querySelector("#activeCount");
+            const doneCount = document.querySelector("#doneCount");
+
+            const schoolBtn = document.querySelector("#schoolBtn");
+            const personalBtn = document.querySelector("#personalBtn");
+            const workBtn = document.querySelector("#workBtn");
+
+            const schoolCount = document.querySelector("#schoolCount");
+            const personalCount = document.querySelector("#personalCount");
+            const workCount = document.querySelector("#workCount");
+
+            const searchInput = document.querySelector("#searchInput");
+            const clearSearchBtn = document.querySelector("#clearSearchBtn");
 
             searchInput.addEventListener("input", function() {
                 applySearchFilter();
@@ -1103,6 +1033,8 @@
                 applySearchFilter();
                 searchInput.focus();
             });
+
+            let currentFilter = "all";
 
             allCount.addEventListener("click", function() { allBtn.click(); });
             activeCount.addEventListener("click", function() { activeBtn.click(); });
@@ -1129,9 +1061,16 @@
                 }
             }
 
-            // --- POMODORO SİSTEMİ ---
+            const counter = document.querySelector("#counter");
+            const increaseBtn = document.querySelector("#increaseBtn");
+            const decreaseBtn = document.querySelector("#decreaseBtn");
+            const resetCounterBtn = document.querySelector("#resetCounterBtn");
+
+            // --- POMODORO SİSTEMİ BAŞLANGIÇ ---
             let timer;
             let timeLeft = 25 * 60;
+
+            const timerDisplay = document.getElementById("timerDisplay");
 
             function updateTimerDisplay() {
                 let mins = Math.floor(timeLeft / 60);
@@ -1139,7 +1078,7 @@
                 timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             }
 
-            if(startTimerBtn) startTimerBtn.onclick = function() {
+            document.getElementById("startTimer").onclick = function() {
                 if (timer) return;
                 timer = setInterval(function() {
                     if (timeLeft > 0) {
@@ -1159,22 +1098,25 @@
                 }, 1000);
             };
 
-            if(pauseTimerBtn) pauseTimerBtn.onclick = function() {
+            document.getElementById("pauseTimer").onclick = function() {
                 clearInterval(timer);
                 timer = null;
             };
 
-            if(resetTimerBtn) resetTimerBtn.onclick = function() {
+            document.getElementById("resetTimer").onclick = function() {
                 clearInterval(timer);
                 timer = null;
                 timeLeft = 25 * 60;
                 updateTimerDisplay();
             };
 
-            if(setTimerBtn) setTimerBtn.onclick = function() {
+            const setTimerBtn = document.getElementById("setTimerBtn");
+            const customMinutesInput = document.getElementById("customMinutes");
+
+            setTimerBtn.onclick = function() {
                 const mins = parseInt(customMinutesInput.value);
                 if(isNaN(mins) || mins <= 0 || mins > 300) {
-                    showAlert("WARNING !", "PLEASE ENTER A VALID MINUTE (1-300) !");
+                    showAlert("WARNING !" , "PLEASE ENTER A VALID MINUTE (1-300) !");
                     return;
                 }
                 clearInterval(timer);
@@ -1184,9 +1126,12 @@
                 showAlert("SUCCESS" , "TIMER SET TO " + mins + " MINUTES !");
             };
 
-            if(preset25) preset25.onclick = function() { setPomodoroPreset(25, "STUDY TIME! STAY FOCUSED!"); };
-            if(preset5) preset5.onclick = function() { setPomodoroPreset(5, "SHORT BREAK STARTED! RELAX."); };
-            if(preset15) preset15.onclick = function() { setPomodoroPreset(15, "LONG BREAK STARTED! ENJOY YOUR TIME."); };
+
+            // --- HIZLI AYAR BUTONLARI TETİKLEYİCİLERİ ---
+
+            document.getElementById("preset25").onclick = function() { setPomodoroPreset(25, "STUDY TIME! STAY FOCUSED!"); };
+            document.getElementById("preset5").onclick = function() { setPomodoroPreset(5, "SHORT BREAK STARTED! RELAX."); };
+            document.getElementById("preset15").onclick = function() { setPomodoroPreset(15, "LONG BREAK STARTED! ENJOY YOUR TIME."); };
 
             function setPomodoroPreset(mins, message) {
                 clearInterval(timer);
@@ -1195,6 +1140,9 @@
                 updateTimerDisplay();
                 showAlert("SUCCESS", message);
             }
+
+
+            // --- POMODORO SİSTEMİ BİTİŞ ---
 
             function showAlert(title, text) {
                 alertTitle.innerText = title;
@@ -1211,11 +1159,55 @@
                 alertBox.classList.remove("hidden");
             }
 
-            if(closeAlert) closeAlert.addEventListener("click" , function(){
+            closeAlert.addEventListener("click" , function(){
                 alertBox.classList.add("hidden");
                 taskInput.focus();
             });
 
+            let audioEnabled = true;
+
+            const muteBtn = document.getElementById("muteBtn");
+            muteBtn.onclick = function() {
+                audioEnabled = !audioEnabled;
+                if(audioEnabled) {
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    muteBtn.style.backgroundColor = "#34495e";
+                } else {
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    muteBtn.style.backgroundColor = "crimson";
+                }
+            }
+
+            const reminderTimeouts = {};
+            const warningTimeouts = {};
+            const editingTaskIds = new Set();
+
+            taskList.addEventListener("dragover" , function(e) {
+                e.preventDefault();
+                const afterElement = getDragAfterElement(taskList , e.clientY);
+                const dragging = document.querySelector(".dragging");
+                if(!dragging) return;
+                if(afterElement == null){
+                    taskList.appendChild(dragging);
+                } else {
+                    taskList.insertBefore(dragging , afterElement);
+                }
+            });
+
+            function getDragAfterElement(container , y) {
+                const elements = [...container.querySelectorAll("li:not(.dragging)")];
+                return elements.reduce((closest , child ) => {
+                    const box = child.getBoundingClientRect();
+                    const offset = y - box.top - box.height / 2;
+                    if(offset < 0 && offset > closest.offset) {
+                        return { offset : offset , element : child};
+                    } else {
+                        return closest;
+                    }
+                } , { offset : Number.NEGATIVE_INFINITY }).element;
+            }
+
+            const colorBtn = document.querySelector("#colorBtn");
             colorBtn.addEventListener("click", function(){
                 document.body.classList.toggle("dark-mode");
                 if(document.body.classList.contains("dark-mode")) {
@@ -1232,6 +1224,7 @@
                 updateColor();
             });
 
+            box = null;
             decreaseBtn.addEventListener("click", function(){
                 count--;
                 counter.innerText = count;
@@ -1263,6 +1256,10 @@
             if(localStorage.getItem("theme") === "dark") {
                 document.body.classList.add("dark-mode");
             }
+
+            renderTasks();
+            allBtn.classList.add("activeFilter");
+            updateUndoButton();
 
             getTasks().forEach(function(task) {
                 scheduleReminder(task);
@@ -1297,7 +1294,7 @@
 
             addTaskBtn.addEventListener("click", function(){
                 const taskText = taskInput.value.trim();
-                const dateValue = taskDate ? taskDate.value : "";
+                const dateValue = taskDate.value;
                 const categoryValue = taskCategory.value;
                 const priorityValue = taskPriority.value;
 
@@ -1334,8 +1331,7 @@
 
                 showAlert("SUCCESS" , "TASK ADDED!");
                 taskInput.value = "";
-                taskNote.value = "";
-                if(taskDate) taskDate.value = "";
+                taskDate.value = "";
                 taskCategory.value = "SCHOOL";
                 taskPriority.value = "LOW";
             });
@@ -1508,17 +1504,6 @@
                 localStorage.setItem("tasks" , JSON.stringify(tasks));
             }
 
-            function saveNewOrder() {
-                const newOrderTasks = [];
-                document.querySelectorAll("#taskList li:not(.emptyMessage)").forEach(function(li) {
-                    const id = parseInt(li.dataset.id);
-                    const tasks = getTasks();
-                    const found = tasks.find(t => t.id === id);
-                    if(found) newOrderTasks.push(found);
-                });
-                saveTasks(newOrderTasks);
-            }
-
             function scheduleReminder(task) {
                 if(reminderTimeouts[task.id]) { clearTimeout(reminderTimeouts[task.id]); }
                 if(warningTimeouts[task.id]) { clearTimeout(warningTimeouts[task.id]); }
@@ -1549,224 +1534,6 @@
                 }
             }
 
-
-            // --- HABIT SETTINGS ---
-            
-
-            const defaultHabits = [
-                
-            { id: "dailyFocus", name: "🎯 Complete Daily Focus Goal", streak: 0, lastDate: "" }
-
-            ];
-
-            function getHabits() {
-                try {
-                    return JSON.parse(localStorage.getItem("personalPage_habits_v5")) || defaultHabits;
-                } catch(e) {
-                    return defaultHabits;
-                }
-            }
-
-            function saveHabits(habits) {
-                localStorage.setItem("personalPage_habits_v5", JSON.stringify(habits));
-            }
-
-            // --- YENİ ÖZEL ALIŞKANLIK EKLEME BUTON TETİKLEYİCİSİ ---
-            if (addHabitBtn) {
-                addHabitBtn.onclick = function() {
-                    const habitText = habitInput.value.trim();
-                    if (habitText === "") {
-                        showAlert("WARNING !", "PLEASE ENTER A HABIT NAME!");
-                        return;
-                    }
-                    const habits = getHabits();
-                    const newHabit = {
-                        id: "custom_" + Date.now(), // Benzersiz kimlik kartı
-                        name: habitText,
-                        streak: 0,
-                        lastDate: ""
-                    };
-                    habits.push(newHabit);
-                    saveHabits(habits);
-                    renderHabits();
-                    checkAndRenderBadges();
-                    habitInput.value = "";
-                    showAlert("SUCCESS", "CUSTOM HABIT ADDED!");
-                };
-            }
-
-            function renderHabits() {
-                const habitList = document.getElementById("habitList");
-                if (!habitList) return;
-                habitList.innerHTML = "";
-
-                const habits = getHabits();
-                const todayStr = new Date().toLocaleDateString('sv');
-                
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                const yesterdayStr = yesterday.toLocaleDateString('sv');
-
-                habits.forEach(habit => {
-                    if (habit.lastDate !== todayStr && habit.lastDate !== yesterdayStr && habit.streak > 0) {
-                        habit.streak = 0;
-                    }
-
-                    const item = document.createElement("div");
-                    item.classList.add("habit-item");
-
-                    const info = document.createElement("div");
-                    info.innerHTML = `<span style="font-weight:bold;">${habit.name}</span><br><small style="color: #e67e22;"><i class="fas fa-fire"></i> Streak: ${habit.streak} Days</small>`;
-
-                    const btnGroup = document.createElement("div");
-                    btnGroup.style.display = "flex";
-                    btnGroup.style.gap = "5px";
-                    btnGroup.style.alignItems = "center";
-
-                    const mainBtn = document.createElement("button");
-                    mainBtn.style.padding = "8px 14px";
-                    mainBtn.style.borderRadius = "8px";
-                    mainBtn.style.fontSize = "12px";
-                    mainBtn.style.border = "none";
-                    mainBtn.style.fontWeight = "bold";
-
-                    if (habit.lastDate === todayStr) {
-                        mainBtn.innerText = "DONE ✓";
-                        mainBtn.style.backgroundColor = "#2ecc71";
-                        mainBtn.style.color = "white";
-                        mainBtn.style.cursor = "default";
-                        btnGroup.appendChild(mainBtn);
-
-                        const undoBtn = document.createElement("button");
-                        undoBtn.innerText = "Undo";
-                        undoBtn.style.padding = "8px 12px";
-                        undoBtn.style.borderRadius = "8px";
-                        undoBtn.style.fontSize = "12px";
-                        undoBtn.style.border = "none";
-                        undoBtn.style.backgroundColor = "#e74c3c";
-                        undoBtn.style.color = "white";
-                        undoBtn.style.cursor = "pointer";
-                        undoBtn.style.fontWeight = "bold";
-                        
-                        undoBtn.onclick = function() {
-                            habit.streak--;
-                            if (habit.streak <= 0) {
-                                habit.streak = 0;
-                                habit.lastDate = "";
-                            } else {
-                                habit.lastDate = yesterdayStr;
-                            }
-                            saveHabits(habits);
-                            renderHabits();
-                            checkAndRenderBadges();
-                        };
-                        btnGroup.appendChild(undoBtn);
-                    } else {
-                        mainBtn.innerText = "COMPLETE";
-                        mainBtn.style.backgroundColor = "#3498db";
-                        mainBtn.style.color = "white";
-                        mainBtn.style.cursor = "pointer";
-                        
-                        mainBtn.onclick = function() {
-                            habit.streak++;
-                            habit.lastDate = todayStr;
-                            saveHabits(habits);
-                            renderHabits();
-                            checkAndRenderBadges();
-                            if (typeof confetti === 'function') {
-                                confetti({ particleCount: 60, spread: 50, origin: { y: 0.8 } });
-                            }
-                        };
-                        btnGroup.appendChild(mainBtn);
-                    }
-
-                    // EĞER KULLANICI KENDİ EKLEDİYSE SİLMEK İÇİN ÇÖP KUTUSU EKLE
-                    if (habit.id.toString().startsWith("custom_")) {
-                        const delHabitBtn = document.createElement("button");
-                        delHabitBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                        delHabitBtn.style.padding = "8px 10px";
-                        delHabitBtn.style.borderRadius = "8px";
-                        delHabitBtn.style.border = "none";
-                        delHabitBtn.style.backgroundColor = "transparent";
-                        delHabitBtn.style.color = "crimson";
-                        delHabitBtn.style.cursor = "pointer";
-                        delHabitBtn.onclick = function() {
-                            const filteredHabits = getHabits().filter(h => h.id !== habit.id);
-                            saveHabits(filteredHabits);
-                            renderHabits();
-                            checkAndRenderBadges();
-                        };
-                        btnGroup.appendChild(delHabitBtn);
-                    }
-
-                    item.appendChild(info);
-                    item.appendChild(btnGroup);
-                    habitList.appendChild(item);
-                });
-
-                saveHabits(habits);
-            }
-
-            // --- AKILLI ROZET / KUPA HESAPLAMA MOTORU ---
-            function checkAndRenderBadges() {
-                const badgeContainer = document.getElementById("badgeContainer");
-                if (!badgeContainer) return;
-                badgeContainer.innerHTML = "";
-
-                const tasks = getTasks();
-                const habits = getHabits();
-
-                const totalTasksCount = tasks.length;
-                const completedTasksCount = tasks.filter(t => t.completed).length;
-                const maxHabitStreak = habits.reduce((max, h) => h.streak > max ? h.streak : max, 0);
-
-                const badgeDefinitions = [
-                    {
-                        id: "firstStep",
-                        icon: "🥉",
-                        title: "First Step",
-                        desc: "Complete your first task",
-                        unlocked: completedTasksCount >= 1
-                    },
-                    {
-                        id: "taskMaster",
-                        icon: "🥈",
-                        title: "Task Master",
-                        desc: "Complete 5 total tasks",
-                        unlocked: completedTasksCount >= 5
-                    },
-                    {
-                        id: "unstoppable",
-                        icon: "🥇",
-                        title: "Unstoppable",
-                        desc: "Hit a 3-day habit streak",
-                        unlocked: maxHabitStreak >= 3
-                    },
-                    {
-                        id: "eliteDiscipline",
-                        icon: "🏆",
-                        title: "Elite Discipline",
-                        desc: "100% complete list (Min 3 tasks)",
-                        unlocked: totalTasksCount >= 3 && completedTasksCount === totalTasksCount
-                    }
-                ];
-
-                badgeDefinitions.forEach(badge => {
-                    const box = document.createElement("div");
-                    box.classList.add("badge-box");
-                    if (badge.unlocked) {
-                        box.classList.add("unlocked");
-                    }
-
-                    box.innerHTML = `
-                        <div class="badge-icon">${badge.icon}</div>
-                        <div class="badge-title">${badge.title}</div>
-                        <div class="badge-desc">${badge.desc}</div>
-                    `;
-                    badgeContainer.appendChild(box);
-                });
-            }
-
             function renderTasks() {
                 taskList.innerHTML = "";
                 const tasks = getTasks();
@@ -1786,7 +1553,6 @@
                     taskList.appendChild(emptyMessage);
                     updateDoneCount();
                     applyCurrentFilter();
-                    checkAndRenderBadges();
                     return;
                 }
 
@@ -1798,6 +1564,7 @@
 
                     if(task.completed) { li.classList.add("completed"); }
                     
+                    // --- SÜRÜKLE BIRAK İÇİN SİLİNEN KİMLİK KARTLARINI GERİ EKLEDİK ---
                     li.draggable = true;
                     li.dataset.id = task.id;
                     li.dataset.category = task.category;
@@ -1967,7 +1734,6 @@
                 });
                 updateDoneCount();
                 applyCurrentFilter();
-                checkAndRenderBadges();
             }
 
             function updateDoneCount() {
@@ -1988,13 +1754,13 @@
                 const progressText = document.getElementById("progressText");
                 const percentage = total > 0 ? Math.round((done / total) * 100) : 0;
 
-                if(progressBar) progressBar.style.width = percentage + "%";
-                if(progressText) progressText.innerText = "%" + percentage + " COMPLETED";
+                progressBar.style.width = percentage + "%";
+                progressText.innerText = "%" + percentage + " COMPLETED";
 
                 if(percentage === 100 && total > 0) {
-                    if(progressBar) progressBar.style.boxShadow = "0 0 10px #48ff00";
+                    progressBar.style.boxShadow = "0 0 10px #48ff00";
                     successSound.currentTime = 0;
-                    if (audioEnabled) successSound.play().catch(e => console.log("AUDIO BLOCKED"));
+                    if (audioEnabled) successSound.play().catch(e => console.log("BAŞARI SESİ ENGELLENDİ."));
 
                     if(typeof confetti === 'function') {
                         confetti({ particleCount : 150 , spread : 70 , origin : { y : 0.6 } });
@@ -2009,11 +1775,19 @@
                 document.getElementById("workCount").innerText = "WORK : " + work;
             }
 
-            renderTasks();
-            allBtn.classList.add("activeFilter");
-            updateUndoButton();
-            renderHabits(); 
-            checkAndRenderBadges(); 
+            // --- BOŞLUK TUZAKLARI TEMİZLENMİŞ VE JİLET GİBİ SIRALAMA YAPAN FONKSİYON ---
+            function saveNewOrder() {
+                const newOrderTasks = [];
+                document.querySelectorAll("#taskList li:not(.emptyMessage)").forEach(function(li) {
+                    const id = parseInt(li.dataset.id);
+                    const tasks = getTasks();
+                    const found = tasks.find(t => t.id === id);
+                    if(found) newOrderTasks.push(found);
+                });
+                saveTasks(newOrderTasks);
+            }
+
+            updateDoneCount();
         });
     </script>
 
