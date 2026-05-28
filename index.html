@@ -744,6 +744,82 @@
         body.dark-mode #timerDisplay { color: #48ff00; }
         body.dark-mode #pomodoroContainer h3 { color: #48ff00; }
 
+
+
+        .badge-box {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+            text-align: center;
+            opacity: 0.25;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: grayscale(100%);
+
+        }
+
+
+        .badge-box.unlocked {
+
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
+
+        }
+
+
+        .badge-icon {
+
+            font-size: 36px;
+            margin-bottom: 6px;
+            transition: transform 0.3s;
+
+        }
+
+
+        .badge-box.unlocked .badge-icon {
+
+            animation: trophy-bounce 0.6s ease alternate infinite;
+
+        }
+
+
+        .badge-title {
+
+            font-size: 11px;
+            font-weight: bold;
+            color: #555;
+
+        }
+
+
+        body.dark-mode .badge-title {
+
+            color: #ddd;
+
+        }
+
+
+        .badge-desc {
+
+            font-size: 9px;
+            color: #888;
+            margin-top: 2px;
+            line-height: 1.2;
+
+        }
+
+        @keyframes trophy-bounce {
+
+            from { transform: translateY(0); }
+            to { transform: translateY(-4px); }
+
+        }
+
+
+
+
         /* AKILLI MOBİL KORUMA KALKANI - Sadece küçük ekranlarda çalışır */
         @media (max-width: 600px) {
             body {
@@ -817,6 +893,61 @@
             <i class = "fas fa-hourglass-half"></i>  TOTAL TIME : <span id = "pomoTimeDisplay">0</span> MIN
         </div>
     </div>
+
+
+
+    <div id = "habitSection" class = "card" style = "border-color: #e67e22;
+    margin-bottom: 30px;">
+
+    <h3 style = "margin-top: 0; color: #e67e22; text-align: center;">
+        <i class = "fas fa-link"></i> DON ' T BREAK THE CHAIN ! </h3>
+
+        <div id = "habitList"></div>
+
+        <div style = "margin-top: 20px; display: flex; justify-content: center;
+        border-top: 1px dashed #ccc; padding-top: 15px;">
+        
+        <input type = "text" id = "habitInput" placeholder = "ENTER CUSTOM HABIT..."
+        style = "flex-grow: 1; padding: 10px; border-radius: 8px; border: 1px solid #ccc;">
+
+        <button id = "addHabitBtn" style = "padding: 10px 20px; background-color: #e67e22;
+        
+        color: white; border-radius: 8px; font-size: 12px; font-weight: bold;"> ADD </button>
+
+    
+    </div>
+
+            </div>
+    
+
+
+
+
+
+
+</div>
+
+
+
+    <div id = "badgeSection" class = "card" style = "border-color: #9b59b6;
+    
+    margin-bottom: 30px; background-color: #faf5ff;">
+
+    <h3 style = "margin-top: 0; color: #9b59b6; text-align: center;">
+
+        <i class = "fas fa-medal"></i> DISCIPLINE TROPHIES </h3>
+
+        <div id = "badgeContainer" style = "display: flex; justify-content:
+
+        center; gap: 12px; flex-wrap: wrap; margin-top: 15px;">
+        
+
+    </div>
+
+
+    </div>
+
+
 
     <div id = "todoSection">
         <h2> LIST : </h2>
@@ -913,6 +1044,10 @@
             const alertText = document.getElementById("alertText");
             const closeAlert = document.getElementById("closeAlert");
             
+
+            const habitInput = document.getElementById("habitInput");
+            const addHabitBtn = document.getElementById("addHabitBtn");
+
             let lastDeletedTask = null;
             let lastDeletedAllTasks = null;
             let lastEditedTask = null;    
@@ -1218,18 +1353,8 @@
                 updateColor();
             });
 
-            increaseBtn.addEventListener("click", function(){
-                count++;
-                counter.innerText = count;
-                updateColor();
-            });
-
-            box = null;
-            decreaseBtn.addEventListener("click", function(){
-                count--;
-                counter.innerText = count;
-                updateColor();
-            });
+            
+        
 
             resetCounterBtn.addEventListener("click", function(){
                 count = 0;
@@ -1338,9 +1463,8 @@
 
             allBtn.addEventListener("click", function(){
                 currentFilter = "all";
-                taskCategory.value = "SCHOOL";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = "flex";
+                    li.style.display = "grid";
                 });
                 clearFilterButtons();
                 allBtn.classList.add("activeFilter");
@@ -1350,7 +1474,7 @@
                 currentFilter = "completed";
                 taskCategory.value = "SCHOOL";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = li.classList.contains("completed") ? "flex" : "none";
+                    li.style.display = li.classList.contains("completed") ? "grid" : "none";
                 });
                 clearFilterButtons();
                 completedBtn.classList.add("activeFilter");
@@ -1360,7 +1484,7 @@
                 currentFilter = "active";
                 taskCategory.value = "SCHOOL";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = !li.classList.contains("completed") ? "flex" : "none";
+                    li.style.display = !li.classList.contains("completed") ? "grid" : "none";
                 });
                 clearFilterButtons();
                 activeBtn.classList.add("activeFilter");
@@ -1370,7 +1494,7 @@
                 currentFilter = "school";
                 taskCategory.value = "SCHOOL";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = li.dataset.category === "SCHOOL" ? "flex" : "none";
+                    li.style.display = li.dataset.category === "SCHOOL" ? "grid" : "none";
                 });
                 clearFilterButtons();
                 schoolBtn.classList.add("activeFilter");
@@ -1380,7 +1504,7 @@
                 currentFilter = "personal";
                 taskCategory.value = "PERSONAL";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = li.dataset.category === "PERSONAL" ? "flex" : "none";
+                    li.style.display = li.dataset.category === "PERSONAL" ? "grid" : "none";
                 });
                 clearFilterButtons();
                 personalBtn.classList.add("activeFilter");
@@ -1390,7 +1514,7 @@
                 currentFilter = "work";
                 taskCategory.value = "WORK";
                 document.querySelectorAll("#taskList li").forEach(li=>{
-                    li.style.display = li.dataset.category === "WORK" ? "flex" : "none";
+                    li.style.display = li.dataset.category === "WORK" ? "grid" : "none";
                 });
                 clearFilterButtons();
                 workBtn.classList.add("activeFilter");
@@ -1423,7 +1547,7 @@
 
                     const matchesSearch = text.includes(searchText);
                     if(matchesFilter && matchesSearch) {
-                        li.style.display = "flex";
+                        li.style.display = "grid";
                     } else {
                         li.style.display = "none";
                     }
@@ -1533,6 +1657,69 @@
                     } , delay - 600000);
                 }
             }
+
+
+            function checkAndRenderBadges() {
+                const badgeContainer = document.getElementById("badgeContainer");
+                if (!badgeContainer) return;
+                badgeContainer.innerHTML = "";
+
+                const tasks = getTasks();
+                const habits = getHabits(); // Doğru kaynak bağlandı
+
+                const totalTasksCount = tasks.length;
+                const completedTasksCount = tasks.filter(t => t.completed).length;
+                const maxHabitStreak = habits.reduce((max, h) => h.streak > max ? h.streak : max, 0);
+
+                const badgeDefinitions = [
+                    {
+                        id: "firstStep",
+                        icon: "🥉",
+                        title: "First Step",
+                        desc: "Complete your first task",
+                        unlocked: completedTasksCount >= 1
+                    },
+                    {
+                        id: "taskMaster",
+                        icon: "🥈",
+                        title: "Task Master",
+                        desc: "Complete 5 total tasks",
+                        unlocked: completedTasksCount >= 5
+                    },
+                    {
+                        id: "unstoppable",
+                        icon: "🥇",
+                        title: "Unstoppable",
+                        desc: "Hit a 3-day habit streak",
+                        unlocked: maxHabitStreak >= 3
+                    },
+                    {
+                        id: "eliteDiscipline",
+                        icon: "🏆",
+                        title: "Elite Discipline",
+                        desc: "100% complete list (Min 3 tasks)",
+                        unlocked: totalTasksCount >= 3 && completedTasksCount === totalTasksCount
+                    }
+                ];
+
+                badgeDefinitions.forEach(badge => {
+                    const box = document.createElement("div");
+                    box.classList.add("badge-box");
+                    if (badge.unlocked) {
+                        box.classList.add("unlocked");
+                    }
+                    box.innerHTML = `
+                        <div class="badge-icon">${badge.icon}</div>
+                        <div class="badge-title">${badge.title}</div>
+                        <div class="badge-desc">${badge.desc}</div>
+                    `;
+                    badgeContainer.appendChild(box);
+                });
+            }
+
+
+            
+
 
             function renderTasks() {
                 taskList.innerHTML = "";
@@ -1773,6 +1960,10 @@
                 document.getElementById("schoolCount").innerText = "SCHOOL : " + school;
                 document.getElementById("personalCount").innerText = "PERSONAL : " + personal;
                 document.getElementById("workCount").innerText = "WORK : " + work;
+
+
+                checkAndRenderBadges();
+
             }
 
             // --- BOŞLUK TUZAKLARI TEMİZLENMİŞ VE JİLET GİBİ SIRALAMA YAPAN FONKSİYON ---
@@ -1787,8 +1978,179 @@
                 saveTasks(newOrderTasks);
             }
 
+
+            
+            const defaultHabits = [
+                { id: "dailyFocus", name: "🎯 Complete Daily Focus Goal", streak: 0, lastDate: "" }
+            ];
+
+            function getHabits() {
+                try {
+                    const data = JSON.parse(localStorage.getItem("personalPage_habits_v5"));
+                    return Array.isArray(data) ? data : defaultHabits;
+                } catch(e) {
+                    return defaultHabits;
+                }
+            }
+
+            function saveHabits(habits) {
+                localStorage.setItem("personalPage_habits_v5", JSON.stringify(habits));
+            }
+
+            if (addHabitBtn) {
+                addHabitBtn.onclick = function() {
+                    const habitText = habitInput.value.trim();
+                    if (habitText === "") {
+                        showAlert("WARNING !", "PLEASE ENTER A HABIT NAME!");
+                        return;
+                    }
+                    const habits = getHabits();
+                    const newHabit = {
+                        id: "custom_" + Date.now(), 
+                        name: habitText,
+                        streak: 0,
+                        lastDate: ""
+                    };
+                    habits.push(newHabit);
+                    saveHabits(habits);
+                    renderHabits();
+                    checkAndRenderBadges();
+                    habitInput.value = "";
+                    showAlert("SUCCESS", "CUSTOM HABIT ADDED!");
+                };
+            }
+
+            function renderHabits() {
+                const habitList = document.getElementById("habitList");
+                if (!habitList) return;
+                habitList.innerHTML = "";
+
+                const habits = getHabits();
+                const todayStr = new Date().toLocaleDateString('sv');
+                
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const yesterdayStr = yesterday.toLocaleDateString('sv');
+
+                habits.forEach(habit => {
+                    if (habit.lastDate !== todayStr && habit.lastDate !== yesterdayStr && habit.streak > 0) {
+                        habit.streak = 0;
+                    }
+
+                    const item = document.createElement("div");
+                    item.style.display = "flex";
+                    item.style.justifyContent = "space-between";
+                    item.style.alignItems = "center";
+                    item.style.padding = "12px 15px";
+                    item.style.backgroundColor = document.body.classList.contains("dark-mode") ? "#222" : "white";
+                    item.style.borderRadius = "8px";
+                    item.style.boxShadow = "0 2px 6px rgba(0, 0, 0, 0.1)";
+                    item.style.marginBottom = "10px";
+                    item.style.color = document.body.classList.contains("dark-mode") ? "white" : "black";
+
+                    const info = document.createElement("div");
+                    info.innerHTML = `<span style="font-weight:bold;">${habit.name}</span><br><small style="color: #e67e22;"><i class="fas fa-fire"></i> Streak: ${habit.streak} Days</small>`;
+
+                    const btnGroup = document.createElement("div");
+                    btnGroup.style.display = "flex";
+                    btnGroup.style.gap = "5px";
+                    btnGroup.style.alignItems = "center";
+
+                    const mainBtn = document.createElement("button");
+                    mainBtn.style.padding = "8px 14px";
+                    mainBtn.style.borderRadius = "8px";
+                    mainBtn.style.fontSize = "12px";
+                    mainBtn.style.border = "none";
+                    mainBtn.style.fontWeight = "bold";
+
+                    if (habit.lastDate === todayStr) {
+                        mainBtn.innerText = "DONE ✓";
+                        mainBtn.style.backgroundColor = "#2ecc71";
+                        mainBtn.style.color = "white";
+                        mainBtn.style.cursor = "default";
+                        btnGroup.appendChild(mainBtn);
+
+                        const undoBtn = document.createElement("button");
+                        undoBtn.innerText = "Undo";
+                        undoBtn.style.padding = "8px 12px";
+                        undoBtn.style.borderRadius = "8px";
+                        undoBtn.style.fontSize = "12px";
+                        undoBtn.style.border = "none";
+                        undoBtn.style.backgroundColor = "#e74c3c";
+                        undoBtn.style.color = "white";
+                        undoBtn.style.cursor = "pointer";
+                        undoBtn.style.fontWeight = "bold";
+                        
+                        undoBtn.onclick = function() {
+                            habit.streak--;
+                            if (habit.streak <= 0) {
+                                habit.streak = 0;
+                                habit.lastDate = "";
+                            } else {
+                                habit.lastDate = yesterdayStr;
+                            }
+                            saveHabits(habits);
+                            renderHabits();
+                            checkAndRenderBadges();
+                        };
+                        btnGroup.appendChild(undoBtn);
+                    } else {
+                        mainBtn.innerText = "COMPLETE";
+                        mainBtn.style.backgroundColor = "#3498db";
+                        mainBtn.style.color = "white";
+                        mainBtn.style.cursor = "pointer";
+                        
+                        mainBtn.onclick = function() {
+                            habit.streak++;
+                            habit.lastDate = todayStr;
+                            saveHabits(habits);
+                            renderHabits();
+                            checkAndRenderBadges();
+                            if (typeof confetti === 'function') {
+                                confetti({ particleCount: 60, spread: 50, origin: { y: 0.8 } });
+                            }
+                        };
+                        btnGroup.appendChild(mainBtn);
+                    }
+
+                    if (habit.id.toString().startsWith("custom_")) {
+                        const delHabitBtn = document.createElement("button");
+                        delHabitBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                        delHabitBtn.style.padding = "8px 10px";
+                        delHabitBtn.style.borderRadius = "8px";
+                        delHabitBtn.style.border = "none";
+                        delHabitBtn.style.backgroundColor = "transparent";
+                        delHabitBtn.style.color = "crimson";
+                        delHabitBtn.style.cursor = "pointer";
+                        delHabitBtn.onclick = function() {
+                            const filteredHabits = getHabits().filter(h => h.id !== habit.id);
+                            saveHabits(filteredHabits);
+                            renderHabits();
+                            checkAndRenderBadges();
+                        };
+                        btnGroup.appendChild(delHabitBtn);
+                    }
+
+                    item.appendChild(info);
+                    item.appendChild(btnGroup);
+                    habitList.appendChild(item);
+                });
+
+                saveHabits(habits);
+            }
+
+            // Sayfa ilk açıldığında listeyi çizmesi için tetikleyiciler
+            renderHabits();
+
+
+
+
             updateDoneCount();
+
+            checkAndRenderBadges();
+
         });
+        
     </script>
 
     <p id = "message" class = "hidden"> JAVASCRIPT IS RUNNING ! </p>
