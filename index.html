@@ -819,6 +819,34 @@
 
 
 
+        .streak-banner {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg , #ff9f43 , #ff5252);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            width: fit-content;
+            margin: -10px auto 25px auto;
+            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3);
+            font-weight: bold;
+            font-size: 16px;
+            animation: pulse-streak 2s infinite alternate;
+
+        }
+
+
+        @keyframes pulse-streak {
+
+            from { transform: scale(1); box-shadow: 0 4px 15px rgba(255, 82, 82, 0.3); }
+            to { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255, 82, 82, 0.5); }
+
+        }
+
+
 
         /* AKILLI MOBİL KORUMA KALKANI - Sadece küçük ekranlarda çalışır */
         @media (max-width: 600px) {
@@ -846,7 +874,18 @@
 
     <h1 id = "title"> TO-DO LIST </h1>
     
-    <br><br>
+    
+
+    <div id = "globalStreakBanner" class = "streak-banner hidden">
+
+        <i class="fas fa-fire" style="font-size: 22px;"></i>
+
+        DISCIPLINE STREAK : <span id = "globalStreakCount">0</span> DAYS
+
+    </div>
+        
+
+
 
     <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
 
@@ -1189,12 +1228,23 @@
 
             function updateUndoButton() {
                 undoBtn.classList.remove("undoDisabled" , "undoActive");
-                if(lastDeletedTask || lastDeletedAllTasks || lastEditedTask) {
+                if(lastDeletedTask || (lastDeletedAllTasks &&
+                
+                lastDeletedAllTasks.length > 0) || lastEditedTask) {
+
+
                     undoBtn.classList.add("undoActive");
+
                 } else {
+
                     undoBtn.classList.add("undoDisabled");
+
+
                 }
+
             }
+
+
 
             const counter = document.querySelector("#counter");
             const increaseBtn = document.querySelector("#increaseBtn");
@@ -1560,17 +1610,27 @@
                 Object.keys(reminderTimeouts).forEach(function(key) { delete reminderTimeouts[key]; });
                 Object.keys(warningTimeouts).forEach(function(key) { delete warningTimeouts[key]; });
 
-                lastDeletedAllTasks = getTasks();
+                const currentTasks = getTasks();
+
+                if(currentTasks.length > 0) {
+                    lastDeletedAllTasks = currentTasks;
+                    
+                } else { lastDeletedAllTasks = null;
+
+
+                }
+
                 lastDeletedTask = null;
-                updateUndoButton();
+
                 localStorage.removeItem("tasks");
+                updateUndoButton();
 
                 currentFilter = "all";
-                taskCategory.value = "SCHOOL";
                 searchInput.value = "";
                 clearFilterButtons();
                 allBtn.classList.add("activeFilter");
                 renderTasks();
+
             });
 
             clearCompletedBtn.addEventListener("click", function() {
@@ -2163,4 +2223,4 @@
         </div>
     </div>
   </body>
-</html>
+</html> 
