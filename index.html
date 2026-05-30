@@ -876,7 +876,7 @@
     
     
 
-    <div id = "globalStreakBanner" class = "streak-banner hidden">
+    <div id = "globalStreakBanner" class = "streak-banner">
 
         <i class="fas fa-fire" style="font-size: 22px;"></i>
 
@@ -1719,6 +1719,83 @@
             }
 
 
+
+            function getGlobalStreak() {
+
+                try {
+
+                    return JSON.parse(localStorage.getItem("global_discipline_streak"))
+                    
+                    || { count: 0, lastDate: "" };
+
+
+                } catch(e) {
+
+
+                    return { count: 0, lastDate: "" };
+
+
+                }
+
+            }
+
+
+            function saveGlobalStreak(streak) {
+
+                localStorage.setItem("global_discipline_streak", JSON.stringify(streak));
+
+            }
+
+
+            function checkAndRenderGlobalStreak() {
+
+                const streakCountEl = document.getElementById("globalStreakCount");
+                if (!streakCountEl) return;
+
+                const streak = getGlobalStreak();
+
+                const todayStr = new Date().toLocaleDateString('sv');
+
+                const yesterday = new Date();
+
+                yesterday.setDate(yesterday.getDate() - 1);
+
+                const yesterdayStr = yesterday.toLocaleDateString('sv');
+
+
+                if (streak.lastDate !== todayStr && streak.lastDate !== 
+                yesterdayStr && streak.count > 0) {
+
+                    streak.count = 0;
+                    streak.lastDate = "";
+                    saveGlobalStreak(streak);
+
+                }
+
+                streakCountEl.innerText = streak.count;
+
+            }
+
+
+            
+            function secureStreakForToday() {
+
+                const streak = getGlobalStreak();
+
+                const todayStr = new Date().toLocaleDateString('sv');
+
+                if (streak.lastDate === todayStr) return;
+
+                streak.count++;
+                streak.lastDate = todayStr;
+                saveGlobalStreak(streak);
+                checkAndRenderGlobalStreak();
+
+            }
+
+
+
+
             function checkAndRenderBadges() {
                 const badgeContainer = document.getElementById("badgeContainer");
                 if (!badgeContainer) return;
@@ -1968,6 +2045,10 @@
                             if(task.completed && audioEnabled) {
                                 tickSound.currentTime = 0;
                                 tickSound.play().catch(e => {});
+
+
+                                secureStreakForToday();
+
                             }
                             saveTasks(getTasks().map(t => t.id === task.id ? task : t));
                             renderTasks();
@@ -2166,6 +2247,9 @@
                             saveHabits(habits);
                             renderHabits();
                             checkAndRenderBadges();
+
+                            secureStreakForToday();
+
                             if (typeof confetti === 'function') {
                                 confetti({ particleCount: 60, spread: 50, origin: { y: 0.8 } });
                             }
@@ -2199,19 +2283,20 @@
                 saveHabits(habits);
             }
 
-            // Sayfa ilk açıldığında listeyi çizmesi için tetikleyiciler
+            
             renderHabits();
-
-
-
 
             updateDoneCount();
 
             checkAndRenderBadges();
 
+            checkAndRenderGlobalStreak();
+
         });
         
+
     </script>
+
 
     <p id = "message" class = "hidden"> JAVASCRIPT IS RUNNING ! </p>
 
@@ -2223,4 +2308,4 @@
         </div>
     </div>
   </body>
-</html> 
+</html>
