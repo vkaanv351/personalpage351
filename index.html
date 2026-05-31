@@ -939,7 +939,7 @@
     margin-bottom: 30px;">
 
     <h3 style = "margin-top: 0; color: #e67e22; text-align: center;">
-        <i class = "fas fa-link"></i> DON ' T BREAK THE CHAIN ! </h3>
+        <i class = "fas fa-link"></i> DON'T BREAK THE CHAIN ! </h3>
 
         <div id = "habitList"></div>
 
@@ -958,10 +958,6 @@
 
             </div>
     
-
-
-
-
 
 
 </div>
@@ -1795,7 +1791,6 @@
 
 
 
-
             function checkAndRenderBadges() {
                 const badgeContainer = document.getElementById("badgeContainer");
                 if (!badgeContainer) return;
@@ -1854,8 +1849,6 @@
                 });
             }
 
-
-            
 
 
             function renderTasks() {
@@ -2041,17 +2034,26 @@
                         };
 
                         li.onclick = function() {
+
                             task.completed = !task.completed;
-                            if(task.completed && audioEnabled) {
-                                tickSound.currentTime = 0;
-                                tickSound.play().catch(e => {});
 
 
-                                secureStreakForToday();
+                  if(task.completed) {
 
-                            }
-                            saveTasks(getTasks().map(t => t.id === task.id ? task : t));
-                            renderTasks();
+                    secureStreakForToday();
+
+                     if (audioEnabled) {
+
+                                    tickSound.currentTime = 0;
+                                    tickSound.play().catch(e => {});
+
+                    }
+
+                    }
+
+                     saveTasks(getTasks().map(t => t.id === task.id ? task : t));
+                       renderTasks();
+
                         };
                       
                         li.appendChild(contentWrapper);
@@ -2247,8 +2249,16 @@
                             saveHabits(habits);
                             renderHabits();
                             checkAndRenderBadges();
-
                             secureStreakForToday();
+
+
+                            if (audioEnabled) {
+
+                                successSound.currentTime = 0;
+                                successSound.play().catch(e => {});
+
+                            }
+
 
                             if (typeof confetti === 'function') {
                                 confetti({ particleCount: 60, spread: 50, origin: { y: 0.8 } });
