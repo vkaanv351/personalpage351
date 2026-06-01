@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> PERSONAL PAGE </title>
 
+    <!-- CUSTOM CENTRAL APP LOGO (FAVICON) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%23ff9f43'/><stop offset='100%25' stop-color='%23ff5252'/></linearGradient></defs><polygon points='50,10 90,30 90,70 50,90 10,70 10,30' fill='%23111111' stroke='url(%23g)' stroke-width='6'/><path d='M30,55 L50,35 L70,55 M30,68 L50,48 L70,68' fill='none' stroke='url(%23g)' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+
     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -1400,6 +1403,20 @@
             });
 
             
+
+            increaseBtn.addEventListener("click", function(){
+                count++;
+                counter.innerText = count;
+                updateColor();
+            });
+
+
+            decreaseBtn.addEventListener("click", function(){
+                count--;
+                counter.innerText = count;
+                updateColor();
+            });
+
         
 
             resetCounterBtn.addEventListener("click", function(){
