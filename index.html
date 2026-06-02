@@ -1021,6 +1021,18 @@
                 <option value = "HIGH" > HIGH </option>
             </select>
 
+
+
+            <select id="taskRecurring">
+
+                <option value = "NONE" > NO REPEAT </option>
+                <option value = "DAILY" > EVERY DAY 🔄 </option>
+
+
+            </select>
+
+
+
             <input type = "datetime-local" id = "taskDate">
             <button id = "addTaskBtn"> ADD </button>
             <button id = "clearAllBtn"> DELETE ALL </button>
@@ -1138,6 +1150,7 @@
             const taskList = document.querySelector("#taskList");
             const taskCategory = document.querySelector("#taskCategory");
             const taskPriority = document.querySelector("#taskPriority");
+            const taskRecurring = document.querySelector("#taskRecurring");
 
             const allBtn = document.querySelector("#allBtn");
             const completedBtn = document.querySelector("#completedBtn");
@@ -1454,6 +1467,9 @@
             });
 
             setInterval(function() {
+
+                checkAndResetRecurringTasks(); // 🔄 Gece yarısı kontrolü her saniye en başta tetiklensin!
+
                 const tasks = getTasks();
                 const now = new Date().getTime();
 
@@ -1501,7 +1517,9 @@
                 }
 
                 const tasks = getTasks();
+
                 const newTask = {
+                    
                     id : Date.now() ,
                     text : taskText ,
                     note : taskNote.value.trim() ,
@@ -1509,21 +1527,30 @@
                     priority : priorityValue ,
                     date : dateValue ,
                     completed : false ,
-                    notified : false
+                    notified : false ,
+                    recurring : taskRecurring.value ,
+                    completedDate : null
+
                 };
+
 
                 tasks.push(newTask);
                 saveTasks(tasks);
                 scheduleReminder(newTask);
                 renderTasks();
 
+                
                 showAlert("SUCCESS" , "TASK ADDED!");
                 taskInput.value = "";
                 taskDate.value = "";
                 taskCategory.value = "SCHOOL";
                 taskPriority.value = "LOW";
+
+                taskRecurring.value = "NONE";
+
             });
 
+            
             allBtn.addEventListener("click", function(){
                 currentFilter = "all";
                 document.querySelectorAll("#taskList li").forEach(li=>{
@@ -1867,6 +1894,28 @@
             }
 
 
+            function checkAndResetRecurringTasks() {
+                const tasks = getTasks();
+                const todayStr = new Date().toLocaleDateString('sv');
+                let updated = false;
+
+                tasks.forEach(task => {
+                    // Eğer görev günlükse, tamamlandıysa ve tamamlanma tarihi BUGÜN değilse (yani dün bittiyse)
+                    if (task.recurring === "DAILY" && task.completed && task.completedDate !== todayStr) {
+                        task.completed = false;
+                        task.completedDate = null;
+                        task.notified = false; // Bildirimi de sıfırla
+                        updated = true;
+                    }
+                });
+
+                if (updated) {
+                    saveTasks(tasks);
+                    renderTasks();
+                }
+            }
+
+
 
             function renderTasks() {
                 taskList.innerHTML = "";
@@ -2012,6 +2061,7 @@
 
                         const taskTextNode = document.createElement("span");
                         taskTextNode.innerText = task.text;
+                        if(task.recurring === "DAILY") { taskTextNode.innerText += " 🔄"; }
                         taskTextNode.style.fontWeight = "bold";
 
                         headerRow.appendChild(categoryBadge);
@@ -2051,37 +2101,47 @@
                         };
 
                         li.onclick = function() {
-
                             task.completed = !task.completed;
-
-
-                  if(task.completed) {
-
-                    secureStreakForToday();
-
-                     if (audioEnabled) {
+                            if(task.completed) {
+                                secureStreakForToday();
+                                task.completedDate = new Date().toLocaleDateString('sv'); // Gün damgası
+                                if (audioEnabled) {
 
                                     tickSound.currentTime = 0;
                                     tickSound.play().catch(e => {});
 
-                    }
+                                }
 
-                    }
+                            } else {
 
-                     saveTasks(getTasks().map(t => t.id === task.id ? task : t));
-                       renderTasks();
+                                task.completedDate = null;
+
+                            }
+
+                            saveTasks(getTasks().map(t => t.id === task.id ? task : t));
+
+                            checkAndResetRecurringTasks();
+
+                            renderTasks();
 
                         };
+
                       
                         li.appendChild(contentWrapper);
                         li.appendChild(dateSpan);
                         li.appendChild(deleteBtn);
+
                     }
+
                     taskList.appendChild(li);
+
                 });
+
                 updateDoneCount();
                 applyCurrentFilter();
+
             }
+
 
             function updateDoneCount() {
                 const items = document.querySelectorAll("#taskList li:not(.emptyMessage)");
