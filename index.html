@@ -409,6 +409,7 @@
         #taskInput,
         #taskCategory,
         #taskPriority,
+        #taskRecurring ,
         #taskDate {
             padding: 10px;
             border-radius: 8px;
@@ -418,6 +419,7 @@
         #taskInput:focus,
         #taskCategory:focus,
         #taskPriority:focus,
+        #taskRecurring:focus,
         #taskDate:focus {
             outline: none;
             border-color: rgb(255, 0, 0);
@@ -1645,6 +1647,13 @@
             }
 
             clearAllBtn.addEventListener("click", function(){
+
+
+                if(!confirm("ARE YOU SURE YOU WANT TO DELETE ALL TASKS ?")) {
+                    return;
+                }
+
+
                 Object.values(reminderTimeouts).forEach(function(timeoutId) { clearTimeout(timeoutId); });
                 Object.values(warningTimeouts).forEach(function(timeoutId) { clearTimeout(timeoutId); });
                 Object.keys(reminderTimeouts).forEach(function(key) { delete reminderTimeouts[key]; });
@@ -2063,6 +2072,28 @@
                         taskTextNode.innerText = task.text;
                         if(task.recurring === "DAILY") { taskTextNode.innerText += " 🔄"; }
                         taskTextNode.style.fontWeight = "bold";
+
+
+                        let priorityEmoji = "";
+                        if (task.priority === "HIGH") {
+
+                            priorityEmoji = "🔥 ";
+
+                        } else if (task.priority === "MEDIUM") {
+
+                            priorityEmoji = "⭐ ";
+
+                        } else if (task.priority === "LOW") {
+
+                            priorityEmoji = "🍃 ";
+
+                        }
+
+
+                        taskTextNode.innerText = priorityEmoji + task.text;
+                       if(task.recurring === "DAILY") { taskTextNode.innerText += " 🔄"; }
+                       taskTextNode.style.fontWeight = "bold";
+
 
                         headerRow.appendChild(categoryBadge);
                         headerRow.appendChild(priorityBadge);
