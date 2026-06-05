@@ -874,6 +874,31 @@
                 gap: 10px;
             }
         }
+
+
+        .archiveItem {
+
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #f1c40f;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+        body.dark-mode .archiveItem {
+
+            background-color: #333;
+            color: white;
+
+        }
+
+
     </style>
   </head>
   
@@ -1066,6 +1091,35 @@
             <ul id = "taskList" class = "todoList"></ul>
         </div>
     </div>
+
+
+
+    <div class = "card">
+
+        <ul id = "taskList" class = "todoList"></ul>
+
+    </div>
+
+
+    <div id = "archiveSection" class = "card" style = "border-color: #f1c40f; margin-top: 30px;">
+
+        <h3 style = "margin-top: 0; color: #f1c40f; text-align: center;">
+            <i class = "fas fa-trophy"></i> ACHIEVEMENT LOG (PAST TRIUMPHS)
+        </h3>
+
+        <div id = "archiveList" style = "margin-top: 15px;"></div>
+        <div style = "text-align: center; margin-top: 15px;">
+
+            <button id = "clearArchiveBtn" style = "background-color: #e67e22;
+            color: white; border-radius: 8px; padding: 8px 16px; font-size: 12px;
+            font-weight: bold;"> CLEAR LOG </button>
+
+        </div>
+
+
+    </div>
+
+
 
     <br><br><br><br><br><br>
     <h3 id = "counterTitle"> SIMPLE COUNTER </h3>
@@ -1683,20 +1737,34 @@
                 renderTasks();
 
             });
+            
 
             clearCompletedBtn.addEventListener("click", function() {
-                const tasks = getTasks();
-                const remainingTasks = tasks.filter(task => !task.completed);
-                if (tasks.length === remainingTasks.length) {
-                    showAlert("WARNING !", "THERE ARE NO COMPLETED TASKS TO DELETE !");
-                    return; 
-                }
-                lastDeletedAllTasks = tasks;
-                updateUndoButton();
-                saveTasks(remainingTasks);
-                renderTasks();
-                showAlert("SUCCESS", "COMPLETED TASKS CLEARED !");
-            });
+    const tasks = getTasks();
+    const completedTasks = tasks.filter(task => task.completed);
+    const remainingTasks = tasks.filter(task => !task.completed);
+    
+    if (completedTasks.length === 0) {
+        showAlert("WARNING !", "THERE ARE NO COMPLETED TASKS TO ARCHIVE !");
+        return; 
+    }
+
+    // 📂 Görevleri Başarı Günlüğüne Taşıma İşlemi
+    const archived = getArchivedTasks();
+    const todayStr = new Date().toLocaleDateString('sv');
+    completedTasks.forEach(task => {
+        task.archivedDate = todayStr; // Arşivlenme tarihi damgalandı
+    });
+    
+    saveArchivedTasks([...archived, ...completedTasks]);
+    
+    lastDeletedAllTasks = tasks;
+    updateUndoButton();
+    saveTasks(remainingTasks);
+    renderTasks();
+    renderArchive(); // Arşiv listesini anlık tazele
+    showAlert("SUCCESS", "COMPLETED TASKS MOVED TO ACHIEVEMENT LOG !");
+});
 
             undoBtn.addEventListener("click", function(){
                 if(lastDeletedAllTasks) {
@@ -1734,6 +1802,63 @@
                 try { return JSON.parse(localStorage.getItem("tasks")) || []; } 
                 catch(e) { return []; }
             }
+
+
+            function getArchivedTasks() {
+
+                try { return JSON.parse(localStorage.getItem("archived_tasks")) || []; } 
+                catch(e) { return []; }
+
+            }
+
+
+            function saveArchivedTasks(tasks) {
+
+                localStorage.setItem("archived_tasks" , JSON.stringify(tasks));
+
+            }
+
+
+            function renderArchive() {
+
+                const archiveList = document.getElementById("archiveList");
+                if(!archiveList) return;
+                archiveList.innerHTML = "";
+                const archived = getArchivedTasks();
+
+
+                if(archived.length === 0) {
+
+                    archiveList.innerHTML = '<p style="color: gray; font-style: italic; text-align: center; margin: 10px 0;">Your achievement log is empty. Clear completed tasks to fill your history! 🌟</p>';
+                    return;
+                }
+
+                archived.slice().reverse().forEach(function(task) {
+
+                    const div = document.createElement("div");
+                    div.classList.add("archive-item");
+                    
+
+                    let priorityEmoji = "";
+                    if (task.priority === "HIGH") priorityEmoji = "🔥 ";
+                    else if (task.priority === "MEDIUM") priorityEmoji = "⭐ ";
+                    else if (task.priority === "LOW") priorityEmoji = "🍃 ";
+
+                    div.innerHTML = `
+                                    <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px;">
+                                    <span style="text-decoration: line-through; color: gray; font-weight: bold;">${priorityEmoji}${task.text}</span>
+                                    <small style="color: #e67e22; font-size: 11px;"><i class="fas fa-check-circle"></i> Accomplished: ${task.archivedDate}</small>
+                                    </div>
+                                    <span class="categoryBadge category-${task.category}" style="margin: 0;">${task.category}</span>
+        `;
+
+        archiveList.appendChild(div);
+
+                });
+
+            }
+                
+
 
             function saveTasks(tasks) {
                 localStorage.setItem("tasks" , JSON.stringify(tasks));
@@ -2427,11 +2552,31 @@
             
             renderHabits();
 
+
+            renderArchive();
+
+            const clearArchiveBtn = document.getElementById("clearArchiveBtn");
+            if (clearArchiveBtn) {
+
+                clearArchiveBtn.onclick = function() {
+
+                    if (!confirm("ARE YOU SURE YOU WANT TO CLEAR YOUR ACHIEVEMENT LOG PERMANENTLY? ⚠️")) return;
+
+                    localStorage.removeItem("archived_tasks");
+                    renderArchive();
+                    showAlert("SUCCESS", "ACHIEVEMENT LOG TOTALLY CLEARED!");
+
+                };
+
+            }
+
+
             updateDoneCount();
 
             checkAndRenderBadges();
 
             checkAndRenderGlobalStreak();
+
 
         });
         
