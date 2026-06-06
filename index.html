@@ -1035,6 +1035,37 @@
         <h3 id = "workCount" class = "statsBox workStat"> WORK : 0 </h3>
         <br><br><br><br>
         
+
+
+        <div id = "categoryManager" class = "card" style =
+        "border-color: #9b59b6; margin-bottom: 20px; padding: 15px 25px;">
+
+            <h3 style = "margin-top: 0; color: #9b59b6; text-align: center;">
+
+                <i class = "fas fa-folder-plus"></i> CATEGORY MANAGER </h3>
+
+                <div style = "display: flex; gap: 8px; justify-content: center;
+                align-items: center; flex-wrap: wrap;">
+                
+                <input type = "text" id = "newCategoryInput"
+                placeholder = "NEW CATEGORY NAME..." style = "padding: 8px;
+                border-radius: 6px; border: 1px solid #999; flex-grow: 1;">
+            
+                <button id="addCategoryBtn" style="padding: 8px 16px;
+                background-color: #9b59b6; color: white;
+                border-radius: 6px; font-weight: bold; font-size: 13px;"> CREATE </button>
+
+                </div>
+
+                <div id="categoryDeleteList" style="margin-top: 12px;
+                display: flex; flex-wrap: wrap; gap: 6px;
+                justify-content: center;"></div>
+                
+            </div>
+
+
+
+
         <div id = "taskControls">
             <input id = "taskInput" type = "text" placeholder = "ENTER A TASK !">
             <input id = "taskNote" type = "text" placeholder = "ENTER A NOTE (OPTIONAL)">
@@ -1804,6 +1835,103 @@
             }
 
 
+            const defaultCategories = ["SCHOOL", "PERSONAL", "WORK"];
+
+            function getCategories() {
+
+                try {
+
+                    const cats = JSON.parse(localStorage.getItem("custom_categories"));
+                    return Array.isArray(cats) && cats.length > 0 ? cats : defaultCategories;
+
+                } catch(e) {
+
+                    return defaultCategories;
+
+                }
+
+            }
+
+            function saveCategories(cats) {
+
+                localStorage.setItem("custom_categories", JSON.stringify(cats));
+
+            }
+
+
+            function renderCategoryManager() {
+
+                const taskCategorySelect = document.getElementById("taskCategory");
+                const categoryDeleteList = document.getElementById("categoryDeleteList");
+
+                if(!taskCategorySelect || !categoryDeleteList) return;
+
+                const currentCats = getCategories();
+
+                taskCategorySelect.innerHTML = "";
+
+                currentCats.forEach(cat => {
+
+                    const opt = document.createElement("option");
+                    opt.value = cat;
+                    opt.innerText = cat;
+                    taskCategorySelect.appendChild(opt);
+
+                });
+
+
+                categoryDeleteList.innerHTML = "";
+                currentCats.forEach(cat => {
+
+                    const span = document.createElement("span");
+                    span.style.cssText = "display: inline-flex; align-items: center; gap: 6px; background-color: #ddd; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; color: #333;";
+
+                    if(document.body.classList.contains("dark-mode")) {
+
+                        span.style.backgroundColor = "#444";
+                        span.style.color = "white";
+                        
+
+                    }
+
+
+                    span.innerHTML = `${cat}`;
+
+
+                    if (!defaultCategories.includes(cat)) {
+
+                        const delIcon = document.createElement("i");
+                        delIcon.className = "fas fa-times";
+                        delIcon.style.cssText = "color: crimson; cursor: pointer; margin-left: 2px;";
+
+                        delIcon.onclick = function() {
+
+                            if(!confirm(`Delete category "${cat}"? Tasks
+                            in this category won't be deleted.`)) return;
+
+                            const updatedCats = getCategories().filter(c => c !== cat);
+
+                            saveCategories(updatedCats);
+
+                            renderCategoryManager();
+
+                            renderTasks();
+
+                        };
+
+                        span.appendChild(delIcon);
+
+                    }
+
+                    categoryDeleteList.appendChild(span);
+
+                });
+
+
+            }
+
+
+
             function getArchivedTasks() {
 
                 try { return JSON.parse(localStorage.getItem("archived_tasks")) || []; } 
@@ -2554,6 +2682,33 @@
 
 
             renderArchive();
+
+
+            renderCategoryManager();
+
+            const newCategoryInput = document.getElementById("newCategoryInput");
+            const addCategoryBtn = document.getElementById("addCategoryBtn");
+
+            if (addCategoryBtn) {
+                addCategoryBtn.onclick = function() {
+                    const catText = newCategoryInput.value.trim().toUpperCase(); // Standart büyük harf olsun
+                    if (catText === "") {
+                        showAlert("WARNING !", "CATEGORY NAME CANNOT BE EMPTY!");
+                        return;
+                    }
+                    const currentCats = getCategories();
+                    if (currentCats.includes(catText)) {
+                        showAlert("WARNING !", "THIS CATEGORY ALREADY EXISTS!");
+                        return;
+                    }
+                    currentCats.push(catText);
+                    saveCategories(currentCats);
+                    renderCategoryManager();
+                    newCategoryInput.value = "";
+                    showAlert("SUCCESS", `CATEGORY "${catText}" CREATED!`);
+                };
+            }
+
 
             const clearArchiveBtn = document.getElementById("clearArchiveBtn");
             if (clearArchiveBtn) {
