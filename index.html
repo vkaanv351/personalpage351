@@ -1191,6 +1191,34 @@
             let lastDeletedAllTasks = null;
             let lastEditedTask = null;    
             let count = 0;
+
+
+
+            const keyClickSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
+            const enterReturnSound = new Audio("https://www.soundjay.com/buttons/sounds/button-10.mp3");
+
+            keyClickSound.volume = 0.25;
+            enterReturnSound.volume = 0.4;
+
+            // Harf girildiğinde tıkırtı sesi çıkartan kısım
+            window.addEventListener("input", function(e) {
+                if (audioEnabled && (e.target.id === "taskInput" || e.target.id === "taskNote" || e.target.id === "newCategoryInput")) {
+                    keyClickSound.currentTime = 0;
+                    keyClickSound.play().catch(err => {});
+                }
+            });
+
+            // Enter'a basıldığında tok ses çıkartan kısım (Parantez kilidi eklendi!)
+            window.addEventListener("keydown", function(e) {
+                if (e.key === "Enter" && (document.activeElement.id === "taskInput" || document.activeElement.id === "taskNote" || document.activeElement.id === "newCategoryInput")) {
+                    if (audioEnabled) {
+                        enterReturnSound.currentTime = 0;
+                        enterReturnSound.play().catch(err => {});
+                    }
+                }
+            });
+
+
             
             if ("Notification" in window && Notification.permission !== "granted") {
                 Notification.requestPermission();
@@ -1241,6 +1269,7 @@
             const taskPriority = document.querySelector("#taskPriority");
             const taskRecurring = document.querySelector("#taskRecurring");
 
+            
             const allBtn = document.querySelector("#allBtn");
             const completedBtn = document.querySelector("#completedBtn");
             const activeBtn = document.querySelector("#activeBtn");
