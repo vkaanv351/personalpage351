@@ -12,21 +12,29 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+
     <style>
+
         body {
             background-color: #f2f2f2;
             font-family: Arial, Helvetica, sans-serif;
             padding: 40px;
         }
         
+
+
         h1 {
             text-align: center;
             color: #333;
         }
 
+
+
         h2 {
             color: #444;
         }
+
+
 
         .todoList {
             background-color: transparent;
@@ -34,6 +42,8 @@
             padding: 0;
             margin:  0;
         }
+
+
 
         button {
             padding: 12px 24px;
@@ -43,12 +53,16 @@
             transition: all 0.2s ease;
         }
 
+
+
         .btndlt {
             background-color: rgb(32, 236, 114);
             padding: 10px 15px;
             border: none;
             cursor: pointer;
         }
+
+
 
         .btn {
             background-color: orange;
@@ -58,9 +72,13 @@
             display: inline-block;
         }
 
+
+
         .btn:hover {
             background-color: orangered;
         }
+
+
 
         .card {
             background-color: #f0f0f0;
@@ -76,13 +94,21 @@
             border: #303030 solid 5px;
         }
 
+
+
         li {
+            
             padding: 8px 0;
+
         }
+
+
 
         .hidden {
             display: none;
         }
+
+
 
         #taskList li {
 
@@ -100,26 +126,38 @@
 
         }
 
+
+
         .completed {
             color: gray;
             text-decoration: line-through;
         }
 
+
+
         .argb {
             background-color: rgb(48, 202, 27);
         }
+
+
 
         .dragging {
             opacity: 0.5;
         }
 
+
+
         #taskList li:not(.dragging):hover {
             transform: scale(1.02);
         }
 
+
+
         #taskList li:active {
             cursor: grabbing;
         }
+
+
 
         .dragging {
             opacity: 0.5;
@@ -127,12 +165,16 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+
+
         small {
             display: block;
             font-size: 12px;
             color: gray;
             margin-top: 5px;
         }
+
+
 
         .alertBox {
             position: fixed;
@@ -147,6 +189,8 @@
             z-index: 9999;
         }
 
+
+
         .alertContent {
             background: white;
             padding: 40px;
@@ -155,32 +199,51 @@
             animation: pop 0.4s ease;
         }
 
+
+
         @keyframes pop {
+
             from {
+
                 transform: scale(0.5);
                 opacity: 0;
+
             }
+
             to {
+
                 transform: scale(1);
                 opacity: 1;
+
             }
+
         }
+
+
 
         .alertContent h1 {
             margin-bottom: 10px;
         }
 
+
+
         .alertWarning {
             color: red;
         }
+
+
 
         .alertReminder {
             color: orange;
         }
 
+
+
         .alertSuccess {
             color: seagreen;
         }
+
+
 
         .alertContent button {
             margin-top: 20px;
@@ -190,10 +253,14 @@
             cursor: pointer;
         }
 
+
+
         body.dark-mode {
             background-color: #111;
             color: white;
         }
+
+
 
         body.dark-mode h1 ,
         body.dark-mode h2 ,
@@ -201,13 +268,19 @@
             color: white;
         }
 
+
+
         body.dark-mode .card {
             background-color: #222;
         }
 
+
+
         body.dark-mode #taskList li {
             background-color: #222;
         }
+
+
 
         body.dark-mode input,
         body.dark-mode select {
@@ -216,14 +289,20 @@
             border: 1px solid #555;
         }
 
+
+
         body.dark-mode input::placeholder {
             color: #ccc;
         }
+
+
 
         .activeFilter {
             background-color: orangered;
             color: white;
         }
+
+
 
         .statsBox {
             background-color: white;
@@ -233,10 +312,14 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
         }
 
+
+
         body.dark-mode .statsBox {
             background-color: #222;
             color: white;
         }
+
+
 
         .categoryBadge {
             display: inline-block;
@@ -248,17 +331,25 @@
             color: white;
         }
 
+
+
         .category-SCHOOL {
             background-color: royalblue;
         }
+
+
 
         .category-PERSONAL {
             background-color: purple;
         }
 
+
+
         .category-WORK {
             background-color: seagreen;
         }
+
+
 
         .priorityBadge {
             display: inline-block;
@@ -270,17 +361,25 @@
             color: white;
         }
         
+
+
         .priority-LOW {
             background-color: gray;
         }
+
+
 
         .priority-MEDIUM {
             background-color: orange;
         }
 
+
+
         .priority-HIGH {
             background-color: crimson;
         }
+
+
 
         .editInput ,
         .editSelect ,
@@ -291,17 +390,25 @@
             margin-right: 8px;
         }
 
+
+
         .editInput {
             width: 120px;
         }
+
+
 
         .editSelect {
             width: 90px;
         }
 
+
+
         .editDateInput {
             width: 150px;
         }
+
+
 
         .editSaveBtn,
         .editCancelBtn {
@@ -313,26 +420,57 @@
             transition: all 0.2s ease;
         }
         
+
+
         .editSaveBtn {
             background-color: crimson;
             color: white;
         }
+
+
 
         .editSaveBtn:hover {
             background-color: mediumseagreen;
             transform: scale(1.03);
         }
 
+
+        
         .editCancelBtn {
             background-color: gray;
             color: white;
         }
 
+
+
         .editCancelBtn:hover {
             background-color: dimgray;
             transform: scale(1.03);
         }
-        
+
+
+
+        .editDateInput {
+
+            width: 140px !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+
+        }
+
+
+
+        #taskList li:has(.editInput) {
+
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            gap: 10px !important;
+            padding: 15px !important;
+
+        }
+
+
         body.dark-mode .editInput,
         body.dark-mode .editSelect,
         body.dark-mode .editDateInput {
@@ -1125,12 +1263,6 @@
 
 
 
-    <div class = "card">
-
-        <ul id = "taskList" class = "todoList"></ul>
-
-    </div>
-
 
     <div id = "archiveSection" class = "card" style = "border-color: #f1c40f; margin-top: 30px;">
 
@@ -1200,17 +1332,19 @@
             keyClickSound.volume = 0.25;
             enterReturnSound.volume = 0.4;
 
-            // Harf girildiğinde tıkırtı sesi çıkartan kısım
+            // 🔥 TIKIRTI SESİ: Sayfadaki HANGİ input veya select kutusu olursa olsun tetiklenir!
             window.addEventListener("input", function(e) {
-                if (audioEnabled && (e.target.id === "taskInput" || e.target.id === "taskNote" || e.target.id === "newCategoryInput")) {
+                const tag = e.target.tagName.toLowerCase();
+                if (audioEnabled && (tag === "input" || tag === "select")) {
                     keyClickSound.currentTime = 0;
                     keyClickSound.play().catch(err => {});
                 }
             });
 
-            // Enter'a basıldığında tok ses çıkartan kısım (Parantez kilidi eklendi!)
+            // 🔔 ENTER SESİ: Hangi kutuda olursan ol Enter'a abandığında tok sesi patlatır!
             window.addEventListener("keydown", function(e) {
-                if (e.key === "Enter" && (document.activeElement.id === "taskInput" || document.activeElement.id === "taskNote" || document.activeElement.id === "newCategoryInput")) {
+                const tag = document.activeElement.tagName.toLowerCase();
+                if (e.key === "Enter" && (tag === "input" || tag === "select")) {
                     if (audioEnabled) {
                         enterReturnSound.currentTime = 0;
                         enterReturnSound.play().catch(err => {});
@@ -2764,18 +2898,25 @@
 
         });
         
+        
 
     </script>
+
 
 
     <p id = "message" class = "hidden"> JAVASCRIPT IS RUNNING ! </p>
 
     <div id = "alertBox" class = "alertBox hidden">
+
         <div class = "alertContent">
+
             <h1 id = "alertTitle"> WARNING ! </h1>
             <p id = "alertText"> TASK </p>
             <button id = "closeAlert"> CLOSE </button>
+
         </div>
+
     </div>
+
   </body>
 </html>
