@@ -1129,11 +1129,6 @@
             </div>
     
 
-
-</div>
-
-
-
     <div id = "badgeSection" class = "card" style = "border-color: #9b59b6;
     
     margin-bottom: 30px; background-color: #faf5ff;">
@@ -1351,6 +1346,29 @@
                     }
                 }
             });
+
+
+
+            window.addEventListener("click" , function(e) {
+                // Eğer tıkılan şey bir butonun içindeki ikon (<i>) ise, en yakın <button> etiketini bulur:
+                const buttonElement = e.target.closest("button");
+
+                if (audioEnabled && buttonElement) {
+                    // Tarayıcı engelini aşmak için ses motorunu uyandırıyoruz:
+                    const playPromise = enterReturnSound.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            // Ses başarıyla tetiklendiyse başa sarıp çal:
+                            enterReturnSound.currentTime = 0;
+                        }).catch(err => {
+                            // İlk tıklama engeline takılırsa arka planda sessizce uyanmasını sağla:
+                            console.log("Tarayıcı ses uyanışı beklentisinde.");
+                        });
+                    }
+                }
+            });
+
 
 
             
