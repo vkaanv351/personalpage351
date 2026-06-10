@@ -135,12 +135,6 @@
 
 
 
-        .argb {
-            background-color: rgb(48, 202, 27);
-        }
-
-
-
         .dragging {
             opacity: 0.5;
         }
@@ -1349,23 +1343,19 @@
 
 
 
-            window.addEventListener("click" , function(e) {
-                // Eğer tıkılan şey bir butonun içindeki ikon (<i>) ise, en yakın <button> etiketini bulur:
+           window.addEventListener("click" , function(e) {
+                // Tıklanan eleman buton mu yoksa butonun içindeki bir ikon mu kontrol et
                 const buttonElement = e.target.closest("button");
 
                 if (audioEnabled && buttonElement) {
-                    // Tarayıcı engelini aşmak için ses motorunu uyandırıyoruz:
-                    const playPromise = enterReturnSound.play();
+                    // 🎯 Güvenli Mixkit sunucusundan tok mekanik klavye sesini anlık oluşturuyoruz:
+                    const btnSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
+                    btnSound.volume = 0.35; // Kulaklığı patlatmasın, tatlı tatlı gelsin
                     
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            // Ses başarıyla tetiklendiyse başa sarıp çal:
-                            enterReturnSound.currentTime = 0;
-                        }).catch(err => {
-                            // İlk tıklama engeline takılırsa arka planda sessizce uyanmasını sağla:
-                            console.log("Tarayıcı ses uyanışı beklentisinde.");
-                        });
-                    }
+                    // Sesi tetikle
+                    btnSound.play().catch(err => {
+                        console.log("Tarayıcı engeli tetiklendi.");
+                    });
                 }
             });
 
