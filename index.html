@@ -123,6 +123,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             border-left: 8px solid #999;
             transition: transform 0.2s;
+            cursor: pointer;
 
         }
 
@@ -1144,6 +1145,7 @@
 
 
     <div id = "todoSection">
+        
         <h2> LIST : </h2>
 
         <div id = "progressContainer" style = "background: #ddd; border-radius: 10px; height: 20px; width: 100%; margin-bottom: 20px; overflow: hidden; border: 1px solid #999;">
@@ -1166,6 +1168,8 @@
 
         <div id = "categoryManager" class = "card" style =
         "border-color: #9b59b6; margin-bottom: 20px; padding: 15px 25px;">
+
+        <br>
 
             <h3 style = "margin-top: 0; color: #9b59b6; text-align: center;">
 
@@ -1191,6 +1195,7 @@
             </div>
 
 
+            <br><br><br><br>
 
 
         <div id = "taskControls">
@@ -1757,13 +1762,39 @@
             });
 
             addTaskBtn.addEventListener("click", function(){
-                const taskText = taskInput.value.trim();
-                const dateValue = taskDate.value;
+                
+                let taskText = taskInput.value.trim();
+                const lowerText = taskText.toLowerCase();
+
+                let recurringValue = taskRecurring.value;
+                let dateValue = taskDate.value;
                 const categoryValue = taskCategory.value;
                 const priorityValue = taskPriority.value;
 
+                // 🧠 ONLY ENGLISH SMART DATE DETECTOR
+                if (lowerText.includes("tomorrow")) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+
+                    const year = tomorrow.getFullYear();
+                    const month = String(tomorrow.getMonth() + 1).padStart(2, '0');
+                    const day = String(tomorrow.getDate()).padStart(2, '0');
+
+                    dateValue = `${year}-${month}-${day}T09:00`; // Automatically sets to 09:00 AM
+
+                    // Clean "tomorrow" from the task text
+                    taskText = taskText.replace(/tomorrow/i, "").trim();
+                }
+
+                // 🧠 ONLY ENGLISH SMART RECURRING DETECTOR
+                if (lowerText.includes("every day")) {
+                    recurringValue = "DAILY";
+                    // Clean "every day" from the task text
+                    taskText = taskText.replace(/every day/i, "").trim();
+                }
+
                 if(taskText === "") {
-                    showAlert("WARNING !", "PLEASE DO NOT LEAVE THE TASK TEXT EMPTY!");
+                    showAlert("WARNING !" , "PLEASE DON'T LEAVE THE TASK TEXT EMPTY !");
                     return;
                 }
                 
@@ -1775,39 +1806,33 @@
                         return;
                     }
                 }
-
+                
                 const tasks = getTasks();
 
                 const newTask = {
-                    
                     id : Date.now() ,
-                    text : taskText ,
+                    text : taskText ,            
                     note : taskNote.value.trim() ,
                     category : categoryValue ,
                     priority : priorityValue ,
                     date : dateValue ,
                     completed : false ,
                     notified : false ,
-                    recurring : taskRecurring.value ,
+                    recurring : recurringValue ,
                     completedDate : null
-
                 };
-
 
                 tasks.push(newTask);
                 saveTasks(tasks);
                 scheduleReminder(newTask);
                 renderTasks();
-
                 
                 showAlert("SUCCESS" , "TASK ADDED!");
                 taskInput.value = "";
                 taskDate.value = "";
                 taskCategory.value = "SCHOOL";
                 taskPriority.value = "LOW";
-
                 taskRecurring.value = "NONE";
-
             });
 
             
@@ -2914,7 +2939,9 @@
 
     <p id = "message" class = "hidden"> JAVASCRIPT IS RUNNING ! </p>
 
+
     <div id = "alertBox" class = "alertBox hidden">
+
 
         <div class = "alertContent">
 
@@ -2924,7 +2951,10 @@
 
         </div>
 
+
     </div>
 
+    
   </body>
+
 </html>
