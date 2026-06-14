@@ -46,22 +46,26 @@
 
 
         button {
-            padding: 10px 20px;
-            background-color: #de4c4a;
-            color: white;
-            border: 1px solid transparent;
-            border-radius: 5px;
+
+            padding: 9px 16px;
+            background-color: #f5f5f5;
+            color: #444444;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px;
             font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.2s ease;
+
         }
 
 
 
         .button:hover {
 
-            background-color: #b83937;
-            transform: translateY(-1px);
+            background-color: #ededed;
+            border-color: #cccccc;
+            color: #111111;
 
         }
 
@@ -539,13 +543,14 @@
         }
 
         #addTaskBtn {
-            background-color: seagreen;
+            background-color: #e44332; /* Gözü yormayan, mat ve elit bir kırmızı */
             color: white;
+            border-color: transparent;
         }
     
         #addTaskBtn:hover {
-            background-color: mediumseagreen;
-            transform: scale(1.03);
+            background-color: #c53727;
+            transform: translateY(-1px);
         }
 
         #clearAllBtn {
@@ -559,22 +564,35 @@
         }
 
         #taskInput,
+        #taskNote,
         #taskCategory,
         #taskPriority,
         #taskRecurring ,
         #taskDate {
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #999;
+
+            padding: 10px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: #fafafa;
+            color: #333;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+
         }
 
         #taskInput:focus,
         #taskCategory:focus,
         #taskPriority:focus,
+        #taskNote:focus,
         #taskRecurring:focus,
         #taskDate:focus {
+
             outline: none;
-            border-color: rgb(255, 0, 0);
+            border-color: #e44332;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(228, 67, 50, 0.08);
+
         }
 
         .undoDisabled {
@@ -639,18 +657,41 @@
             margin: 0;
         }
 
-        #taskControls,
         #filterButtons {
+
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
             gap: 6px;
+
         }
 
+
         #taskControls {
-            margin-bottom: 12px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #eaeaea;
+
         }
+
+
+        #body.dark-mode #taskControls {
+
+            background-color: #1a1a1a;
+            border-color: #2d2d2d;
+
+        }
+
+
 
         #taskControls button {
             padding: 10px 18px;
@@ -700,9 +741,9 @@
 
         #searchInput:focus {
             outline: none;
-            border-color: #de4c4a;
+            border-color: #e44332;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(222, 76, 74, 0.1);
+            box-shadow: 0 0 0 3px rgba(228, 67, 50, 0.08);
         }
 
         
