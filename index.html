@@ -19,6 +19,7 @@
             background-color: #f2f2f2;
             font-family: Arial, Helvetica, sans-serif;
             padding: 40px;
+            transition: background-color 0.3s ease;
         }
         
 
@@ -61,7 +62,7 @@
 
 
 
-        .button:hover {
+        button:hover {
 
             background-color: #ededed;
             border-color: #cccccc;
@@ -134,23 +135,37 @@
             display: grid;
             grid-template-columns: 1fr auto auto auto;
             align-items: center;
-            gap: 15px;
-            padding: 15px 20px;
+            gap: 16px;
+            padding: 12px 16px; /* Daha fit ve kibar bir iç boşluk */
             background-color: #ffffff;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            border-left: 8px solid #999;
-            transition: transform 0.2s;
+            border-radius: 6px; /* Kartlarla uyumlu 6px modern kavis */
+            margin-bottom: 8px; /* Kartların arasındaki gereksiz mesafeyi daralttık */
+            /* Kapkara gölge yerine Todoist tarzı çok hafif, asil bir taban çizgisi efekti */
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); 
+            border-left: 4px solid #ccc; /* Kaba 8px yerine kibar 4px sol çizgi */
+            border-bottom: 1px solid #f0f0f0; /* Satır hissi veren ince alt taban */
+            transition: all 0.2s ease;
             cursor: pointer;
 
         }
 
 
 
+        #taskList li:not(.dragging):hover {
+
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-color: #e44332;
+
+        }
+
+
         .completed {
-            color: gray;
+            color: #aaa !important;
             text-decoration: line-through;
+            opacity: 0.6;
+            background-color: #fafafa !important;
+            border-left-color: #dcdcdc !important;
         }
 
 
@@ -684,7 +699,7 @@
         }
 
 
-        #body.dark-mode #taskControls {
+        body.dark-mode #taskControls {
 
             background-color: #1a1a1a;
             border-color: #2d2d2d;
@@ -798,17 +813,17 @@
         }
 
         .priority-card-HIGH {
-            border-left: 8px solid crimson !important;
-            box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
-            animation: glow-red 2s infinite alternate;
+            border-left: 4px solid crimson !important;
+            box-shadow: 0 1 3px rgba(220, 20, 60, 0.1);
+            animation: none;
         }
 
         .priority-card-MEDIUM {
-            border-left: 8px solid orange !important;
+            border-left: 4px solid orange !important;
         }
 
         .priority-card-LOW {
-            border-left: 8px solid #999 !important;
+            border-left: 4px solid #999 !important;
         }
 
         @keyframes glow-red {
@@ -1058,10 +1073,7 @@
 
 
         /* AKILLI MOBİL KORUMA KALKANI - Sadece küçük ekranlarda çalışır */
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
+        @media (max-width: 768px) {
             #taskControls {
                 flex-direction: column;
                 align-items: stretch;
@@ -1076,6 +1088,52 @@
                 gap: 10px;
             }
         }
+
+        /* 🎛️ DESKTOP DASHBOARD DÜZENİ (Sadece büyük ekranlarda iki sütun yapar) */
+        @media (min-width: 1024px) {
+            body {
+                display: grid;
+                grid-template-columns: 1fr 1.3fr;
+                gap: 24px;
+                max-width: 1300px;
+                margin: 0 auto;
+            }
+
+            #title, #globalStreakBanner, #siteDescription, #motivationBox {
+                grid-column: 1 / -1;
+            }
+
+            #pomodoroContainer, #habitSection, #badgeSection {
+                grid-column: 1;
+                width: 100%;
+                margin: 0;
+            }
+
+            #todoSection {
+                grid-column: 2;
+                margin: 0;
+            }
+
+            #archiveSection, #counterTitle, #counter, #counterButtons, .aboutMe {
+                grid-column: 1 / -1;
+            }
+        }
+
+
+            #taskControls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #taskControls input, 
+            #taskControls select, 
+            #taskControls button {
+                width: 100% !important;
+            }
+            #taskList li {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+       
 
 
         .archiveItem {
