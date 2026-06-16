@@ -336,18 +336,45 @@
 
 
         .statsBox {
-            background-color: white;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            display: inline-block;
+            width: calc(16.66% - 50px); /* 6 kutuyu da tek satıra kusursuz yayar */
+            min-width: 95px; /* 🎯 Sınırı düşürdük ki WORK kutusu da yukarı fırlasın */
+            background-color: #ffffff;
+            padding: 7px 2px; /* 🎯 İçerideki o çok duran kaba boşlukları tamamen kısalttık */
+            border-radius: 6px;
+            margin: 8px; /* Dış boşlukları da daraltarak nizamı koruduk */
+            font-size: 15px; /* Yazıların kutudan taşmaması için hafifçe fitledik */
+            font-weight: bold;
+            color: #555;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+            text-align: center;
+            vertical-align: top;
+            transition: all 0.2s ease;
+        }
+
+
+        #doneCount + br {
+
+            display: none;
+
         }
 
 
 
         body.dark-mode .statsBox {
-            background-color: #222;
-            color: white;
+            background-color: #1a1a1a;
+            color: #ccc;
+            border: 1px solid #2d2d2d;
+        }
+
+
+
+        .statsBox:hover {
+
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
         }
 
 
@@ -361,6 +388,9 @@
             margin-right: 8px;
             color: white;
         }
+
+
+        
 
 
 
@@ -664,6 +694,7 @@
         #todoSection {
             max-width: 1200px;
             margin: 0 auto;
+            text-align: center;
         }
 
         #instagramBtn {
@@ -1089,52 +1120,7 @@
             }
         }
 
-        /* 🎛️ DESKTOP DASHBOARD DÜZENİ (Sadece büyük ekranlarda iki sütun yapar) */
-        @media (min-width: 1024px) {
-            body {
-                display: grid;
-                grid-template-columns: 1fr 1.3fr;
-                gap: 24px;
-                max-width: 1300px;
-                margin: 0 auto;
-            }
-
-            #title, #globalStreakBanner, #siteDescription, #motivationBox {
-                grid-column: 1 / -1;
-            }
-
-            #pomodoroContainer, #habitSection, #badgeSection {
-                grid-column: 1;
-                width: 100%;
-                margin: 0;
-            }
-
-            #todoSection {
-                grid-column: 2;
-                margin: 0;
-            }
-
-            #archiveSection, #counterTitle, #counter, #counterButtons, .aboutMe {
-                grid-column: 1 / -1;
-            }
-        }
-
-
-            #taskControls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            #taskControls input, 
-            #taskControls select, 
-            #taskControls button {
-                width: 100% !important;
-            }
-            #taskList li {
-                grid-template-columns: 1fr;
-                gap: 10px;
-            }
-       
-
+        
 
         .archiveItem {
 
