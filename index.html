@@ -1145,7 +1145,19 @@
         }
 
 
+        #customHours:focus , #customMinutes:focus , #customSeconds:focus {
+
+            outline: none;
+            border-color: #e44332;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(228, 67, 50, 0.08);
+
+        }
+
+
+
     </style>
+    
   </head>
   
   <body>
@@ -1176,11 +1188,23 @@
 
     <div id = "pomodoroContainer" class = "card" style = "text-align: center; border-color: #2ea300; margin-bottom: 30px;">
         <h3 style = "margin-top: 0; color: #2ea300;"><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
-        <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">25:00</h2>
+        <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">00:00:00</h2>
 
-        <div style = "margin-bottom: 15px;">
-            <input type = "number" id = "customMinutes" placeholder = "DK" style = "width: 60px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-            <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db; color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
+        <div style = "margin-bottom: 15px; display: flex; justify-content: center; gap: 5px;">
+
+            <input type = "number" id = "customHours" placeholder = "HR" min = "0" max = "24"
+            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+
+            <input type = "number" id = "customMinutes" placeholder = "MN" min = "0" max = "59"
+            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+
+            <input type = "number" id = "customSeconds" placeholder = "SC" min = "0" max = "59"
+            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+
+            <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db;
+            color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
+
+
         </div>
 
 
@@ -1648,57 +1672,41 @@
             const timerDisplay = document.getElementById("timerDisplay");
 
             function updateTimerDisplay() {
-                let mins = Math.floor(timeLeft / 60);
+
+                let hrs = Math.floor(timeLeft / 3600);
+                let mins = Math.floor((timeLeft % 3600) / 60);
                 let secs = timeLeft % 60;
-                timerDisplay.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                timerDisplay.innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
             }
 
-            document.getElementById("startTimer").onclick = function() {
-                if (timer) return;
-                timer = setInterval(function() {
-                    if (timeLeft > 0) {
-                        timeLeft--;
-                        updateTimerDisplay();
-                    } else {
-                        clearInterval(timer);
-                        timer = null;
-                        showAlert("⏰ FOCUS OVER!", "GREAT STUDY SESSION DOSTUM!");
-                        if(typeof confetti === 'function') {
-                            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-                        }
-                        if (audioEnabled) successSound.play().catch(e => {});
-                        displayRandomQuote();
-                        incrementPomodoroStats();
-                    }
-                }, 1000);
-            };
-
-            document.getElementById("pauseTimer").onclick = function() {
-                clearInterval(timer);
-                timer = null;
-            };
-
-            document.getElementById("resetTimer").onclick = function() {
-                clearInterval(timer);
-                timer = null;
-                timeLeft = 25 * 60;
-                updateTimerDisplay();
-            };
-
             const setTimerBtn = document.getElementById("setTimerBtn");
+            const customHoursInput = document.getElementById("customHours");
             const customMinutesInput = document.getElementById("customMinutes");
+            const customSecondsInput = document.getElementById("customSeconds");
 
             setTimerBtn.onclick = function() {
-                const mins = parseInt(customMinutesInput.value);
-                if(isNaN(mins) || mins <= 0 || mins > 300) {
-                    showAlert("WARNING !" , "PLEASE ENTER A VALID MINUTE (1-300) !");
+                const hrs = parseInt(customHoursInput.value) || 0;
+                const mins = parseInt(customMinutesInput.value) || 0;
+                const secs = parseInt(customSecondsInput.value) || 0;
+
+                if (hrs < 0 || mins < 0 || secs < 0 || (hrs === 0 && mins === 0 && secs === 0) || mins > 59 || secs > 59) {
+                    showAlert("WARNING !", "PLEASE ENTER A VALID TIME (0-59 FOR MIN/SEC)!");
                     return;
                 }
+
                 clearInterval(timer);
                 timer = null;
-                timeLeft = mins * 60;
+                // Saati, dakikayı ve saniyeyi tamamen saf saniyeye çevirip depoluyoruz
+                timeLeft = (hrs * 3600) + (mins * 60) + secs;
                 updateTimerDisplay();
-                showAlert("SUCCESS" , "TIMER SET TO " + mins + " MINUTES !");
+                
+                // Form kutularını temizle
+                customHoursInput.value = "";
+                customMinutesInput.value = "";
+                customSecondsInput.value = "";
+
+                showAlert("SUCCESS", `TIMER SET TO ${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}!`);
             };
 
 
