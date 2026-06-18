@@ -1155,6 +1155,69 @@
         }
 
 
+        #categoryManager {
+
+            border-color: #eaeaea !important;
+            background-color: #ffffff;
+            padding: 20px !important;
+
+        }
+
+
+        #categoryManager h3 {
+
+            color: #444 !important;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 15px !important;
+
+        }
+
+
+        #newCategoryInput {
+
+            padding: 10px 14px !important;
+            border: 1px solid #ddd !important;
+            background-color: #fafafa !important;
+            font-size: 14px;
+            transition: all 0.2s ease;
+
+        }
+
+
+        #newCategoryInput:focus {
+
+            outline: none;
+            border-color: #e44332 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(228, 67, 50, 0.08);
+
+        }
+
+
+        #addCategoryBtn {
+
+            padding: 10px 20px !important;
+            background-color: #555555 !important;
+            color: white !important;
+            border-radius: 6px !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            border: none;
+            transition: all 0.2s ease;
+
+        }
+
+
+
+        #addCategoryBtn:hover {
+
+            background-color: #333333 !important;
+            transform: translateY(-1px);
+
+        }
+
+
 
     </style>
     
@@ -1192,13 +1255,13 @@
 
         <div style = "margin-bottom: 15px; display: flex; justify-content: center; gap: 5px;">
 
-            <input type = "number" id = "customHours" placeholder = "HR" min = "0" max = "24"
+            <input type = "number" id = "customHours" placeholder = "HRS" min = "0" max = "24"
             style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
 
-            <input type = "number" id = "customMinutes" placeholder = "MN" min = "0" max = "59"
+            <input type = "number" id = "customMinutes" placeholder = "MIN" min = "0" max = "59"
             style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
 
-            <input type = "number" id = "customSeconds" placeholder = "SC" min = "0" max = "59"
+            <input type = "number" id = "customSeconds" placeholder = "SEC" min = "0" max = "59"
             style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
 
             <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db;
@@ -1289,8 +1352,9 @@
             <div id="progressBar" style = "background: linear-gradient(90deg, #48ff00, #2ea300); height: 100%; width: 0%; transition: width 0.5s;"></div>
         </div>
 
+        <br><br><br>
         <p id = "progressText" style = "text-align: center; font-weight: bold; margin-top: -15px; margin-bottom: 25px;"> 0% COMPLETED </p>
-        <br>
+        <br><br>
 
         <h3 id = "totalCount" class = "statsBox totalStat"> TOTAL : 0 </h3>
         <h3 id = "activeCount" class = "statsBox activeStat"> ACTIVE : 0 </h3>
@@ -1710,7 +1774,38 @@
             };
 
 
-            // --- HIZLI AYAR BUTONLARI TETİKLEYİCİLERİ ---
+            document.getElementById("startTimer").onclick = function() {
+                if (timer) return;
+                timer = setInterval(function() {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timer);
+                        timer = null;
+                        showAlert("⏰ FOCUS OVER!", "GREAT STUDY SESSION !");
+                        if(typeof confetti === 'function') {
+                            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+                        }
+                        if (audioEnabled) successSound.play().catch(e => {});
+                        displayRandomQuote();
+                        incrementPomodoroStats();
+                    }
+                }, 1000);
+            };
+
+            document.getElementById("pauseTimer").onclick = function() {
+                clearInterval(timer);
+                timer = null;
+            };
+
+            document.getElementById("resetTimer").onclick = function() {
+                clearInterval(timer);
+                timer = null;
+                timeLeft = 0;
+                updateTimerDisplay();
+            };
+
 
             document.getElementById("preset25").onclick = function() { setPomodoroPreset(25, "STUDY TIME! STAY FOCUSED!"); };
             document.getElementById("preset5").onclick = function() { setPomodoroPreset(5, "SHORT BREAK STARTED! RELAX."); };
