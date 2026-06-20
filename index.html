@@ -1303,12 +1303,61 @@
         }
 
 
-        #addHabit:hover {
+        #addHabitBtn:hover {
 
             background-color: #ee5253 !important;
             transform: translateY(-1px);
 
         }
+
+        
+        body {
+
+            background-color: #f8f9fa !important;
+            -webkit-font-smoothing: antialiased;
+
+        }
+
+
+        h1, h2, h3 {
+
+            letter-spacing: -0.5px !important;
+            font-weight: 700 !important;
+
+        }
+
+
+        .card {
+
+            border-radius: 12px !important;
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.01) , 0 10px 20px -3px rgba(0, 0, 0, 0.03) !important;
+
+        }
+
+
+        body.dark-mode {
+
+            background-color: #0d0d0d !important; /* Gözü yormayan saf gece siyahı */
+
+        }
+
+
+        body.dark-mode .card {
+
+            background-color: #161616 !important; /* Kartları arka plandan ayıran şık koyu gri */
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+
+        }
+
+
+        /* 🎛️ Özel Premium Kaydırma Çubuğu (Scrollbar) */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dbdbdb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c1c1c1; }
+        body.dark-mode ::-webkit-scrollbar-thumb { background: #2a2c2e; }
 
         
         
