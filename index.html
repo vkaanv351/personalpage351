@@ -1360,7 +1360,87 @@
         body.dark-mode ::-webkit-scrollbar-thumb { background: #2a2c2e; }
 
         
+        .aboutMe {
+
+        background-color: #ffffff;
+        padding: 30px !important;
+        border-radius: 16px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        max-width: 300px;
+        margin: 40px auto !important;
+        gap: 20px !important;
+        transition: all 0.3s ease !important;            
+
+        }
+
+
+        .aboutMe:hover {
+
+            transform: translateY(-5px) !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+
+        }
+
+
+        #profileImage {
+
+            width: 100px !important;
+            height: 100px !important;
+            border: 4px solid #ffffff !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08) !important;
+            transition: transform 0.3s ease !important;
+
+        }
+
+
+        .aboutMe:hover #profileImage {
+
+            transform: scale(1.05) rotate(3deg) !important;
+
+        }
+
+
+        #InstagramBtn {
+
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; /* Orijinal soft Instagram gradyanı */
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 10px 20px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            width: 100% !important; /* Karta tam otursun */
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(220, 39, 67, 0.15) !important;
+
+        }
+
+
+        #InstagramBtn:hover {
+
+            box-shadow: 0 6px 20px rgba(220, 39, 67, 0.3) !important;
+            opacity: 0.95;
+
+        }
+
+
+        body.dark-mode .aboutMe {
+
+            background-color: #161616 !important;
+            border: 1px solid rgba(255,255,255,0.04) !important;
+
+        }
+
         
+        body.dark-mode #profileImage {
+
+            border-color: #222 !important;
+
+        }
+
+        
+
     </style>
     
   </head>
