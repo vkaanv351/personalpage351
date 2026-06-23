@@ -1519,6 +1519,52 @@
         }
 
 
+        .theme-dot {
+
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+
+        }
+
+
+
+        .theme-dot:hover { transform: scale(1.2); }
+        body.dark-mode .theme-dot { border-color: #222; }
+
+
+        body[data-theme="matrix"] #title { color: #00ff66 !important; text-shadow: 0 0 8px rgba(0,255,102,0.3); }
+
+        body[data-theme="matrix"] #addTaskBtn, body[data-theme="matrix"] #setTimerBtn { background-color: #00ff66 !important; color: #000 !important; font-weight: bold !important; }
+
+        body[data-theme="matrix"] #timerDisplay { color: #00ff66 !important; }
+
+        body[data-theme="matrix"] #globalStreakBanner { background: linear-gradient(135deg, #00ff66, #009933) !important; }
+
+        
+        body[data-theme="gold"] #title { color: #d4af37 !important; }
+
+        body[data-theme="gold"] #addTaskBtn, body[data-theme="gold"] #setTimerBtn { background-color: #d4af37 !important; color: #111 !important; font-weight: bold !important; }
+
+        body[data-theme="gold"] #timerDisplay { color: #d4af37 !important; }
+
+        body[data-theme="gold"] #globalStreakBanner { background: linear-gradient(135deg, #d4af37, #aa7c11) !important; }
+
+      
+        body[data-theme="ocean"] #title { color: #007aff !important; }
+
+        body[data-theme="ocean"] #addTaskBtn, body[data-theme="ocean"] #setTimerBtn { background-color: #007aff !important; color: #fff !important; }
+
+        body[data-theme="ocean"] #timerDisplay { color: #007aff !important; }
+
+        body[data-theme="ocean"] #globalStreakBanner { background: linear-gradient(135deg, #007aff, #004080) !important; }
+
+
+
     </style>
     
   </head>
@@ -1526,6 +1572,26 @@
   <body>
 
     <h1 id = "title"> TO-DO LIST </h1>
+
+
+
+    <div class = "card" style = "display: flex; justify-content: center;
+
+
+    align-items: center; gap: 12px; padding: 10px 20px; margin: -10px auto 20px auto; max-width: fit-content;">
+
+    <span style = "font-size: 11px; font-weight: bold; color: #888; letter-spacing: 0.5px ;"> STATION SKIN : </span>
+
+    <div class = "theme-dot" data-theme = "default" style = "background-color: #e44332;" title = "Default Crimson"></div>
+
+    <div class="theme-dot" data-theme="matrix" style="background-color: #00ff66;" title="Matrix Neon"></div>
+
+    <div class="theme-dot" data-theme="gold" style="background-color: #d4af37;" title="Midnight Gold"></div>
+
+    <div class="theme-dot" data-theme="ocean" style="background-color: #007aff;" title="Deep Ocean"></div>
+
+
+    </div>
     
     
 
@@ -1805,6 +1871,36 @@
         successSound.volume = 0.5;
 
         document.addEventListener("DOMContentLoaded" , function() {
+
+
+            const themeDots = document.querySelectorAll(".theme-dot");
+
+            const savedTheme = localStorage.getItem("custom-theme") || "default";
+
+            document.body.setAttribute("data-theme" , savedTheme);
+
+
+            themeDots.forEach(dot => {
+
+                dot.addEventListener("click" , function() {
+
+                    const selectedTheme = this.getAttribute("data-theme");
+                    document.body.setAttribute("data-theme" , selectedTheme);
+
+
+                    if(typeof confetti === 'function' && selectedTheme !== "default") {
+
+                        confetti({ particleCount: 40, spread: 40, origin: { y: 0.9 } });
+
+                    }
+
+                    showAlert("SUCCESS" , `${selectedTheme.toUpperCase()} SKIN EMPOWERED! 🚀`);
+
+                });
+
+            });
+
+
             const alertBox = document.getElementById("alertBox");
             const alertTitle = document.getElementById("alertTitle");
             const alertText = document.getElementById("alertText");
