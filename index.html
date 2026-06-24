@@ -161,13 +161,20 @@
 
 
         .completed {
+
             color: #aaa !important;
-            text-decoration: line-through;
             opacity: 0.6;
             background-color: #fafafa !important;
             border-left-color: #dcdcdc !important;
+            
         }
 
+
+        .completed .task-header-row > span:not(.categoryBadge):not(.priorityBadge):not(.task-checkbox) {
+
+            text-decoration: line-through !important;
+
+        }
 
 
         .dragging {
@@ -1563,6 +1570,45 @@
 
         body[data-theme="ocean"] #globalStreakBanner { background: linear-gradient(135deg, #007aff, #004080) !important; }
 
+
+
+        .task-checkbox {
+
+            width: 16px !important;
+            height: 16px !important;
+            border: 2px solid #b3b3b3 !important;
+            border-radius: 50% !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-right: 6px !important;
+            transition: all 0.2s ease !important;
+            background-color: transparent !important;
+            color: transparent !important;
+            font-size: 9px !important;
+            flex-shrink: 0 !important;
+
+        }
+
+
+        #taskList li:not(.completed):hover .task-checkbox {
+
+            border-color: #e44332 !important;
+            background-color: rgba(228, 67, 50, 0.05) !important;
+
+        }
+
+
+        .completed .task-checkbox {
+
+            background-color: #2ecc71 !important;
+            border-color: #2ecc71 !important;
+            color: #ffffff !important;
+
+        }
+
+
+        body.dark-mode .task-checkbox { border-color: #555 !important; }
 
 
     </style>
@@ -3125,6 +3171,22 @@
 
                         const headerRow = document.createElement("div");
                         headerRow.classList.add("task-header-row");
+
+
+                        const checkbox = document.createElement("span");
+                        checkbox.classList.add("task-checkbox");
+                        if(task.completed) {
+
+                            checkbox.innerHTML = '<i class = "fas fa-check"></i>';
+
+                        } else {
+
+                            checkbox.innerHTML = '<i class = "fas fa-circle" style = "opacity:0;"></i>'
+
+                        }
+
+                        headerRow.appendChild(checkbox);
+
 
                         const categoryBadge = document.createElement("span");
                         categoryBadge.innerText = task.category;
