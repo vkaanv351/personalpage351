@@ -1611,6 +1611,240 @@
         body.dark-mode .task-checkbox { border-color: #555 !important; }
 
 
+        #taskControls {
+
+            background-color: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            border-radius: 14px !important;
+            padding: 24px !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02) !important;
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 12px !important;
+            max-width: 750px !important;
+            margin: 0 auto 30px auto !important;
+
+        }
+
+
+        #taskInput {
+
+            flex: 1 1 100% !important;
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            padding: 13px 16px !important;
+            border: 1px solid #e1e4e6 !important;
+            background-color: #f8f9fa !important;
+            border-radius: 8px !important;
+
+        }
+
+
+        #taskNote {
+
+            flex: 1 1 100% !important;
+            font-size: 13px !important;
+            padding: 10px 16px !important;
+            border: 1px solid #e1e4e6 !important;
+            background-color: #f8f9fa !important;
+            border-radius: 8px !important;
+
+        }
+
+
+        #taskCategory, #taskPriority, #taskRecurring, #taskDate {
+            flex: 1 1 calc(25% - 12px) !important;
+            min-width: 130px !important;
+            padding: 10px 12px !important;
+            font-size: 13px !important;
+            border: 1px solid #e1e4e6 !important;
+            background-color: #f8f9fa !important;
+            color: #495057 !important;
+            border-radius: 8px !important;
+        }
+
+        /* Giriş Kutuları Odaklanma Parlaması (Focus States) */
+        #taskControls input:focus, #taskControls select:focus {
+            outline: none !important;
+            border-color: #e44332 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 3px rgba(228, 67, 50, 0.08) !important;
+        }
+
+        /* Buton Grubu Genel Kuralları */
+        #taskControls button {
+            padding: 11px 18px !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            border-radius: 8px !important;
+            border: none !important;
+            transition: all 0.2s ease !important;
+        }
+
+        /* 👑 ADD BUTTON - Formu Kapatan Premium Mat Kırmızı Bar */
+        #addTaskBtn {
+            background-color: #e44332 !important;
+            color: white !important;
+            flex: 1 1 100% !important; 
+            margin-top: 4px !important;
+            font-size: 14px !important;
+            letter-spacing: 0.5px;
+        }
+        #addTaskBtn:hover { background-color: #c53727 !important; transform: translateY(-1px); }
+
+        /* Global Kontrol Butonları (Delete, PDF vb.) - Minimalist Elit Alt Satır */
+        #clearAllBtn, #clearCompletedBtn, #undoBtn, #downloadPdfBtn {
+            flex: 1 1 calc(25% - 12px) !important;
+            min-width: 120px !important;
+            background-color: #f1f3f5 !important;
+            color: #495057 !important;
+            font-size: 11px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        #clearAllBtn:hover { background-color: #ffe3e3 !important; color: #e44332 !important; }
+        #clearCompletedBtn:hover { background-color: #e8f5e9 !important; color: #2ecc71 !important; }
+        #undoBtn:hover { background-color: #e3f2fd !important; color: #3498db !important; }
+        #downloadPdfBtn:hover { background-color: #f3e5f5 !important; color: #9b59b6 !important; }
+
+        /* 🌗 Dark Mode Entegrasyonu */
+        body.dark-mode #taskControls {
+            background-color: #161616 !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+        }
+        body.dark-mode #taskControls input, body.dark-mode #taskControls select {
+            background-color: #222222 !important;
+            border-color: #2d2d2d !important;
+            color: #eee !important;
+        }
+        body.dark-mode #clearAllBtn, body.dark-mode #clearCompletedBtn, body.dark-mode #undoBtn, body.dark-mode #downloadPdfBtn {
+            background-color: #262626 !important;
+            color: #ccc !important;
+        }
+
+
+        #motivationBox, #badgeSection {
+
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            background-color: #ffffff !important;
+            border-radius: 14px !important;
+            padding: 20px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+            transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+
+        }
+
+
+        #motivationBox:hover, #badgeSection:hover {
+
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04) !important;
+
+        }
+
+
+        #quoteText {
+
+            color: #2d3748 !important;
+            font-weight: 500 !important;
+            font-size: 15px !important;
+
+        }
+
+
+        #quoteAuthor {
+
+            color: #a0aec0 !important;
+            text-transform: uppercase;
+            font-size: 11px !important;
+            letter-spacing: 1px;
+
+        }
+
+
+        #badgeSection h3 {
+
+            color: #2d3748 !important;
+            font-size: 14px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.5px;
+
+        }
+
+
+        body.dark-mode #motivationBox, body.dark-mode #badgeSection {
+            
+            background-color: #161616 !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+
+        }
+
+        
+        body.dark-mode #quoteText, body.dark-mode #badgeSection h3 {
+
+            color: #eee !important;
+
+        }
+
+
+        body[data-theme="matrix"] #taskControls input:focus, body[data-theme="matrix"] #taskControls select:focus { border-color: #00ff66 !important; box-shadow: 0 0 0 3px rgba(0, 255, 102, 0.08) !important; }
+
+        
+        body[data-theme="gold"] #taskControls input:focus, body[data-theme="gold"] #taskControls select:focus { border-color: #d4af37 !important; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08) !important; }
+
+        
+        body[data-theme="ocean"] #taskControls input:focus, body[data-theme="ocean"] #taskControls select:focus { border-color: #007aff !important; box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.08) !important; }
+
+
+        #filterButtons button {
+
+            background-color: #ffffff !important;
+            color: #666666 !important;
+            border: 1px solid #eaeaea !important;
+            border-radius: 20px !important;
+            padding: 8px 16px !important;
+            font-size: 12px !important;
+            font-weight: 600 !important;
+            min-width: 90px !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) !important;
+            transition: all 0.2s cubic-bezier(0.165 , 0.84 , 0.44 , 1) !important;
+
+        }
+
+
+        #filterButtons button:hover {
+            background-color: #f8f9fa !important;
+            color: #111111 !important;
+            border-color: #d1d1d1 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        /* 🎯 AKTİF FİLTRE - Seçili olan butonun asil Todoist kırmızısı parlaması */
+        #filterButtons button.activeFilter {
+            background-color: #e44332 !important;
+            color: #ffffff !important;
+            border-color: #e44332 !important;
+            box-shadow: 0 4px 12px rgba(228, 67, 50, 0.2) !important;
+        }
+        #filterButtons button.activeFilter:hover {
+            background-color: #c53727 !important;
+            border-color: #c53727 !important;
+        }
+
+        /* 🌗 Dark Mode Entegrasyonu */
+        body.dark-mode #filterButtons button {
+            background-color: #161616 !important;
+            color: #aaa !important;
+            border-color: rgba(255, 255, 255, 0.05) !important;
+        }
+        body.dark-mode #filterButtons button:hover {
+            background-color: #222222 !important;
+            color: #fff !important;
+        }
+        
+
     </style>
     
   </head>
@@ -1932,7 +2166,7 @@
 
                     const selectedTheme = this.getAttribute("data-theme");
                     document.body.setAttribute("data-theme" , selectedTheme);
-
+ 
 
                     if(typeof confetti === 'function' && selectedTheme !== "default") {
 
@@ -1940,9 +2174,13 @@
 
                     }
 
+                    localStorage.setItem("custom-theme" , selectedTheme);
+
                     showAlert("SUCCESS" , `${selectedTheme.toUpperCase()} SKIN EMPOWERED! 🚀`);
 
+
                 });
+
 
             });
 
@@ -1995,7 +2233,7 @@
                 // Tıklanan eleman buton mu yoksa butonun içindeki bir ikon mu kontrol et
                 const buttonElement = e.target.closest("button");
 
-                if (audioEnabled && buttonElement) {
+                if (audioEnabled && buttonElement && !buttonElement.classList.contains("undoDisabled")) {
                     // 🎯 Güvenli Mixkit sunucusundan tok mekanik klavye sesini anlık oluşturuyoruz:
                     const btnSound = new Audio("https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3");
                     btnSound.volume = 0.35; // Kulaklığı patlatmasın, tatlı tatlı gelsin
@@ -2148,17 +2386,15 @@
 
             function updateUndoButton() {
                 undoBtn.classList.remove("undoDisabled" , "undoActive");
-                if(lastDeletedTask || (lastDeletedAllTasks &&
-                
-                lastDeletedAllTasks.length > 0) || lastEditedTask) {
-
-
+                if(lastDeletedTask || (lastDeletedAllTasks && lastDeletedAllTasks.length > 0) || lastEditedTask) {
+                    
                     undoBtn.classList.add("undoActive");
+                    undoBtn.disabled = false; // 🔥 Butonu tamamen açtık
 
                 } else {
 
                     undoBtn.classList.add("undoDisabled");
-
+                    undoBtn.disabled = true; // 🎯 Butonu HTML olarak da kilitledik!
 
                 }
 
