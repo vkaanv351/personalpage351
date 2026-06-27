@@ -1845,6 +1845,104 @@
         }
         
 
+        #taskList li {
+
+            display: grid !important;
+            grid-template-columns: 1fr auto auto auto !important;
+            align-items: center !important;
+            gap: 16px !important;
+            padding: 14px 16px !important;
+            background-color: transparent !important;
+            border-radius: 0 !important;
+            margin-bottom: 0 !important;
+            box-shadow: none !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+            border-left: 3px solid transparent !important;
+            transition: background-color 0.15s ease !important;
+            transform: none !important;
+
+        }
+
+
+        #taskList li:last-child {
+
+            border-bottom: none !important;
+
+        }
+
+        
+        #taskList li:hover {
+
+            background-color: rgba(0, 0, 0, 0.02) !important;
+
+        }
+
+
+        #taskList li.priority-card-HIGH { border-left: 3px solid crimson !important; box-shadow: none !important; animation: none !important; }
+
+        #taskList li.priority-card-MEDIUM { border-left: 3px solid orange !important; box-shadow: none !important; animation: none !important; }
+
+        #taskList li.priority-card-LOW { border-left: 3px solid #b3b3b3 !important; }
+
+
+        #taskList li:hover button {
+
+            opacity: 0.5;
+
+        }
+
+
+        #taskList li button:hover {
+
+            opacity: 1 !important;
+
+        }
+
+
+        #taskList li:has(.editInput) button {
+
+            opacity: 1 !important;
+
+        }
+
+
+        body.dark-mode #taskList li {
+
+            border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+
+        }
+
+
+        body.dark-mode #taskList li:hover {
+
+            background-color: rgba(255, 255, 255, 0.02) !important;
+
+        }
+
+
+        #taskList li button {
+            opacity: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            transition: opacity 0.2s ease !important;
+        }
+
+        /* 2. Eski yukarıdaki o amatör zıplama, büyüme ve kaba gölgeleri hunharca ez */
+        #taskList li:hover, 
+        #taskList li:not(.dragging):hover {
+            transform: none !important; /* Zıplama efekti iptal */
+            box-shadow: none !important; /* Kaba gölgeler iptal */
+            background-color: rgba(0, 0, 0, 0.03) !important; /* Notion tarzı çok soft satır rengi */
+            border-color: rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* 3. Satırın üzerine gelindiğinde butonları kibarca canlandır */
+        #taskList li:hover button,
+        #taskList li:not(.dragging):hover button {
+            opacity: 0.5 !important;
+        }
+
+
     </style>
     
   </head>
