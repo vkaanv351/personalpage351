@@ -2091,7 +2091,73 @@
 
         }
 
+
+        body {
+
+            background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f4f5 50%, #e4e4e7 100%) !important;
+            background-attachment: fixed !important;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+        }
+
+
+        body.dark-mode {
+
+            background: radial-gradient(circle at 50% 0%, #1a1a1a 0%,
+            #111111 50%, #070707 100%) !important;
+            background-attachment: fixed !important;
+
+        }
+
+
+        body[data-theme = "matrix"] {
+
+            background: radial-gradient(circle at 50% 0%, #0a1f12 0%, #050f09 60%, #000000 100%) !important;
+            background-attachment: fixed !important;
+
+        }
+
+
+        body[data-theme = "gold"] {
+
+            background: radial-gradient(circle at 50% 0%, #1c1810 0%, #110f0a 60%, #070604 100%) !important;
+            background-attachment: fixed !important;
+
+        }
+
+
+        body[data-theme="ocean"] {
+
+            background: radial-gradient(circle at 50% 0%, #0f1a2c 0%, #080f1a 60%, #03050a 100%) !important;
+            background-attachment: fixed !important;
+
+        }
         
+        
+        #pomodoroContainer {
+            text-align: center !important; /* Başlık ve dev dijital ekranı tam ortalar */
+        }
+
+        /* Giriş kutularının ve hazır süre butonlarının olduğu satırları zorla ortala */
+        #pomodoroContainer div {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+        }
+
+        /* START, PAUSE, RESET, MUTE buton şeridini milimetrik ortala */
+        #timerControls {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            gap: 8px !important;
+            margin-top: 15px !important;
+            width: 100% !important;
+        }
+
+
 
     </style>
     
@@ -2143,49 +2209,31 @@
 
     <br>
 
-    <div id = "pomodoroContainer" class = "card" style = "text-align: center; border-color: #2ea300; margin-bottom: 30px;">
-        <h3 style = "margin-top: 0; color: #2ea300;"><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
-        <h2 id = "timerDisplay" style="font-size: 54px; margin: 15px 0; font-family: monospace;">00:00:00</h2>
+    <div id = "pomodoroContainer" class = "card">
+        <h3><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
+        <h2 id = "timerDisplay">00:00:00</h2>
 
         <div style = "margin-bottom: 15px; display: flex; justify-content: center; gap: 5px;">
-
-            <input type = "number" id = "customHours" placeholder = "HRS" min = "0" max = "24"
-            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-
-            <input type = "number" id = "customMinutes" placeholder = "MIN" min = "0" max = "59"
-            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-
-            <input type = "number" id = "customSeconds" placeholder = "SEC" min = "0" max = "59"
-            style = "width: 55px; text-align: center; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
-
-            <button id = "setTimerBtn" style = "padding: 5px 15px; background-color: #3498db;
-            color: white; border-radius: 8px; cursor: pointer; min-width: auto;">SET</button>
-
-
+            <input type = "number" id = "customHours" placeholder = "HRS" min = "0" max = "24">
+            <input type = "number" id = "customMinutes" placeholder = "MIN" min = "0" max = "59">
+            <input type = "number" id = "customSeconds" placeholder = "SEC" min = "0" max = "59">
+            <button id = "setTimerBtn">SET</button>
         </div>
-
-
 
         <div style = "margin-bottom: 15px; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap;">
-
-
-        <button id = "preset25" style = "padding: 6px 12px; background-color: #e74c3c; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-brain"></i> 25 MIN FOCUS</button>
-        <button id = "preset5" style = "padding: 6px 12px; background-color: #2ecc71; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-coffee"></i> 5 MIN BREAK</button>
-        <button id = "preset15" style = "padding: 6px 12px; background-color: #f1c40f; color: white; border-radius: 8px; font-size: 11px; min-width: auto;"><i class="fas fa-couch"></i> 15 MIN BREAK</button>
-
-
+            <button id = "preset25"><i class="fas fa-brain"></i> 25 MIN FOCUS</button>
+            <button id = "preset5"><i class="fas fa-coffee"></i> 5 MIN BREAK</button>
+            <button id = "preset15"><i class="fas fa-couch"></i> 15 MIN BREAK</button>
         </div>
         
-
-
         <div id = "timerControls">
-            <button id = "startTimer" style = "background-color: #2ea300; color: white; border-radius: 8px;">START</button>
-            <button id = "pauseTimer" style = "background-color: orange; color: white; border-radius: 8px;">PAUSE</button>
-            <button id = "resetTimer" style = "background-color: #999; color: white; border-radius: 8px;">RESET</button>
-            <button id = "muteBtn" style = "background-color: #34495e; color: white; border-radius: 8px;"><i class="fas fa-volume-up"></i></button>
+            <button id = "startTimer">START</button>
+            <button id = "pauseTimer">PAUSE</button>
+            <button id = "resetTimer">RESET</button>
+            <button id = "muteBtn"><i class="fas fa-volume-up"></i></button>
         </div>
 
-        <div id = "pomodoroStats" style = "margin-top : 20px; font-size : 14px; font-weight : bold; color : #2ea300; border-top : 1px dashed #ccc; padding-top : 15px;">
+        <div id = "pomodoroStats">
             <i class = "fas fa-trophy"></i>  TOTAL FOCUS BLOCKS : <span id = "pomoCountDisplay">0</span>
             <span style = "margin: 0 10px; color: #ccc;"> | </span>
             <i class = "fas fa-hourglass-half"></i>  TOTAL TIME : <span id = "pomoTimeDisplay">0</span> MIN
