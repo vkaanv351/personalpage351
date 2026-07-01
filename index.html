@@ -16,10 +16,48 @@
     <style>
 
         body {
-            background-color: #f2f2f2;
+            /* Hem rengi hem resmi aynı anda ezmek için sadece 'background' kullanıyoruz */
+            background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f4f5 50%, #e4e4e7 100%) !important;
+            background-attachment: fixed !important;
             font-family: Arial, Helvetica, sans-serif;
             padding: 40px;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Gece Modu Geçişi */
+        body.dark-mode {
+            background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #111111 50%, #070707 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* 🚨 PREMIUM TEMALAR ARKA PLAN ENTEGRASYONU */
+        body[data-theme="default"] {
+            /* Başlangıçtaki #ffffff beyazını uçurduk, yerine asil bir kül-kızıl duman tonu koyduk */
+            background: radial-gradient(circle at 50% 0%, #fbf9f9 0%, #f3eded 50%, #e2d7d7 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Kırmızı temadayken Gece Modu (Dark) açılırsa oluşacak derin mat kızıl-siyah */
+        body.dark-mode[data-theme="default"] {
+            background: radial-gradient(circle at 50% 0%, #1e1213 0%, #140b0c 60%, #0a0505 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        body[data-theme="matrix"] {
+            background: radial-gradient(circle at 50% 0%, #0a1f12 0%, #050f09 60%, #000000 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        body[data-theme="gold"] {
+            background: radial-gradient(circle at 50% 0%, #1c1810 0%, #110f0a 60%, #070604 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        body[data-theme="ocean"] {
+            background: radial-gradient(circle at 50% 0%, #0f1a2c 0%, #080f1a 60%, #03050a 100%) !important;
+            background-attachment: fixed !important;
         }
         
 
@@ -2157,6 +2195,56 @@
             width: 100% !important;
         }
 
+
+        body[data-theme = "default" ] {
+
+            background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f4f5 50%, #e4e4e7 100%) !important;
+            background-attachment: fixed !important;
+
+        }
+
+
+        body.dark-mode[data-theme="default"] {
+
+            background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #111111 50%, #070707 100%) !important;
+            background-attachment: fixed !important;
+
+        }
+
+
+        body[data-theme="default"] {
+            /* Tepeden vuran koyu şarap kızılı/bordo stüdyo ışığı ve saf gece siyahı geçişi */
+            background: radial-gradient(circle at 50% 0%, #251011 0%, #140a0b 60%, #000000 100%) !important;
+            background-attachment: fixed !important;
+        }
+
+        /* Kırmızı temadayken başlığın (TO-DO LIST) mat bir kırmızı parlaması için */
+        body[data-theme="default"] #title {
+            color: #ff5252 !important;
+            text-shadow: 0 0 8px rgba(255, 82, 82, 0.3);
+        }
+
+        /* Kırmızı temada butonların kavisli ve uyumlu durması için mühür */
+        body[data-theme="default"] #addTaskBtn, 
+        body[data-theme="default"] #setTimerBtn {
+            background-color: #e44332 !important;
+            color: white !important;
+        }
+
+
+        body[data-theme="default"] h2, body[data-theme="default"] #counterTitle,
+        body[data-theme="matrix"] h2, body[data-theme="matrix"] #counterTitle,
+        body[data-theme="gold"] h2, body[data-theme="gold"] #counterTitle,
+        body[data-theme="ocean"] h2, body[data-theme="ocean"] #counterTitle {
+            color: #f1f3f5 !important; /* Başlıkları lüks bir kirli beyazla görünür yap */
+            transition: color 0.3s ease;
+        }
+
+        /* 🎨 SAYAÇ NUMARASINI (0) TEMALARA ÖRE LÜKS VE PARLAK YAP */
+        body[data-theme="default"] #counter { color: #ff5252 !important; text-shadow: 0 0 12px rgba(255, 82, 82, 0.4); }
+        body[data-theme="matrix"] #counter { color: #00ff66 !important; text-shadow: 0 0 12px rgba(0, 255, 102, 0.4); }
+        body[data-theme="gold"] #counter    { color: #d4af37 !important; text-shadow: 0 0 12px rgba(212, 175, 55, 0.4); }
+        body[data-theme="ocean"] #counter   { color: #007aff !important; text-shadow: 0 0 12px rgba(0, 122, 255, 0.4); }
 
 
     </style>
