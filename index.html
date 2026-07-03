@@ -2258,7 +2258,75 @@
 
         }
 
+
+        #greetingCard {
+
+            text-align: center !important;
+            margin-bottom: 25px !important;
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.5) !important;
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        body.dark-mode #greetingCard {
+
+            background: rgba(22, 22, 22, 0.8) !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+
+        }
+
+
+        #mascotAvatar {
+
+            font-size: 48px;
+            display: inline-block;
+            margin-bottom: 10px;
+            animation: bird-float 2s ease-in-out infinite alternate;
+
+        }
+
+
+        #mascotSpeech {
+
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #555;
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 8px 12px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+
+        }
+
+
+        body.dark-mode #mascotSpeech {
+
+            background: rgba(255, 255, 255, 0.03);
+            color: #ccc;
+
+        }
+
+
+        @keyframes bird-float {
+
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-6px) rotate(3deg); }
+
+        }
         
+
+        body[data-theme="default"] #userGreeting { color: #ff5252 !important; }
+        body[data-theme="matrix"] #userGreeting { color: #00ff66 !important; }
+        body[data-theme="gold"] #userGreeting { color: #d4af37 !important; }
+        body[data-theme="ocean"] #userGreeting { color: #007aff !important; }
+
+
 
     </style>
     
@@ -2300,8 +2368,20 @@
         
 
 
-
     <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
+
+
+    <div id = "greetingCard" class = "card">
+
+        <div id = "mascotAvatar"> 🐦 </div>
+
+        <h2 id = "userGreeting" style = "margin: 5px 0; font-weight: 800;
+        letter-spacing: -0.5px;"> LOADING STATION... </h2>
+
+        <div id = "mascotSpeech"> "Cici kuş? Hadi hedefleri uçuralım kral! ⚡" </div>
+
+    </div>
+
 
     <div id = "motivationBox" class = "card" style = "text-align: center; border-color: #e67e22; margin-bottom: 20px; background-color: #fffaf0;">
         <p id = "quoteText" style = "font-size: 16px; font-style: italic; color: #444; margin : 0 0 8px 0; line-height: 1.4;"> " LOADING YOUR DAILY DOSE OF DISCIPLINE... " </p>
@@ -2546,6 +2626,7 @@
 
         tickSound.volume = 0.4;
         successSound.volume = 0.5;
+
 
         document.addEventListener("DOMContentLoaded" , function() {
 
@@ -4232,17 +4313,76 @@
             }
 
 
+            // --- MEVCUT TETİKLEYİCİLERİN ---
             updateDoneCount();
-
             checkAndRenderBadges();
-
             checkAndRenderGlobalStreak();
 
+            // 🦜 3. PARÇA: AKILLI MUHABBET KUŞU MASKOT MOTORU (BURAYA YAPIŞTIRILIYOR)
+            function runSmartGreetingAndMascot() {
+                const greetingEl = document.getElementById("userGreeting");
+                const speechEl = document.getElementById("mascotSpeech");
+                const avatarEl = document.getElementById("mascotAvatar");
+                if (!greetingEl || !speechEl || !avatarEl) return;
+
+                const hour = new Date().getHours();
+                let greetingText = "Selam Dostum!";
+
+                // 🕐 Saate Göre Selamlama
+                if (hour >= 5 && hour < 12) {
+                    greetingText = "Günaydın Şampiyon! 🌅";
+                } else if (hour >= 12 && hour < 18) {
+                    greetingText = "Tünaydın, Odaklanma Zamanı! ⚡";
+                } else if (hour >= 18 && hour < 23) {
+                    greetingText = "İyi Akşamlar, Disiplin Şeridi Aktif! 🌙";
+                } else {
+                    greetingText = "Gece Kuşu Modu Aktif! 🦉";
+                }
+                greetingEl.innerText = greetingText;
+
+                // 🎯 Sayfa Verilerine Göre Kuşun Konuşma Algoritması
+                try {
+                    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+                    const totalTasks = tasks.length;
+                    const completedTasks = tasks.filter(t => t.completed).length;
+                    const totalPomo = parseInt(localStorage.getItem("totalPomodoros")) || 0;
+
+                    if (totalTasks > 0 && completedTasks === totalTasks) {
+                        avatarEl.innerText = "👑🦜";
+                        speechEl.innerText = `"Resmen jilet gibi bir gün! Bütün listeyi temizledin, seninle gurur duyuyorum kral! 🏆"`;
+                    } else if (totalPomo >= 4) {
+                        avatarEl.innerText = "🔥🦜";
+                        speechEl.innerText = `"Vay vaay vaay! ${totalPomo} Pomodoro bloğu bitti. İstasyon resmen alev alıyor bugün! ⚡"`;
+                    } else if (completedTasks > 0) {
+                        avatarEl.innerText = "🐦✨";
+                        speechEl.innerText = `"Güzel ilerliyoruz cici kuş! Listede bitenler var, zinciri bozmadan aynen devam! 🚀"`;
+                    } else if (hour >= 23 || hour < 5) {
+                        avatarEl.innerText = "💤🦜";
+                        speechEl.innerText = `"Geç oldu ama disiplini elden bırakmayıp çalışan o asil tayfadansın, helal olsun! 😴"`;
+                    } else {
+                        avatarEl.innerText = "🦜🍃";
+                        speechEl.innerText = `"Gözüm listende dostum. Hadi ilk göreve tıkla da konfetileri patlatalım! 💥"`;
+                    }
+                } catch(e) {
+                    avatarEl.innerText = "🦜";
+                    speechEl.innerText = `"Hadi hedefleri uçuralım kral! ⚡"`;
+                }
+            }
+
+            // Sayfa ilk yüklendiğinde çalıştır
+            runSmartGreetingAndMascot();
+
+            // 🔄 CANLI BAĞLANTI: Listede check attıkça kuşun anlık tepki vermesi için updateDoneCount'a bağlıyoruz
+            const originalUpdateDoneCount = updateDoneCount;
+            updateDoneCount = function() {
+                originalUpdateDoneCount();
+                runSmartGreetingAndMascot(); // Her sayı değişiminde kuşu da konuştur
+            };
 
         });
-        
-        
 
+
+        
     </script>
 
 
