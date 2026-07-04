@@ -2327,6 +2327,72 @@
         body[data-theme="ocean"] #userGreeting { color: #007aff !important; }
 
 
+        #greetingCard {
+
+            text-align: center !important;
+            margin-bottom: 25px !important;
+            background: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            transition: all 0.3s ease;
+
+        }
+
+
+        body.dark-mode #greetingCard {
+
+            background: rgba(22, 22, 22, 0.8) !important;
+            border-color: rgba(255, 255, 255, 0.04) !important;
+
+        }
+
+
+        #mascotAvatar {
+
+            font-size: 45px;
+            display: inline-block;
+            margin-bottom: 10px;
+            animation: bird-float 2s ease-in-out infinite alternate;
+
+        }
+
+
+        #mascotSpeech {
+
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #555;
+            font-style: italic;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 8px 12px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 5px;
+
+        }
+
+
+        body.dark-mode #mascotSpeech {
+
+            background: rgba(255, 255, 255, 0.03);
+            color: #ccc;
+
+        }
+
+
+        @keyframes bird-float {
+
+            from { transform: translateY(0) rotate(0deg); }
+            to { transform: translateY(-6px) rotate(3deg); }
+
+        }
+
+
+        body[data-theme="default"] #userGreeting { color: #e44332 !important; }
+        body[data-theme="matrix"] #userGreeting { color: #00ff66 !important; }
+        body[data-theme="gold"] #userGreeting { color: #d4af37 !important; }
+        body[data-theme="ocean"] #userGreeting { color: #007aff !important; }
+
 
     </style>
     
@@ -2334,58 +2400,36 @@
   
   <body>
 
-    <h1 id = "title"> TO-DO LIST </h1>
+    <h1 id="title"> TO-DO LIST </h1>
 
-
-
-    <div class = "card" style = "display: flex; justify-content: center;
-
-
-    align-items: center; gap: 12px; padding: 10px 20px; margin: -10px auto 20px auto; max-width: fit-content;">
-
-    <span style = "font-size: 11px; font-weight: bold; color: #888; letter-spacing: 0.5px ;"> STATION SKIN : </span>
-
-    <div class = "theme-dot" data-theme = "default" style = "background-color: #e44332;" title = "Default Crimson"></div>
-
-    <div class="theme-dot" data-theme="matrix" style="background-color: #00ff66;" title="Matrix Neon"></div>
-
-    <div class="theme-dot" data-theme="gold" style="background-color: #d4af37;" title="Midnight Gold"></div>
-
-    <div class="theme-dot" data-theme="ocean" style="background-color: #007aff;" title="Deep Ocean"></div>
-
-
+    <!-- Station Skin (Themes Selector) -->
+    <div class="card" style="display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 20px; margin: -10px auto 20px auto; max-width: fit-content;">
+        <span style="font-size: 11px; font-weight: bold; color: #888; letter-spacing: 0.5px;"> STATION SKIN : </span>
+        <div class="theme-dot" data-theme="default" style="background-color: #e44332;" title="Default Crimson"></div>
+        <div class="theme-dot" data-theme="matrix" style="background-color: #00ff66;" title="Matrix Neon"></div>
+        <div class="theme-dot" data-theme="gold" style="background-color: #d4af37;" title="Midnight Gold"></div>
+        <div class="theme-dot" data-theme="ocean" style="background-color: #007aff;" title="Deep Ocean"></div>
     </div>
-    
-    
 
-    <div id = "globalStreakBanner" class = "streak-banner">
-
+    <!-- Streak Banner -->
+    <div id="globalStreakBanner" class="streak-banner">
         <i class="fas fa-fire" style="font-size: 22px;"></i>
-
-        DISCIPLINE STREAK : <span id = "globalStreakCount">0</span> DAYS
-
-    </div>
-        
-
-
-    <p id = "siteDescription"> Plan your tasks, track them, and stay organized! </p>
-
-
-    <div id = "greetingCard" class = "card">
-
-        <div id = "mascotAvatar"> 🐦 </div>
-
-        <h2 id = "userGreeting" style = "margin: 5px 0; font-weight: 800;
-        letter-spacing: -0.5px;"> LOADING STATION... </h2>
-
-        <div id = "mascotSpeech"> "Cici kuş? Hadi hedefleri uçuralım kral! ⚡" </div>
-
+        DISCIPLINE STREAK : <span id="globalStreakCount">0</span> DAYS
     </div>
 
+    <p id="siteDescription"> Plan your tasks, track them, and stay organized! </p>
 
-    <div id = "motivationBox" class = "card" style = "text-align: center; border-color: #e67e22; margin-bottom: 20px; background-color: #fffaf0;">
-        <p id = "quoteText" style = "font-size: 16px; font-style: italic; color: #444; margin : 0 0 8px 0; line-height: 1.4;"> " LOADING YOUR DAILY DOSE OF DISCIPLINE... " </p>
-        <div id = "quoteAuthor" style = "font-weight: bold; color: #e67e22; font-size: 13px;"> - MINDSET </div>
+    <!-- 🦜 ONLY THIS ONE SHOULD REMAIN HERE (JUST ABOVE THE MOTIVATION BOX) -->
+    <div id="greetingCard" class="card">
+        <div id="mascotAvatar">🦜</div>
+        <h2 id="userGreeting" style="margin: 5px 0; font-weight: 800; letter-spacing: -0.5px;">LOADING STATION...</h2>
+        <div id="mascotSpeech">"Pretty bird? Let's get these goals flying, chief! ⚡"</div>
+    </div>
+
+    <!-- Motivation Box -->
+    <div id="motivationBox" class="card" style="text-align: center; border-color: #e67e22; margin-bottom: 20px; background-color: #fffaf0;">
+        <p id="quoteText" style="font-size: 16px; font-style: italic; color: #444; margin: 0 0 8px 0; line-height: 1.4;"> " LOADING YOUR DAILY DOSE OF DISCIPLINE... " </p>
+        <div id="quoteAuthor" style="font-weight: bold; color: #e67e22; font-size: 13px;"> - MINDSET </div>
     </div>
 
     <br>
@@ -4326,21 +4370,21 @@
                 if (!greetingEl || !speechEl || !avatarEl) return;
 
                 const hour = new Date().getHours();
-                let greetingText = "Selam Dostum!";
+                let greetingText = "Hello, Chief!";
 
-                // 🕐 Saate Göre Selamlama
+                // Dynamic Time-of-Day Greeting Engine
                 if (hour >= 5 && hour < 12) {
-                    greetingText = "Günaydın Şampiyon! 🌅";
+                    greetingText = "Good Morning, Champ! 🌅";
                 } else if (hour >= 12 && hour < 18) {
-                    greetingText = "Tünaydın, Odaklanma Zamanı! ⚡";
+                    greetingText = "Good Afternoon, Stay Focused! ⚡";
                 } else if (hour >= 18 && hour < 23) {
-                    greetingText = "İyi Akşamlar, Disiplin Şeridi Aktif! 🌙";
+                    greetingText = "Good Evening, Discipline Mode Active! 🌙";
                 } else {
-                    greetingText = "Gece Kuşu Modu Aktif! 🦉";
+                    greetingText = "Night Owl Mode On! 🦉";
                 }
                 greetingEl.innerText = greetingText;
 
-                // 🎯 Sayfa Verilerine Göre Kuşun Konuşma Algoritması
+                // Bulletproof Mascot Speech Logic (Fixed historical data bug)
                 try {
                     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
                     const totalTasks = tasks.length;
@@ -4349,38 +4393,40 @@
 
                     if (totalTasks > 0 && completedTasks === totalTasks) {
                         avatarEl.innerText = "👑🦜";
-                        speechEl.innerText = `"Resmen jilet gibi bir gün! Bütün listeyi temizledin, seninle gurur duyuyorum kral! 🏆"`;
-                    } else if (totalPomo >= 4) {
-                        avatarEl.innerText = "🔥🦜";
-                        speechEl.innerText = `"Vay vaay vaay! ${totalPomo} Pomodoro bloğu bitti. İstasyon resmen alev alıyor bugün! ⚡"`;
+                        speechEl.innerText = `"An absolute masterclass! You cleared the entire list. Incredibly proud of you! 🏆"`;
                     } else if (completedTasks > 0) {
                         avatarEl.innerText = "🐦✨";
-                        speechEl.innerText = `"Güzel ilerliyoruz cici kuş! Listede bitenler var, zinciri bozmadan aynen devam! 🚀"`;
+                        speechEl.innerText = `"Great flight so far! Progress is being made, keep the momentum soaring! 🚀"`;
                     } else if (hour >= 23 || hour < 5) {
                         avatarEl.innerText = "💤🦜";
-                        speechEl.innerText = `"Geç oldu ama disiplini elden bırakmayıp çalışan o asil tayfadansın, helal olsun! 😴"`;
+                        speechEl.innerText = `"Late hours, but your discipline stays awake. Let's make every minute count! 😴"`;
                     } else {
-                        avatarEl.innerText = "🦜🍃";
-                        speechEl.innerText = `"Gözüm listende dostum. Hadi ilk göreve tıkla da konfetileri patlatalım! 💥"`;
+                        if (totalPomo >= 4) {
+                            avatarEl.innerText = "🔥🦜";
+                            speechEl.innerText = `"Welcome back! You have a solid history of ${totalPomo} focus blocks completed. Let's crush today's list! ⚡"`;
+                        } else {
+                            avatarEl.innerText = "🦜🍃";
+                            speechEl.innerText = `"Eyes on the prize, friend! Let's check off that first task and get the confetti flying! 💥"`;
+                        }
                     }
                 } catch(e) {
                     avatarEl.innerText = "🦜";
-                    speechEl.innerText = `"Hadi hedefleri uçuralım kral! ⚡"`;
+                    speechEl.innerText = `"Let's fly through your targets today! ⚡"`;
                 }
             }
 
-            // Sayfa ilk yüklendiğinde çalıştır
+            // Execute immediately on page load
             runSmartGreetingAndMascot();
 
-            // 🔄 CANLI BAĞLANTI: Listede check attıkça kuşun anlık tepki vermesi için updateDoneCount'a bağlıyoruz
+            // Live Event Connection for Task Checkboxes
             const originalUpdateDoneCount = updateDoneCount;
             updateDoneCount = function() {
                 originalUpdateDoneCount();
-                runSmartGreetingAndMascot(); // Her sayı değişiminde kuşu da konuştur
+                runSmartGreetingAndMascot();
             };
 
-        });
 
+        });
 
         
     </script>
