@@ -2394,30 +2394,132 @@
         body[data-theme="ocean"] #userGreeting { color: #007aff !important; }
 
 
+
+        .app-header {
+            max-width: 550px; /* Alttaki Pomodoro kartı ile milimetrik eşit genişlik */
+            margin: 0 auto 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Elemanların arasına lüks nefes alma boşluğu */
+            text-align: center;
+        }
+
+        .header-branding {
+            margin-bottom: 5px;
+        }
+
+        #title {
+            margin: 0 0 8px 0 !important;
+            font-size: 34px !important;
+            font-weight: 800 !important;
+        }
+
+        #siteDescription {
+            margin: 0 !important;
+            font-size: 14px !important;
+            font-weight: 500;
+            opacity: 0.75;
+        }
+
+        /* 🎛️ UTILITY GRID - Side-by-Side Horizontal Balance */
+        .header-utilities {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px; /* Kare şeritlerin arasına kusursuz 12px mesafe */
+            width: 100%;
+        }
+
+        .streak-banner-compact {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ff9f43, #ff5252);
+            color: white !important;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 12px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.2);
+            animation: pulse-streak 2s infinite alternate;
+        }
+
+        .skin-selector-compact {
+            flex: 1;
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 11px 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .skin-selector-compact {
+            background-color: #161616;
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* 👁️ STATION SKIN TEXT CONTRAST MOTORS */
+        .skin-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #555; /* Açık modda okunaklı mat koyu gri */
+            letter-spacing: 0.5px;
+        }
+        body.dark-mode .skin-label {
+            color: #eee !important; /* Karanlık modda jilet gibi parlayan asil kirli beyaz */
+        }
+
+        .theme-dots-wrapper {
+            display: flex;
+            gap: 8px; /* Noktaların yan yana durmasını ve yapışmamasını sağlar, <br> gerektirmez! */
+            align-items: center;
+        }
+
+        /* Responsive Safeguard for Smaller Screens */
+        @media (max-width: 580px) {
+            .header-utilities {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+
+
     </style>
     
   </head>
   
   <body>
 
-    <h1 id="title"> TO-DO LIST </h1>
+    <header class="app-header">
+        <div class="header-branding">
+            <h1 id="title">TO-DO LIST</h1>
+            <p id="siteDescription">Plan your tasks, track them, and stay organized!</p>
+        </div>
 
-    <!-- Station Skin (Themes Selector) -->
-    <div class="card" style="display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 20px; margin: -10px auto 20px auto; max-width: fit-content;">
-        <span style="font-size: 11px; font-weight: bold; color: #888; letter-spacing: 0.5px;"> STATION SKIN : </span>
-        <div class="theme-dot" data-theme="default" style="background-color: #e44332;" title="Default Crimson"></div>
-        <div class="theme-dot" data-theme="matrix" style="background-color: #00ff66;" title="Matrix Neon"></div>
-        <div class="theme-dot" data-theme="gold" style="background-color: #d4af37;" title="Midnight Gold"></div>
-        <div class="theme-dot" data-theme="ocean" style="background-color: #007aff;" title="Deep Ocean"></div>
-    </div>
+        <div class="header-utilities">
+            <div id="globalStreakBanner" class="streak-banner-compact">
+                <i class="fas fa-fire" style="font-size: 16px;"></i> DISCIPLINE STREAK : <span id="globalStreakCount">0</span> DAYS
+            </div>
 
-    <!-- Streak Banner -->
-    <div id="globalStreakBanner" class="streak-banner">
-        <i class="fas fa-fire" style="font-size: 22px;"></i>
-        DISCIPLINE STREAK : <span id="globalStreakCount">0</span> DAYS
-    </div>
-
-    <p id="siteDescription"> Plan your tasks, track them, and stay organized! </p>
+            <div class="skin-selector-compact">
+                <span class="skin-label">STATION SKIN:</span>
+                <div class="theme-dots-wrapper">
+                    <div class="theme-dot" data-theme="default" style="background-color: #e44332;" title="Default Crimson"></div>
+                    <div class="theme-dot" data-theme="matrix" style="background-color: #00ff66;" title="Matrix Neon"></div>
+                    <div class="theme-dot" data-theme="gold" style="background-color: #d4af37;" title="Midnight Gold"></div>
+                    <div class="theme-dot" data-theme="ocean" style="background-color: #007aff;" title="Deep Ocean"></div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- 🦜 ONLY THIS ONE SHOULD REMAIN HERE (JUST ABOVE THE MOTIVATION BOX) -->
     <div id="greetingCard" class="card">
