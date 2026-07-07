@@ -15,6 +15,8 @@
 
     <style>
 
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@800;900&display=swap');
+
         body {
             /* Hem rengi hem resmi aynı anda ezmek için sadece 'background' kullanıyoruz */
             background: radial-gradient(circle at 50% 0%, #ffffff 0%, #f4f4f5 50%, #e4e4e7 100%) !important;
@@ -140,7 +142,7 @@
             background-color: #ffffff;
             padding: 24px;
             border-radius: 8px;
-            width: 550px; /* Orijinal PC genişliği */
+            width: 620px; /* Orijinal PC genişliği */
             max-width: 95%; /* Mobil için esneklik sigortası */
             box-sizing: border-box;
             box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) , 0 4px 12px rgba(0, 0, 0, 0.03);
@@ -2396,7 +2398,7 @@
 
 
         .app-header {
-            max-width: 550px; /* Alttaki Pomodoro kartı ile milimetrik eşit genişlik */
+            max-width: 620px; /* Alttaki Pomodoro kartı ile milimetrik eşit genişlik */
             margin: 0 auto 30px auto;
             display: flex;
             flex-direction: column;
@@ -2488,6 +2490,86 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+        }
+
+
+
+        body #title ,
+        body[data-theme] #title ,
+        body[data-theme="default"] #title ,
+        body[data-theme="matrix"] #title ,
+        body[data-theme="gold"] #title ,
+        body[data-theme="ocean"] #title {
+
+            color: #ffffff !important;
+
+            text-shadow: none !important;
+
+            opacity: 1 !important;
+
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+
+            font-weight: 900 !important;
+
+            font-size: 38px !important;
+
+            letter-spacing: -2px !important;
+
+            text-transform: uppercase !important;
+
+        }
+
+
+        #greetingCard, #motivationBox {
+
+            background: rgba(255, 255, 255, 0.04) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 16px !important;
+            margin-bottom: 16px !important;
+            padding: 20px 24px !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+            backdrop-filter: blur(12px) !important;
+
+        }
+
+
+        body:not(.dark-mode) #greetingCard ,
+        body:not(.dark-mode) #motivationBox {
+
+            background: rgba(255, 255, 255, 0.85) !important;
+            border-color: rgba(0, 0, 0, 0.06) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+
+        }
+
+
+        #userGreeting {
+
+            font-family: 'Inter', sans-serif !important;
+            color: #ffffff !important;
+
+        }
+
+
+
+        #quoteText {
+
+            color: #362222 !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 14px !important;
+            font-weight: 500;
+
+        }
+
+        
+
+        #quoteAuthor {
+
+            color: #8a0000 !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 11px !important;
+            letter-spacing: 1px !important;
+
         }
 
 
