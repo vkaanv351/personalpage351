@@ -699,7 +699,7 @@
 
         #siteDescription {
             text-align: center;
-            color: #666;
+            color: #ffffff;
             margin-top: -10px;
             margin-bottom: 25px;
         }
@@ -2573,6 +2573,38 @@
         }
 
 
+        @media (min-width: 1024px) {
+
+            .dashboard-utilities-grid {
+
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                max-width: 1260px;
+                margin: 20px auto 30px auto;
+
+            }
+
+
+            #pomodoroContainer {
+
+                grid-row: span 2;
+                width: 100% !important;
+                margin: 0 !important;
+
+            }
+
+
+            #habitSection , #badgeSection {
+
+                width: 100% !important;
+                margin: 0 !important;
+
+            }
+
+
+        }
+
 
     </style>
     
@@ -2616,9 +2648,13 @@
         <div id="quoteAuthor" style="font-weight: bold; color: #e67e22; font-size: 13px;"> - MINDSET </div>
     </div>
 
+
     <br>
 
+    <div class = "dashboard-utilities-grid">
+
     <div id = "pomodoroContainer" class = "card">
+        
         <h3><i class="fas fa-stopwatch"></i> FOCUS TIMER</h3>
         <h2 id = "timerDisplay">00:00:00</h2>
 
@@ -2693,7 +2729,7 @@
 
     </div>
 
-
+</div>
 
     <div id = "todoSection">
         
